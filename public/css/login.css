@@ -1,0 +1,183 @@
+/* efectos por defecto */
+body {
+    font-family: 'Overpass', sans-serif;
+    font-weight: normal;
+    font-size: 100%;
+    color: #ffffff;
+    
+    margin: 0;
+    padding: 0;
+    min-width: 100vw;
+    min-height: 100vh;
+    width: 100%;
+    height: 100%;
+    background-color: #a7cceb; /* Azul oscuro */
+}
+
+/* efectos para el contenedor de pantalla completa */
+#contenedor {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+    min-width: 100vw;
+    min-height: 100vh;
+    width: 100%;
+    height: 100%;
+}
+
+/* contenedor del login a la izquierda */
+#contenedorcentrado {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    
+    min-width: 380px;
+    max-width: 900px;
+    width: 90%;
+    
+    background-color: #e2bd97; /* Amarillo claro */
+    
+    border-radius: 10px;
+    
+    -webkit-box-shadow: 0px 0px 10px 5px rgba(0,0,0,0.2);
+    -moz-box-shadow: 0px 0px 10px 5px rgba(0,0,0,0.2);
+    box-shadow: 0px 0px 10px 5px rgba(0,0,0,0.2);
+    
+    padding: 30px;
+    box-sizing: border-box;
+}
+
+/* formulario de login */
+#login {
+    width: 100%;
+    max-width: 320px;
+    min-width: 320px;
+    padding: 30px 30px 50px 30px;
+    background-color: #012b52; /* Azul oscuro del card */
+    
+    -webkit-box-shadow: 0px 0px 10px 5px rgba(0,0,0,0.15);
+    -moz-box-shadow: 0px 0px 10px 5px rgba(0,0,0,0.15);
+    box-shadow: 0px 0px 10px 5px rgba(0,0,0,0.15);
+    
+    border-radius: 10px;
+    
+    box-sizing: border-box;
+}
+
+#login label {
+    display: block;
+    font-family: 'Overpass', sans-serif;
+    font-size: 120%;
+    color:#ffffff;
+    
+    margin-top: 15px;
+}
+
+#login input {
+    font-family: 'Overpass', sans-serif;
+    font-size: 100%;
+    color: #333333;
+    
+    display: block;
+    width: 100%;
+    height: 40px;
+    
+    margin-bottom: 10px;
+    padding: 5px 5px 5px 10px;
+    
+    box-sizing: border-box;
+    
+    border: none;
+    border-radius: 5px;
+}
+
+#login input::placeholder {
+    font-family: 'Overpass', sans-serif;
+    color: #bbbbbb;
+}
+
+#login button {
+    font-family: 'Overpass', sans-serif;
+    font-size: 110%;
+    color: #171515;
+    width: 100%;
+    height: 40px;
+    border: none;
+    
+    border-radius: 5px;
+    
+    background-color: #c3d69b; /* Verde pálido */
+    
+    margin-top: 10px;
+}
+
+#login button:hover {
+    background-color: #7a742e; /* Verde oliva oscuro */
+    color: #ffffff;
+}
+
+/* seccion de la derecha */
+#derecho {
+    text-align: center;
+    width: 100%;
+    background-color: #e2bd97; /* Amarillo claro */
+    
+    opacity: 0.95;
+    padding: 20px 20px 20px 50px;
+    box-sizing: border-box;
+}
+
+.titulo {
+    font-family: 'Overpass', sans-serif;
+    font-size: 300%;
+    color: #1c1410; /* Verde pálido */
+}
+
+.logo-empresa img {
+    width: 80%;
+}
+
+hr {
+    border-top: 1px solid #c3d69b; /* Verde pálido */
+    border-bottom: 1px solid #7a742e; /* Verde oliva oscuro */
+}
+
+.pie-form {
+    font-size: 90%;
+    text-align: center;    
+    margin-top: 15px;
+}
+
+.pie-form a {
+    display: block;
+    text-decoration: none;
+    color: #c3d69b; /* Verde pálido */
+    margin-bottom: 3px;
+}
+
+.pie-form a:hover {
+    color: #7a742e; /* Verde oliva oscuro */
+}
+
+/* ajustar a pantallas con ancho menor o igual a 775px; */
+@media all and (max-width: 775px) {
+    #contenedorcentrado {
+        flex-direction: column-reverse;
+        background-color: #d7db53;
+    }
+    
+    #login {
+        margin: 0 auto;
+    }
+    
+    #derecho {
+        padding: 20px;
+    }
+    
+    #login label {
+        text-align: left;
+    }
+}
