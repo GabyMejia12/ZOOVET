@@ -68,9 +68,9 @@
 		  <i class="material-icons">equalizer</i>Consultas
 		  </a>
 		  <ul class="collapse list-unstyled menu" id="homeSubmenu3">
-		     <li><a href="#">Consulta general</a></li>
-			 <li><a href="#">Control profiláctico</a></li>
-			 <li><a href="#">Cirugías</a></li>
+		     <li><a href="#" class="button" id="panel-general">Consulta general</a></li>
+			 <li><a href="#" class="button" id="panel-profilactico">Control profiláctico</a></li>
+			 <li><a href="#" class="button" id="panel-cirugias">Cirugías</a></li>
 		  </ul>
 		  </li>
 		  <li >
@@ -147,9 +147,9 @@
 						     <form>
 							    <div class="input-group">
 								  <input type="search" class="form-control"
-								  placeholder="Search">
+								  placeholder="Búsqueda">
 								  <div class="input-group-append">
-								     <button class="btn" type="submit" id="button-addon2">Go
+								     <button class="btn" type="submit" id="button-addon2">Ir
 									 </button>
 								  </div>
 								</div>
@@ -336,7 +336,19 @@
 			$("#panel-citas").click(function() {
                 $("#sub-data").load("./views/citas/principal.php");
                 return false;
-            });  
+            }); 
+			$("#panel-general").click(function() {
+                $("#sub-data").load("./views/consultas/general/principal.php");
+                return false;
+            }); 
+			$("#panel-profilactico").click(function() {
+                $("#sub-data").load("./views/consultas/profilactico/principal.php");
+                return false;
+            }); 
+			$("#panel-cirugias").click(function() {
+                $("#sub-data").load("./views/consultas/cirugias/principal.php");
+                return false;
+            }); 
 			$("#panel-perfil").click(function() {
                 $("#sub-data").load("./views/perfil.php");
                 return false;
