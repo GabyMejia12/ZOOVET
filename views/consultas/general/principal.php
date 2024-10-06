@@ -1,11 +1,11 @@
 <?php
 @session_start();
-include '../../models/conexion.php';
-include '../../controllers/controllersFunciones.php';
-include '../modal.php';
+include '../../../models/conexion.php';
+include '../../../controllers/controllersFunciones.php';
+include '../../modal.php';
 $conn = conectar_db();
 
-$sql = "SELECT b.nombre, b.telefono, a.id_mascota, a.nombre_mascota, a.peso, a.edad, a.especie, a.sexo, a.raza, a.estado FROM mascota AS a INNER JOIN propietario AS b ON a.id_propietario = b.id_propietario";
+$sql = "SELECT * FROM consultas";
 
 $result = $conn->query($sql);
 $cont = 0;
@@ -27,12 +27,15 @@ $cont = 0;
         <div class="table-wrapper">
             <div class="table-title">
                 <div class="row">
-                    <div class="col-sm-6 p-0 flex justify-content-lg-start justify-content-center">
-                        <h2 class="ml-lg-2">Mascotas</h2>
+                    <div class="col-sm-4 p-0 flex justify-content-lg-start justify-content-center">
+                        <h2 class="ml-lg-2">Consultas generales</h2>
                     </div>
-                    <div class="col-sm-6 p-0 d-flex justify-content-lg-end justify-content-center">
+                    <div class="col-sm-8 p-0 d-flex justify-content-lg-end justify-content-center">
                         <a href="#" class="btn btn-success" id="BtnNewPet">
-                            <i class="material-icons">&#xE147;</i> <span>Agregar Nueva Mascota</span>
+                            <i class="material-icons">&#xE147;</i> <span>Regresar</span>
+                        </a>
+                        <a href="#" class="btn btn-success" id="BtnNewConG">
+                            <i class="material-icons">&#xE147;</i> <span>Nueva Consulta</span>
                         </a>
                     </div>
                 </div>
@@ -43,15 +46,12 @@ $cont = 0;
             <thead style="vertical-align: middle; text-align: center;">
                 <tr>
                     <th>N°</th>
+                    <th>Fecha</th>
                     <th>Propietario</th>
                     <th>Teléfono</th>
-                    <th>Nombre Mascota</th>
-                    <th>Peso</th>
-                    <th>Edad</th>
-                    <th>Especie</th>
-                    <th>Sexo</th>
-                    <th>Raza</th>
-                    <th>Estado</th>
+                    <th>Mascota</th>
+                    <th>RX</th>
+                    <th>MV</th>
                     <th colspan="2">Acciones</th>
                 </tr>
             </thead>
@@ -74,7 +74,7 @@ $cont = 0;
                         <a href="" class="btn text-white" style="background-color: #031A58;"><i class="fa-solid fa-key"></i></a>
                     </td -->
                         <td>
-                            <a href="" class="btn text-white BtnUpdateMascota" id_mascota="<?php echo $data['id_mascota']; ?>" style="background-color: #9fd86b;"><i class="fa-solid fa-user-pen"></i></a>
+                            <a href="" class="btn text-white BtnUpdateMascota" id_mascota="<?php echo $data['id_mascota']; ?>" style="background-color: #078E10;"><i class="fa-solid fa-user-pen"></i></a>
                         </td>
                         <td>
                             <?php if ($data['estado'] == 1) : ?>
@@ -313,4 +313,4 @@ $(document).ready(function() {
 
 
     });
-</script>
+</script>x
