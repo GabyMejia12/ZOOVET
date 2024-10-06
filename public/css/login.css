@@ -3,7 +3,7 @@ body {
     font-family: 'Overpass', sans-serif;
     font-weight: normal;
     font-size: 100%;
-    color: #ffffff;
+    color: #7aade0;
     
     margin: 0;
     padding: 0;
@@ -11,7 +11,7 @@ body {
     min-height: 100vh;
     width: 100%;
     height: 100%;
-    background-color: #a7cceb; /* Azul oscuro */
+    background-color: #7aade0; /* color2 */
 }
 
 /* efectos para el contenedor de pantalla completa */
@@ -38,7 +38,7 @@ body {
     max-width: 900px;
     width: 90%;
     
-    background-color: #e2bd97; /* Amarillo claro */
+    background-color: #c3e8a9; /* color5 - Verde claro pastel */
     
     border-radius: 10px;
     
@@ -56,7 +56,7 @@ body {
     max-width: 320px;
     min-width: 320px;
     padding: 30px 30px 50px 30px;
-    background-color: #012b52; /* Azul oscuro del card */
+    background-color: #0c0636; /* color1 */
     
     -webkit-box-shadow: 0px 0px 10px 5px rgba(0,0,0,0.15);
     -moz-box-shadow: 0px 0px 10px 5px rgba(0,0,0,0.15);
@@ -71,7 +71,7 @@ body {
     display: block;
     font-family: 'Overpass', sans-serif;
     font-size: 120%;
-    color:#ffffff;
+    color: #ffffff;
     
     margin-top: 15px;
 }
@@ -109,13 +109,13 @@ body {
     
     border-radius: 5px;
     
-    background-color: #c3d69b; /* Verde pálido */
+    background-color: #53ba83; /* color4 */
     
     margin-top: 10px;
 }
 
 #login button:hover {
-    background-color: #7a742e; /* Verde oliva oscuro */
+    background-color: #059b9a; /* color3 */
     color: #ffffff;
 }
 
@@ -123,7 +123,7 @@ body {
 #derecho {
     text-align: center;
     width: 100%;
-    background-color: #e2bd97; /* Amarillo claro */
+    background-color: #c3e8a9; /* color5 - Verde claro pastel */
     
     opacity: 0.95;
     padding: 20px 20px 20px 50px;
@@ -133,7 +133,7 @@ body {
 .titulo {
     font-family: 'Overpass', sans-serif;
     font-size: 300%;
-    color: #1c1410; /* Verde pálido */
+    color: #121212; /* color4 */
 }
 
 .logo-empresa img {
@@ -141,8 +141,8 @@ body {
 }
 
 hr {
-    border-top: 1px solid #c3d69b; /* Verde pálido */
-    border-bottom: 1px solid #7a742e; /* Verde oliva oscuro */
+    border-top: 1px solid #53ba83; /* color4 */
+    border-bottom: 1px solid #059b9a; /* color3 */
 }
 
 .pie-form {
@@ -154,19 +154,19 @@ hr {
 .pie-form a {
     display: block;
     text-decoration: none;
-    color: #c3d69b; /* Verde pálido */
+    color: #53ba83; /* color4 */
     margin-bottom: 3px;
 }
 
 .pie-form a:hover {
-    color: #7a742e; /* Verde oliva oscuro */
+    color: #059b9a; /* color3 */
 }
 
 /* ajustar a pantallas con ancho menor o igual a 775px; */
 @media all and (max-width: 775px) {
     #contenedorcentrado {
         flex-direction: column-reverse;
-        background-color: #d7db53;
+        background-color: #53ba83; /* color4 */
     }
     
     #login {

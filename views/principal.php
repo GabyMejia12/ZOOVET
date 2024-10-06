@@ -89,14 +89,11 @@
 		  </ul>
 		  </li>
 		  
-		  <li class="dropdown">
-		  <a href="#homeSubmenu6" data-toggle="collapse" aria-expanded="false" 
-		  class="dropdown-toggle">
-		  <i class="material-icons">grid_on</i>Compras
-		  </a>
-		  <ul class="collapse list-unstyled menu" id="homeSubmenu6">
-		     
-		  </ul>
+		  
+		  <li >
+			<a href="#" class="button" id="panel-compras">
+			<i class="material-icons">grid_on</i>Compras
+			</a>
 		  </li>
 		  
 		  
@@ -351,6 +348,10 @@
             }); 
 			$("#panel-perfil").click(function() {
                 $("#sub-data").load("./views/perfil.php");
+                return false;
+            }); 
+			$("#panel-compras").click(function() {
+                $("#sub-data").load("./views/compras/principal.php");
                 return false;
             }); 
         });
