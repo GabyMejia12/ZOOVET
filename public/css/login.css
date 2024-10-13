@@ -38,7 +38,7 @@ body {
     max-width: 900px;
     width: 90%;
     
-    background-color: #c3e8a9; /* color5 - Verde claro pastel */
+    background-color: #e8d3a9; /* color5 - Verde claro pastel */
     
     border-radius: 10px;
     
@@ -109,7 +109,7 @@ body {
     
     border-radius: 5px;
     
-    background-color: #53ba83; /* color4 */
+    background-color: #9eedc2; /* color4 */
     
     margin-top: 10px;
 }
@@ -123,7 +123,7 @@ body {
 #derecho {
     text-align: center;
     width: 100%;
-    background-color: #c3e8a9; /* color5 - Verde claro pastel */
+    background-color: #e8d3a9; /* color5 - Verde claro pastel */
     
     opacity: 0.95;
     padding: 20px 20px 20px 50px;
@@ -141,7 +141,7 @@ body {
 }
 
 hr {
-    border-top: 1px solid #53ba83; /* color4 */
+    border-top: 1px solid #e8d3a9; /* color4 */
     border-bottom: 1px solid #059b9a; /* color3 */
 }
 
@@ -154,7 +154,7 @@ hr {
 .pie-form a {
     display: block;
     text-decoration: none;
-    color: #53ba83; /* color4 */
+    color: #e8d3a9; /* color4 */
     margin-bottom: 3px;
 }
 

@@ -34,7 +34,7 @@
 	 
 	 <div id="sidebar">
 	    <div class="sidebar-header">
-		   <h3><img src="./public/img/logo.jpg" class="img-fluid"/><span>ZOOVET</span></h3>
+		   <h3><img src="./public/img/logo.jpg" class="img-fluid"/><span></span></h3>
 		</div>
 		<ul class="list-unstyled component m-0">
 		  <li class="active">
@@ -352,6 +352,10 @@
             }); 
 			$("#panel-compras").click(function() {
                 $("#sub-data").load("./views/compras/principal.php");
+                return false;
+            }); 
+			$("#panel-entradas").click(function() {
+                $("#sub-data").load("./views/compras/nueva_compra.php");
                 return false;
             }); 
         });

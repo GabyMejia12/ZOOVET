@@ -7,7 +7,7 @@ $sqlProp = "SELECT * FROM usuarios";
 $DataPropietarios = $conn->query($sqlProp);
 ?>
 <div class="input-group mb-3">
-    <label class="input-group-text" for="inputGroupSelect01"><b>Propietario</b></label>
+    <label class="input-group-text" for="inputGroupSelect01"><b>Veterinario</b></label>
     <select class="form-select" id="id_usuario" name="id_usuario">
         <option disabled selected>Seleccione Usuario</option>
         <?php foreach ($DataPropietarios as $result) : ?>
