@@ -31,7 +31,7 @@ $cont = 0;
                         <h2 class="ml-lg-2">Compras</h2>
                     </div>
                     <div class="col-sm-6 p-0 d-flex justify-content-lg-end justify-content-center">
-                        <a href="#" class="btn btn-success" id="BtnNewProp">
+                        <a href="#" class="btn btn-success" id="panel-entradas">
                             <i class="material-icons">&#xE147;</i> <span>Agregar Nueva Compra</span>
                         </a>
                     </div>
@@ -269,3 +269,12 @@ $(document).ready(function() {
 
     });
 </script>
+<script>
+	$(document).ready(function() {
+            
+			$("#panel-entradas").click(function() {
+                $("#sub-data").load("./views/compras/nueva_compra.php");
+                return false;
+            }); 
+        });
+  </script>
