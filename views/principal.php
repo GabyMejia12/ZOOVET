@@ -88,6 +88,11 @@
 		     
 		  </ul>
 		  </li>
+		  <li >
+			<a href="#" class="button" id="panel-productos">
+			<i class="material-icons">workspaces</i>Productos
+			</a>
+		  </li>
 		  
 		  
 		  <li >
@@ -354,8 +359,8 @@
                 $("#sub-data").load("./views/compras/principal.php");
                 return false;
             }); 
-			$("#panel-entradas").click(function() {
-                $("#sub-data").load("./views/compras/nueva_compra.php");
+			$("#panel-productos").click(function() {
+                $("#sub-data").load("./views/productos/principal.php");
                 return false;
             }); 
         });

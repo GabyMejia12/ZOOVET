@@ -45,7 +45,7 @@ if (isset($_POST['off'])) {
     </div>
     <?php
         include './views/modal.php';
-        //include './views/modal_productos.php';
+        include './views/modal_productos.php';
     ?>
 </body>
 
