@@ -7,7 +7,7 @@ include '../../controllers/controllersFunciones.php';
 $conn = conectar_db();
 $id_usuario = $_SESSION['idusuario'];
 
-
+echo $id_usuario;
 // Consulta para obtener solo la información del usuario
 $sql = "SELECT *
         FROM usuarios u 
@@ -19,12 +19,12 @@ $id_usuario = $row['id_usuario'];
 $nombre = $row['nombre'];
 $apellido = $row['apellido'];
 $usuario = $row['usuario'];
-$tipo = $row['tipo'];
+
 
 $comprasEstado0="SELECT COUNT(*) AS tentradas FROM entrada WHERE  estado =0 AND id_usuario='$id_usuario'";
-$result = $conn->query($comprasEstado0);
-$row = $result->fetch_assoc();
-$tentradas = $row['tentradas'];
+$result1 = $conn->query($comprasEstado0);
+$row1 = $result1->fetch_assoc();
+$tentradas = $row1['tentradas'];
 // Obtener la fecha y hora actual del sistema
 $fecha_actual = date("Y-m-d H:i:s");
 
@@ -48,12 +48,12 @@ $fecha_actual = date("Y-m-d H:i:s");
                             <?php if ($tentradas == 0) : ?>
                                 <a href="" style="float: right;" class="btn btn-outline-warning bloqueado" disabled><i class="fa-solid fa-cart-shopping"></i> <?php echo $tentradas; ?></a>
                             <?php else : ?>
-                                <a href="" style="float: right;" class="btn btn-outline-warning" id="BtnPreventa"><i class="fa-solid fa-cart-shopping"></i> <?php echo $tentradas; ?></a>
+                                <a href="" style="float: right;" class="btn btn-outline-warning" id="BtnPreCompra"><i class="fa-solid fa-cart-shopping"></i> <?php echo $tentradas; ?></a>
                             <?php endif ?>
                         </div>
                         <div class="card-body text-info">
                             <h5 class="card-title">Datos del Usuario</h5>
-                            <input type="hidden" id="id_usuario" name="id_usuario" value="<?php echo $id_usuario; ?>">
+                            <input type="hidden" id="id_usuario" name="id_usuario" value="<?php echo $id_usuario; ?>" readonly>
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text" id="basic-addon1">Nombre</span>
@@ -74,7 +74,7 @@ $fecha_actual = date("Y-m-d H:i:s");
                             </div>  
                             <!-- Botón para registrar entrada-->
                             <div class="input-group mb-3">
-                                <button type="button" id="ActualizarContraseña" class="btn btn-outline-info">Registrar Productos</button>
+                                <button type="button" id="BtnReg-Compra" class="btn btn-outline-info">Procesar compra</button>
                             </div>                          
                         </div>
                     </div>
@@ -86,20 +86,61 @@ $fecha_actual = date("Y-m-d H:i:s");
 <div>
    <div class="row">
         <div class="col-md-12">
-            <div class="table-wrapper">
-                
+            <div class="table-wrapper">                
                 <div id="DataPanelCompras">
-                    <div class="card border-info text-white mb-9" style="width: 50rem;">
-                    <div class="card-header bg-info border-info">
-                            Registrar productos 
-                            
-                        </div>
-                    </div>
+                    
                 </div>
             </div>
         </div>
    </div> 
 </div>
+<script>
+    $(document).ready(function() {
+        $("#BtnReg-Compra").click(function() {
+            // Verificar que todos los campos requeridos no estén vacíos
+            if (//$('#id_usuario').val() === '' ||
+                $('#fecha').val() === '' 
+                ) {
+                alert('Por favor ingrese todos los datos de compra');
+                return;
+            }
+
+            // Obtener los valores de los campos
+            //let id_usuario = $('#id_usuario').val();
+            let fecha = $('#fecha').val();
+            
+
+            var formData = {
+                //id_usuario: id_usuario,
+                fecha: fecha,
+               
+            };
+
+            $.ajax({
+                type: 'POST',
+                url: './views/compras/regcompra.php',
+                data: formData,
+                dataType: 'html',
+                success: function(response) {
+                    // Limpiar los campos del formulario
+                    //$('#id_usuario').val('');
+                    $('#fecha').val('');                    
+                    // Actualizar el contenido de DataPanelCompras
+                    $("#DataPanelCompras").html(response);
+                },
+                error: function(xhr, status, error) {
+                    alert(xhr.responseText);
+                }
+            });
+            return false;
+        });
+
+        $("#BtnPreCompra").click(function() {
+            $("#DataPanelCompras").load("./views/compras/precompra.php");
+            return false;
+        });
+    });
+</script>
 
 
 
