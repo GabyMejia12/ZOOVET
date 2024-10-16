@@ -45,9 +45,10 @@ $cont = 0;
             <thead style="vertical-align: middle; text-align: center;">
                 <tr>
                     <th>N°</th>
+                    <th>Código producto</th>
                     <th>Producto</th>
-                    <th>Cantidad</th>
-                    <th>Precio</th>
+                    <th>Unidad de medida</th>                    
+                    <th>Stock</th>                    
                     <th>Estado</th>
                     <th colspan="3">Acciones</th>
                 </tr>
@@ -55,16 +56,17 @@ $cont = 0;
             <tbody style="vertical-align: middle; text-align: center;">
                 <?php foreach ($result as $data) : ?>
                     <?php
-                    $query = "SELECT COUNT(id_producto) as contId FROM detalle_salida WHERE id_producto='" . $data['id_producto'] . "'";
+                    $query = "SELECT COUNT(id_producto) as contId FROM productos WHERE id_producto='" . $data['id_producto'] . "'";
                     $result2 = $conn->query($query);
                     $row2 = $result2->fetch_assoc();
                     $contIdProduct = $row2['contId'];
                     ?>
                     <tr>
                         <td><?php echo ++$cont; ?></td>
-                        <td><?php echo $data['nombre_producto']; ?></td>
-                        <td><?php echo $data['cantidad']; ?></td>
-                        <td>$<?php echo $data['precio']; ?></td>
+                        <td><?php echo $data['codigo_producto']; ?></td>
+                        <td><?php echo $data['nombre_producto']; ?></td>                        
+                        <td><?php echo $data['medida']; ?></td>
+                        <td><?php echo $data['stock']; ?></td>
                         <td><?php echo ($data['estado'] == 1) ? '<b style="color:green;">Disponible</b>' : '<b style="color:red;">No Disponible</b>'; ?></td>
                         <td>
                             <a href="" class="btn text-white BtnDetalleProd" id_producto="<?php echo $data['id_producto']; ?>" style="background-color: #00008B;"><i class="fa-solid fa-list-check"></i></a>
@@ -109,10 +111,10 @@ $cont = 0;
 
 <script>
     $(document).ready(function() {
-        //
+        //Modal para ingresar producto
         $("#BtnNewProducto").click(function() {
             $("#ModalPrincipal").modal("show");
-            $('#DataEfectosModal').addClass('modal-dialog modal-dialog-centered modal-dialog-scrollable');
+            $('#DataEfectosModal').addClass('modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl');
             document.getElementById("DataTituloModal").innerHTML = 'Registrar Producto';
             $("#DataModalPrincipal").load("./views/productos/form_insert.php");  
             $('#ProcesoBotonModal').css('display', 'block');
@@ -121,30 +123,30 @@ $cont = 0;
             return false;
         });
         
+        
 
 
         // Proceso Insert
         $("#ProcesoBotonModal").click(function() {
-            if ($('#nombre_producto').val() === '' || $('#descripcion').val() === '' || $('#cantidad').val() === '' || $('#precio').val() === '' ) {
+            if ($('#codigo_producto').val() === '' || $('#nombre_producto').val() === '' || $('#descripcion').val() === '' || $('#medida').val() === ''  ) {
                 alert('Por favor completa todos los campos.');
                 return;
             }
-            let nombre_producto, descripcion, cantidad, precio, estado, tipo;
+            let codigo_producto, nombre_producto, descripcion, medida,  estado;
+            codigo_producto = $('#codigo_producto').val();
             nombre_producto = $('#nombre_producto').val();
             descripcion = $('#descripcion').val();
-            cantidad = $('#cantidad').val();
-            precio = $('#precio').val();
+            medida = $('#medida').val();
             estado = $('#estado').val();
-            tipo = $('#tipo').val();
+            
 
             var formData = {
-
+                codigo_producto: codigo_producto,
                 nombre_producto: nombre_producto,
                 descripcion: descripcion,
-                cantidad: cantidad,
-                precio: precio,
-                estado: estado,
-                tipo: tipo
+                medida: medida,                
+                estado: estado
+               
             };
             $.ajax({
                 type: 'POST',
@@ -153,12 +155,11 @@ $cont = 0;
                 dataType: 'html',
                 success: function(response) {
                     $("#ModalPrincipal").modal("hide");
+                    $('#codigo_producto').val('');
                     $('#nombre_producto').val('');
                     $('#descripcion').val('');
-                    $('#cantidad').val('');
-                    $('#precio').val('');
+                    $('#medida').val('');
                     $('#estado').val('');
-                    $('#tipo').val('');
                     $("#DataPanelProductos").html(response);
                 },
                 error: function(xhr, status, error) {

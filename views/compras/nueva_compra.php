@@ -5,10 +5,9 @@ include '../../models/conexion.php';
 include '../../controllers/controllersFunciones.php';
 
 $conn = conectar_db();
-$id_usuario = $_SESSION['idusuario'];
-
-echo $id_usuario;
-// Consulta para obtener solo la información del usuario
+$id_usuario = $_SESSION['id_usuario'];
+//$id_usuario = $_POST['id_usuario'];
+//echo $id_usuario;
 $sql = "SELECT *
         FROM usuarios u 
         WHERE u.id_usuario = '$id_usuario'";
@@ -26,7 +25,7 @@ $result1 = $conn->query($comprasEstado0);
 $row1 = $result1->fetch_assoc();
 $tentradas = $row1['tentradas'];
 // Obtener la fecha y hora actual del sistema
-$fecha_actual = date("Y-m-d H:i:s");
+//$fecha_actual = date("Y-m-d H:i:s");
 
 ?>
 <div>
@@ -53,7 +52,9 @@ $fecha_actual = date("Y-m-d H:i:s");
                         </div>
                         <div class="card-body text-info">
                             <h5 class="card-title">Datos del Usuario</h5>
+                            
                             <input type="hidden" id="id_usuario" name="id_usuario" value="<?php echo $id_usuario; ?>" readonly>
+                            
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text" id="basic-addon1">Nombre</span>
@@ -67,10 +68,12 @@ $fecha_actual = date("Y-m-d H:i:s");
                                 <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" value="<?php echo $apellido;?>" readonly>
                             </div>
                             <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text" id="basic-addon1">Fecha y hora</span>
+                                <span class="input-group-text" id="basic-addon1"><b>Fecha</b></span>
+                                <input type="date" class="form-control" placeholder="" name="fecha" id="fecha">
                                 </div>
-                                <input type="text" class="form-control" aria-describedby="basic-addon1" id="fecha" name="fecha" value="<?php echo $fecha_actual; ?>" readonly><br>
+                                <div class="input-group mb-3">
+                                <span class="input-group-text"><b>Hora</b></span>
+                                <input type="time" class="form-control" placeholder="hora" name="hora" id="hora">
                             </div>  
                             <!-- Botón para registrar entrada-->
                             <div class="input-group mb-3">
@@ -87,7 +90,7 @@ $fecha_actual = date("Y-m-d H:i:s");
    <div class="row">
         <div class="col-md-12">
             <div class="table-wrapper">                
-                <div id="DataPanelCompras">
+                <div id="DataPanelPreCompra">
                     
                 </div>
             </div>
@@ -99,7 +102,8 @@ $fecha_actual = date("Y-m-d H:i:s");
         $("#BtnReg-Compra").click(function() {
             // Verificar que todos los campos requeridos no estén vacíos
             if (//$('#id_usuario').val() === '' ||
-                $('#fecha').val() === '' 
+                $('#fecha').val() === '',
+                $('#hora').val() === ''
                 ) {
                 alert('Por favor ingrese todos los datos de compra');
                 return;
@@ -108,11 +112,12 @@ $fecha_actual = date("Y-m-d H:i:s");
             // Obtener los valores de los campos
             //let id_usuario = $('#id_usuario').val();
             let fecha = $('#fecha').val();
-            
+            let hora = $('#hora').val();
 
             var formData = {
                 //id_usuario: id_usuario,
                 fecha: fecha,
+                hora:hora
                
             };
 
@@ -124,9 +129,10 @@ $fecha_actual = date("Y-m-d H:i:s");
                 success: function(response) {
                     // Limpiar los campos del formulario
                     //$('#id_usuario').val('');
-                    $('#fecha').val('');                    
+                    $('#fecha').val('');  
+                    $('#hora').val('');                  
                     // Actualizar el contenido de DataPanelCompras
-                    $("#DataPanelCompras").html(response);
+                    $("#DataPanelPreCompra").html(response);
                 },
                 error: function(xhr, status, error) {
                     alert(xhr.responseText);
@@ -136,7 +142,7 @@ $fecha_actual = date("Y-m-d H:i:s");
         });
 
         $("#BtnPreCompra").click(function() {
-            $("#DataPanelCompras").load("./views/compras/precompra.php");
+            $("#DataPanelPreCompra").load("./views/compras/precompra.php");
             return false;
         });
     });
