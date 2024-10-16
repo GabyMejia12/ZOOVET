@@ -6,14 +6,14 @@ $conn = conectar_db();
 
 // Recibir datos del formulario
 $id_producto = $_POST['id_producto'];
+$codigo_producto = $_POST['codigo_producto'];
 $nombre_producto = $_POST['nombre_producto'];
 $descripcion = $_POST['descripcion'];
-$cantidad = $_POST['cantidad'];
-$precio = $_POST['precio'];
+$medida = $_POST['medida'];
 
 
 
-$sql = "UPDATE productos SET nombre_producto='$nombre_producto', descripcion='$descripcion', cantidad='$cantidad', precio='$precio' WHERE id_producto=$id_producto";
+$sql = "UPDATE productos SET codigo_producto='$codigo_producto', nombre_producto='$nombre_producto', descripcion='$descripcion', medida='$medida' WHERE id_producto=$id_producto";
 $result = $conn->query($sql);
 
 if ($result === TRUE) {

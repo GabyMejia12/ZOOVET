@@ -181,7 +181,7 @@ $cont = 0;
             document.getElementById("TituloBotonModalProd3").innerHTML = 'Cerrar';
             return false;
         });*/
-        //Boton actualizar
+        //Boton detalle del producto
         $(".BtnDetalleProd").click(function() {
             let id_producto = $(this).attr("id_producto");
             $("#ModalPrincipal").modal("show");
@@ -208,23 +208,24 @@ $cont = 0;
         });
         // Proceso Update
 $("#ProcesoBotonModal2").click(function() {
-    if ($('#nombre_producto').val() === '' || $('#descripcion').val() === '' || $('#cantidad').val() === ''  || $('#precio').val() === '' ) {
+    if ($('#codigo_producto').val() === '' || $('#nombre_producto').val() === '' || $('#descripcion').val() === '' || $('#medida').val() === ''  ) {
         //alert('Por favor completa todos los campos.');
         return;
     }
-    let id_producto, nombre_producto, descripcion, cantidad, precio, estado, tipo;
+    let id_producto, codigo_producto, nombre_producto, descripcion, medida;
     id_producto = $('#id_producto').val();
+    codigo_producto = $('#codigo_producto').val();
     nombre_producto = $('#nombre_producto').val();
     descripcion = $('#descripcion').val();
-    cantidad = $('#cantidad').val();
-    precio = $('#precio').val();
+    medida = $('#medida').val();
+    
    
     var formData = {
         id_producto: id_producto,
+        codigo_producto: codigo_producto,
         nombre_producto: nombre_producto,
         descripcion: descripcion,
-        cantidad: cantidad,
-        precio: precio
+        medida: medida
     };
     $.ajax({
         type: 'POST',
@@ -233,10 +234,10 @@ $("#ProcesoBotonModal2").click(function() {
         dataType: 'html',
         success: function(response) {
             $("#ModalPrincipal").modal("hide");
+            $('#codigo_producto').val('');
             $('#nombre_producto').val('');
             $('#descripcion').val('');
-            $('#cantidad').val('');
-            $('#precio').val('');
+            $('#medida').val('');
             $("#DataPanelProductos").html(response);
         },
         error: function(xhr, status, error) {
