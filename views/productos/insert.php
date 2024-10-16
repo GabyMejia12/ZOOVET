@@ -4,11 +4,13 @@ include '../../models/conexion.php';
 include '../../controllers/controllersFunciones.php';
 $conn = conectar_db();
 
-
+$codigo_producto = $_POST['codigo_producto'];
 $nombre_producto = $_POST['nombre_producto'];
 $descripcion = $_POST['descripcion'];
-$cantidad = $_POST['cantidad'];
-$precio = $_POST['precio'];
+$medida = $_POST['medida'];
+$stock=0;
+$estado =1;
+
 
 // Verificar si el usuario ya existe en la base de datos
 $sql_check = "SELECT COUNT(*) AS count FROM productos WHERE nombre_producto = '$nombre_producto'";
@@ -34,8 +36,8 @@ if ($result_check) {
             </script>';
     } else {
         // El usuario no existe, proceder con la inserción
-        $sql_insert = "INSERT INTO productos(nombre_producto, descripcion, cantidad, precio) 
-                    VALUES('$nombre_producto', '$descripcion', '$cantidad', '$precio')";
+        $sql_insert = "INSERT INTO productos(codigo_producto,nombre_producto, descripcion, medida, stock,  estado) 
+                    VALUES('$codigo_producto','$nombre_producto', '$descripcion', '$medida', '$stock' ,  '$estado')";
         $result_insert = $conn->query($sql_insert);
 
         if ($result_insert === TRUE) {

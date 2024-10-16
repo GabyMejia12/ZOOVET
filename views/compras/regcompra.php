@@ -11,24 +11,25 @@ $rowMaxId = $resultMaxId->fetch_assoc();
 $id_entrada = $rowMaxId['id_entrada'] + 1;
 $id_usuario = $_SESSION['id_usuario'];
 $fecha = $_POST['fecha'];
+$hora = $_POST['hora'];
 //$fecha = date("Y-m-d H:i:s");
 $estado = 0;
-$sql = "INSERT INTO entrada(id_entrada, fecha, id_usuario,  estado) VALUES('$id_entrada', '$fecha', '$id_usuario', '$estado')";
+$sql = "INSERT INTO entrada(id_entrada, fecha, hora, id_usuario,  estado) VALUES('$id_entrada', '$fecha', '$hora','$id_usuario', '$estado')";
 
 $result = $conn->query($sql);
 ?>
 <?php if ($result === TRUE): ?>
     <script>
         $(document).ready(function() {
-            $("#DataPanelCompras").load("./views/compras/precompra.php");
+            $("#DataPanelPreCompra").load("./views/compras/precompra.php");
         });
     </script>
     <?php cerrar_db(); ?>
 <?php else: ?>
     <script>
         $(document).ready(function() {
-            alert('Error al registrar venta...');
-            $("#sub-data").load("./views/ventas/principal.php");
+            alert('Error al registrar compra...');
+            $("#sub-data").load("./views/compras/principal.php");
         });
     </script>
     <?php cerrar_db(); ?>

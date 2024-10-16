@@ -5,7 +5,12 @@ include '../../controllers/controllersFunciones.php';
 include '../modal.php';
 $conn = conectar_db();
 
-$sql = "SELECT * FROM productos";
+$sql = "SELECT  a.id_entrada, a.fecha, b.nombre_producto,c.cantidad_detentrada, c.cantidad_medida, c.precio_compra, c.vencimiento 
+FROM entrada a 
+INNER JOIN detalle_entrada c
+ ON a.id_entrada = c.id_entrada
+INNER JOIN productos b  
+ON  c.id_producto = b.id_producto";
 
 $result = $conn->query($sql);
 $cont = 0;
@@ -43,27 +48,31 @@ $cont = 0;
             <thead style="vertical-align: middle; text-align: center;">
                 <tr>
                     <th>N°</th>
-                    <th>Nombre</th>
-                    <th>Descripción</th>
-                    <th>Cantidad</th>
-                    <th>Precio</th>
+                    <th>Fecha</th>
+                    <th>Producto</th>
+                    <th>Cantidad por unidad (frasco, caja, blister,etc)</th>
+                    <th>Cantidad por medida (ml, tabletas,etc)</th>
+                    <th>Precio compra</th>
+                    <th>Vencimiento</th>
                     <th colspan="2">Acciones</th>
                 </tr>
             </thead>
             <tbody style="vertical-align: middle; text-align: center;">
                 <?php foreach ($result as $data) : ?>
                     <?php
-                    $query = "SELECT COUNT(id_producto) as contId FROM propietario WHERE id_producto='" . $data['id_producto'] . "'";
+                    $query = "SELECT COUNT(id_detentrada) as contId FROM detalle_entrada WHERE id_detentrada='" . $data['id_detentrada'] . "'";
                     $result2 = $conn->query($query);
                     $row2 = $result2->fetch_assoc();
                     $contIdUser = $row2['contId'];
                     ?>
                     <tr>
                         <td><?php echo ++$cont; ?></td>
+                        <td><?php echo $data['fecha']; ?></td>
                         <td><?php echo $data['nombre_producto']; ?></td>
-                        <td><?php echo $data['descripcion']; ?></td>
-                        <td><?php echo $data['cantidad']; ?></td>
-                        <td><?php echo $data['precio']; ?></td>
+                        <td><?php echo $data['cantidad_detentrada']; ?></td>
+                        <td><?php echo $data['cantidad_medida']; ?></td>
+                        <td><?php echo $data['precio_compra']; ?></td>
+                        <td><?php echo $data['vencimiento']; ?></td>
                         <!-- td>
                         <a href="" class="btn text-white" style="background-color: #031A58;"><i class="fa-solid fa-key"></i></a>
                     </td -->
