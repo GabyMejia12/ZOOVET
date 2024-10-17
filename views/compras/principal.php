@@ -5,10 +5,17 @@ include '../../controllers/controllersFunciones.php';
 include '../modal.php';
 $conn = conectar_db();
 
-$sql = "SELECT * FROM productos";
+$sql = "SELECT  a.id_entrada, a.fecha, b.nombre_producto, c.cantidad_detentrada, c.cantidad_medida, c.precio_compra, c.vencimiento 
+FROM entrada a 
+INNER JOIN detalle_entrada c
+ ON a.id_entrada = c.id_entrada
+INNER JOIN productos b  
+ON  c.id_producto = b.id_producto";
 
 $result = $conn->query($sql);
 $cont = 0;
+$total_compra=0;
+
 
 ?>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
@@ -31,7 +38,7 @@ $cont = 0;
                         <h2 class="ml-lg-2">Compras</h2>
                     </div>
                     <div class="col-sm-6 p-0 d-flex justify-content-lg-end justify-content-center">
-                        <a href="#" class="btn btn-success" id="BtnNewProp">
+                        <a href="#" class="btn btn-success" id="panel-entradas">
                             <i class="material-icons">&#xE147;</i> <span>Agregar Nueva Compra</span>
                         </a>
                     </div>
@@ -43,51 +50,31 @@ $cont = 0;
             <thead style="vertical-align: middle; text-align: center;">
                 <tr>
                     <th>N°</th>
-                    <th>Nombre</th>
-                    <th>Descripción</th>
-                    <th>Cantidad</th>
-                    <th>Precio</th>
-                    <th colspan="2">Acciones</th>
+                    <th>Fecha <br>Compra</th>
+                    <th>Producto</th>
+                    <th>Cantidad por unidad <br> (frasco, caja, blister,etc)</th>
+                    <th>Cantidad por medida <br> (ml, tabletas,etc)</th>
+                    <th>Precio compra <br>detalle</th>
+                    <th>Total Compra</th>
+                    <th>Vencimiento</th>
                 </tr>
             </thead>
-            <tbody style="vertical-align: middle; text-align: center;">
+            <tbody style="vertical-align: middle; text-align: center;" style="margin: 0 auto; width: 80%">
                 <?php foreach ($result as $data) : ?>
-                    <?php
-                    $query = "SELECT COUNT(id_producto) as contId FROM propietario WHERE id_producto='" . $data['id_producto'] . "'";
-                    $result2 = $conn->query($query);
-                    $row2 = $result2->fetch_assoc();
-                    $contIdUser = $row2['contId'];
-                    ?>
+                    
                     <tr>
                         <td><?php echo ++$cont; ?></td>
+                        <td><?php echo $data['fecha']; ?></td>
                         <td><?php echo $data['nombre_producto']; ?></td>
-                        <td><?php echo $data['descripcion']; ?></td>
-                        <td><?php echo $data['cantidad']; ?></td>
-                        <td><?php echo $data['precio']; ?></td>
-                        <!-- td>
-                        <a href="" class="btn text-white" style="background-color: #031A58;"><i class="fa-solid fa-key"></i></a>
-                    </td -->
-                        <td>
-                            <a href="" class="btn text-white BtnUpdateProducto" id_producto="<?php echo $data['id_producto']; ?>" style="background-color: #078E10;"><i class="fa-solid fa-user-pen"></i></a>
-                        </td>
-                        <!--td>
-                        <?php //if ($data['estado'] == 1) : 
-                        ?>
-                            <a href="" class="btn text-white" style="background-color: #031A58;"><i class="fa-solid fa-user-large-slash"></i></a>
-                        <?php //else : 
-                        ?>
-                            <a href="" class="btn text-white" style="background-color: #031A58;"><i class="fa-solid fa-user-check"></i></a>
-                        <?php //endif 
-                        ?>
-                    </td -->
-                        <td>
-                            <?php if ($contIdUser == 1) : ?>
-                                <a href="" class="btn text-white BtnDeleteUser" id_producto="<?php echo $data['id_producto']; ?>" style="background-color: #031A58;"><i class="fa-solid fa-user-xmark"></i></a>
-                                
-                            <?php else : ?>
-                                <a href="" class="btn text-white" style="background-color: #031A58;background-color: #ccc; cursor: not-allowed;" onclick="return false;"><i class="fa-solid fa-user-xmark"></i></a>
-                            <?php endif ?>
-                        </td>
+                        <td><?php echo $data['cantidad_detentrada']; ?></td>
+                        <td><?php echo $data['cantidad_medida']; ?></td>
+                        <td><?php echo $data['precio_compra']; ?></td>
+                        <td>$<?php 
+                            $total_compra = $data['cantidad_detentrada'] * $data['precio_compra']; 
+                            echo $total_compra; 
+                        ?></td>
+                        <td><?php echo $data['vencimiento']; ?></td>                    
+                                             
                     </tr>
                 <?php endforeach ?>
             </tbody>
@@ -113,159 +100,13 @@ $cont = 0;
     <?php cerrar_db(); ?>
 </div>
 
+
 <script>
-    $(document).ready(function() {
-        //
-        $("#BtnNewProp").click(function() {
-            $("#ModalPrincipal").modal("show");
-            $('#DataEfectosModal').addClass('modal-dialog modal-dialog-centered modal-dialog-scrollable');
-            document.getElementById("DataTituloModal").innerHTML = 'Registrar Producto';
-            $("#DataModalPrincipal").load("./views/compras/form_insert.php");  
-            $('#ProcesoBotonModal').css('display', 'block');
-            $('#ProcesoBotonModal2').css('display', 'none');
-            document.getElementById("TituloBotonModal").innerHTML = 'Guardar';
-            return false;
-        });
-
-
-        // Proceso Insert
-        $("#ProcesoBotonModal").click(function() {
-            if ($('#nombre').val() === '' || $('#apellido').val() === '' || $('#telefono').val() === '' || $('#direccion').val() === '' ) {
-                alert('Por favor completa todos los campos.');
-                return;
-            }
-            let nombre, apellido, telefono, direccion;
-            nombre = $('#nombre').val();
-            apellido = $('#apellido').val();
-            telefono = $('#telefono').val();
-            direccion = $('#direccion').val();
-
-            var formData = {
-
-                nombre: nombre,
-                apellido: apellido,
-                telefono: telefono,
-                direccion: direccion
-            };
-            $.ajax({
-                type: 'POST',
-                url: './views/propietarios/insert.php',
-                data: formData,
-                dataType: 'html',
-                success: function(response) {
-                    $("#ModalPrincipal").modal("hide");
-                    $('#nombre').val('');
-                    $('#apellido').val('');
-                    $('#telefono').val('');
-                    $('#direccion').val('');
-                    $("#DataPanelProductos").html(response);
-                },
-                error: function(xhr, status, error) {
-                    alert(xhr.responseText);
-                }
-            });
-            return false;
-        });
-        //Boton actualizar
-        $(".BtnUpdateProducto").click(function() {
-            let id_producto = $(this).attr("id_producto");
-            $("#ModalPrincipal").modal("show");
-            $('#DataEfectosModal').addClass('modal-dialog modal-dialog-centered modal-dialog-scrollable');
-            document.getElementById("DataTituloModal").innerHTML = 'Actualizar información de propietario';
-            $("#DataModalPrincipal").load("./views/propietarios/form_update.php?id_producto=" + id_producto);
-            $('#ProcesoBotonModal').css('display', 'none');
-            $('#ProcesoBotonModal2').css('display', 'block');
-            document.getElementById("TituloBotonModal2").innerHTML = 'Actualizar';
-            return false;
-        });
-        // Proceso Update
-        $("#ProcesoBotonModal2").click(function() {
-            if ($('#nombre').val() === '' || $('#apellido').val() === '' || $('#telefono').val() === '' || $('#direccion').val() ==="" ) {
-                alert('Por favor completa todos los campos.');
-                return;
-            }
-            let id_producto, nombre, apellido, telefono, estado, direccion;
-            id_producto = $('#id_producto').val();
-            nombre = $('#nombre').val();
-            apellido = $('#apellido').val();
-            telefono = $('#telefono').val();            
-            direccion = $('#direccion').val();
-
-            var formData = {
-                id_producto: id_producto,
-                nombre: nombre,
-                apellido: apellido,
-                telefono: telefono,
-                
-                direccion: direccion
-            };
-            $.ajax({
-                type: 'POST',
-                url: './views/propietarios/update.php',
-                data: formData,
-                dataType: 'html',
-                success: function(response) {
-                    $("#ModalPrincipal").modal("hide");
-                    $('#usuario').val('');
-                    $('#apellido').val('');
-                    $('#telefono').val('');
-                    $('#direccion').val('');
-                    $("#DataPanelProductos").html(response);
-                },
-                error: function(xhr, status, error) {
-                    alert(xhr.responseText);
-                }
-            });
-            return false;
-        });// Proceso Delete
-$(document).ready(function() {
-            $('.BtnDeleteUser').click(function() {
-                let id_producto = $(this).attr('id_producto');
-
-                Swal.fire({
-                    title: '¿Desea eliminar el propietario?',
-                    text: "¡Esta acción no se puede deshacer!",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Confirmar',
-                    cancelButtonText: 'Cancelar'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        $.ajax({
-                            type: 'POST',
-                            url: './views/propietarios/del.php',
-                            data: { id_producto: id_producto },
-                            success: function(response) {
-                                Swal.fire(
-                                    'Eliminado',
-                                    'El propietario ha sido eliminado',
-                                    'success'
-                                );
-                                $("#DataPanelProductos").html(response);
-                            },
-                            error: function(xhr, status, error) {
-                                Swal.fire(
-                                    'Error',
-                                    'Hubo un problema al eliminar el propietario',
-                                    'error'
-                                );
-                            }
-                        });
-                    } else {
-                        Swal.fire(
-                            'Cancelado',
-                            'El proceso ha sido cancelado.',
-                            'error'
-                        );
-                    }
-                });
-
+	$(document).ready(function() {
+            
+			$("#panel-entradas").click(function() {
+                $("#sub-data").load("./views/compras/nueva_compra.php");
                 return false;
-            });
+            }); 
         });
-
-
-    });
-</script>
+  </script>

@@ -19,7 +19,7 @@ if (isset($_POST['BtnLogin'])) {
         después de ejecutar la consulta SQL. A continuación se muestra un desglose de lo que hace
         cada línea: */
         $row = $result->fetch_assoc();
-        $idusuario = $row['id_usuario'];
+        $id_usuario = $row['id_usuario'];
         $hash = $row['password'];
         $estado = $row['estado'];
         $tipo = $row['tipo'];
@@ -33,7 +33,7 @@ if (isset($_POST['BtnLogin'])) {
                 configurando variables de sesión en PHP. Esto es lo que hace cada una de estas
                 líneas: */
                 $_SESSION['LoginAccess'] = 1;
-                $_SESSION['idusuario'] = $idusuario;
+                $_SESSION['id_usuario'] = $id_usuario;
                 $_SESSION['usuario'] = $usuario;
                 $_SESSION['tipo'] = $tipo;
                 /* La línea `header("Ubicación: ../index.php");` es una función PHP que envía un

@@ -34,7 +34,7 @@
 	 
 	 <div id="sidebar">
 	    <div class="sidebar-header">
-		   <h3><img src="./public/img/logo.jpg" class="img-fluid"/><span>ZOOVET</span></h3>
+		   <h3><img src="./public/img/logo.jpg" class="img-fluid"/><span></span></h3>
 		</div>
 		<ul class="list-unstyled component m-0">
 		  <li class="active">
@@ -87,6 +87,11 @@
 		  <ul class="collapse list-unstyled menu" id="homeSubmenu5">
 		     
 		  </ul>
+		  </li>
+		  <li >
+			<a href="#" class="button" id="panel-productos">
+			<i class="material-icons">workspaces</i>Productos
+			</a>
 		  </li>
 		  
 		  
@@ -352,6 +357,10 @@
             }); 
 			$("#panel-compras").click(function() {
                 $("#sub-data").load("./views/compras/principal.php");
+                return false;
+            }); 
+			$("#panel-productos").click(function() {
+                $("#sub-data").load("./views/productos/principal.php");
                 return false;
             }); 
         });
