@@ -1,11 +1,11 @@
 <?php
 @session_start();
-include '../../../models/conexion.php';
-include '../../../controllers/controllersFunciones.php';
-include '../../modal.php';
+include '../../models/conexion.php';
+include '../../controllers/controllersFunciones.php';
+include '../modal.php';
 $conn = conectar_db();
 
-$sql = "SELECT * FROM consultas";
+$sql = "SELECT b.nombre, b.telefono, a.id_mascota, a.nombre_mascota, a.peso, a.edad, a.especie, a.sexo, a.raza, a.estado FROM mascota AS a INNER JOIN propietario AS b ON a.id_propietario = b.id_propietario";
 
 $result = $conn->query($sql);
 $cont = 0;
@@ -27,15 +27,12 @@ $cont = 0;
         <div class="table-wrapper">
             <div class="table-title">
                 <div class="row">
-                    <div class="col-sm-4 p-0 flex justify-content-lg-start justify-content-center">
-                        <h2 class="ml-lg-2">Consultas generales</h2>
+                    <div class="col-sm-6 p-0 flex justify-content-lg-start justify-content-center">
+                        <h2 class="ml-lg-2">Mascotas</h2>
                     </div>
-                    <div class="col-sm-8 p-0 d-flex justify-content-lg-end justify-content-center">
+                    <div class="col-sm-6 p-0 d-flex justify-content-lg-end justify-content-center">
                         <a href="#" class="btn btn-success" id="BtnNewPet">
-                            <i class="material-icons">&#xE147;</i> <span>Regresar</span>
-                        </a>
-                        <a href="#" class="btn btn-success" id="BtnNewConG">
-                            <i class="material-icons">&#xE147;</i> <span>Nueva Consulta</span>
+                            <i class="material-icons">&#xE147;</i> <span>Agregar Nueva Mascota</span>
                         </a>
                     </div>
                 </div>
@@ -46,12 +43,15 @@ $cont = 0;
             <thead style="vertical-align: middle; text-align: center;">
                 <tr>
                     <th>N°</th>
-                    <th>Fecha</th>
                     <th>Propietario</th>
                     <th>Teléfono</th>
-                    <th>Mascota</th>
-                    <th>RX</th>
-                    <th>MV</th>
+                    <th>Nombre Mascota</th>
+                    <th>Peso</th>
+                    <th>Edad</th>
+                    <th>Especie</th>
+                    <th>Sexo</th>
+                    <th>Raza</th>
+                    <th>Estado</th>
                     <th colspan="2">Acciones</th>
                 </tr>
             </thead>
@@ -116,11 +116,11 @@ $cont = 0;
 <script>
     $(document).ready(function() {
         //
-        $("#BtnNewConG").click(function() {
+        $("#BtnNewPet").click(function() {
             $("#ModalPrincipal").modal("show");
             $('#DataEfectosModal').addClass('modal-dialog modal-dialog-centered modal-dialog-scrollable');
-            document.getElementById("DataTituloModal").innerHTML = 'Nueva consulta';
-            $("#DataModalPrincipal").load("./views/consultas/general/form_insert.php");  
+            document.getElementById("DataTituloModal").innerHTML = 'Registrar Mascota';
+            $("#DataModalPrincipal").load("./views/mascotas/form_insert.php");  
             $('#ProcesoBotonModal').css('display', 'block');
             $('#ProcesoBotonModal2').css('display', 'none');
             document.getElementById("TituloBotonModal").innerHTML = 'Guardar';
