@@ -23,9 +23,10 @@ $contProd = 0;
 $contProdDV = 0;
 $contTproductos = 0;
 $contTotalProductos = 0;
+$sumaTotal = 0;
 ?>
 <div id="DataPanelPreCompra"></div>
-<div class="card border-info text-white mb-12"  id="DataPanelCompras">
+<div class="card border-info text-white mb-12"  id="DataPanelCompra">
     <div class="card-header bg-info border-info">
         Registrar productos   
                                
@@ -42,14 +43,17 @@ $contTotalProductos = 0;
         
         <?php if ($detallesVentas && $detallesVentas->num_rows > 0) : ?>
             <hr>
-            <table class="table table-bordered table-hover table-borderless" style="margin: 0 auto; width: 100%">
+            <table class="table table-bordered table-hover table-borderless">
                 <thead style="vertical-align: middle; text-align: center;">
                     <tr>
                         <th>N°</th>
                         <th>Productos</th>
-                        <th>Precio <br>Unitario</th>
-                        <th>Cantidad</th>
+                        <th>Cantidad <br>Individual</th>
+                        <th>Cantidad <br>Medida</th>
                         <th>Total</th>
+                        <th>Medida</th>
+                        <th>Precio <br>Individual</th>
+                        <th>Precio <br>Total</th>
                         <th><i class="fa-solid fa-trash-can"></i></th>
                     </tr>
                 </thead>
@@ -57,37 +61,48 @@ $contTotalProductos = 0;
                     <?php foreach ($detallesVentas as $data) : ?>
                         <?php
                         $id_producto = $data['id_producto'];
-                        $dataProducto = "SELECT * FROM productos WHERE id_producto='$id_producto'";
+                        $dataProducto = "SELECT a.*, b.* FROM productos a INNER JOIN detalle_entrada b ON b.id_producto='$id_producto'";
                         $resultProd = $conn->query($dataProducto);
                         $rowProd = $resultProd->fetch_assoc();
                         $nproducto = $rowProd['nombre_producto'];
-                        $pventa = $rowProd['pventa'];
+                        $cantidad_detentrada = $rowProd['cantidad_detentrada'];
+                        $cantidad_medida = $rowProd['cantidad_medida'];
+                        $total = $rowProd['total'];
+                        $medida = $rowProd['medida'];
+                        $precio_compra = $rowProd['precio_compra'];
                         ?>
                         <tr>
                             <td><?php echo ++$contProdDV; ?></td>
-                            <td><?php echo $nproducto; ?></td>
-                            <td>$<?php echo number_format($pventa,2); ?></td>
+                            <td><?php echo $nproducto; ?></td>                            
                             <td>
-                                <?php
-                                echo $data['cantidad'];
-                                $contTproductos += $data['cantidad'];
-                                ?>
+                            <?php echo $cantidad_detentrada; 
+                            $contTproductos += $data['cantidad_detentrada'];?>
                             </td>
                             <td>
-                                $<?php
-                                    echo number_format($data['total'],2);
-                                    $contTotalProductos += $data['total'];
-                                ?>
+                            <?php echo $cantidad_medida; ?> 
                             </td>
                             <td>
-                                <a href="" class="btn text-white BtnDelProductoCarrito" iddventa="<?php echo $data['iddventa']; ?>" style="background-color: #031A58;"><i class="fa-solid fa-trash-can"></i></a>
+                            <?php echo $total; ?> 
+                            </td>
+                            <td>
+                            <?php echo $medida; ?> 
+                            </td>
+                            <td>
+                            $ <?php echo $precio_compra; ?> 
+                            </td>
+                            <td>                                
+                            $ <?php 
+                            $sumaTotal = $precio_compra*$cantidad_detentrada;  echo $sumaTotal; ?> 
+                            </td>
+                            <td>
+                                <a href="" class="btn text-white BtnDelProductoCarrito" id_detentrada="<?php echo $data['id_detentrada']; ?>" style="background-color: #031A58;"><i class="fa-solid fa-trash-can"></i></a>
                             </td>
                         </tr>
                     <?php endforeach ?>
                     <tr>
-                        <td colspan="3">Total</td>
-                        <td><?php echo $contTproductos; ?></td>
-                        <td>$<?php echo number_format($contTotalProductos,2);?></td>
+                        <td colspan="7">Total</td>
+                        <td> $ <?php echo $sumaTotal; ?></td>
+                        
                     </tr>
                 </tbody>
             </table>
@@ -96,7 +111,7 @@ $contTotalProductos = 0;
             <br>
             <a href="" class="btn BtnEliminarVenta" style="background-color: #031A58;color:white;margin-top: 10px;" id_entrada="<?php echo $id_entrada; ?>"><b><i class="fa-solid fa-eraser"></i></b></a>
             <div class="alert alert-danger">
-                <b>No se encuentran productos agregados al carrito</b>
+                <b>No se encuentran productos agregados a la compra</b>
             </div>
         <?php endif ?>
         <hr>
@@ -128,23 +143,23 @@ $contTotalProductos = 0;
                         <td><?php echo $data['nombre_producto']; ?></td>
                         <td><?php echo $data['medida']; ?></td>
                         <td>
-                            <input type="number" class="form-control" style="width: 80px;" name="cantidad_detentrada" id="cantidad_detentrada" >
+                            <input type="number" name="cantidad_detentrada" id="cantidad_detentrada" class="form-control" style="width: 80px;"  >
                         </td>
                         <td>
-                            <input type="number" class="form-control" style="width: 80px;" name="cantidd_medida" id="cantidd_medida" >
+                            <input type="number"name="cantidad_medida" id="cantidad_medida" class="form-control" style="width: 80px;"  >
                         </td>
                         <td>
-                            Aqui va el total
+                            <input type="text" class="form-control"  name="total" id="total" readonly>
 
                         </td>
                         <td>
-                            $<input type="float" class="form-control" aria-label="Username" aria-describedby="basic-addon1" name="precio_compra" id="precio_compra">
+                            <input type="text" class="form-control" name="precio_compra" id="precio_compra">
                         </td>
                         <td>
                         <input type="date" class="form-control" placeholder="" name="vencimiento" id="vencimiento">
                         </td>
                         <td>
-                            <a href="" class="btn text-white BtnAddProducto" id_producto="<?php echo $data['id_producto']; ?>" id_entrada="<?php echo $id_entrada; ?>" style="background-color: #031A58;"><i class="fa-solid fa-cart-plus"></i></a>
+                            <a href="" class="btn text-white BtnAddProducto" id_producto="<?php echo $data['id_producto']; ?>" id_entrada="<?php echo $id_entrada; ?>"  style="background-color: #031A58;"><i class="fa-solid fa-cart-plus"></i></a>
                         </td>
                     </tr>
                 <?php endforeach ?>
@@ -159,3 +174,201 @@ $contTotalProductos = 0;
     </div>
     
 </div>
+
+<script>
+        
+    </script>
+
+
+
+
+<script>
+    // Función para calcular el total
+    function calcularTotal() {
+            var cantidad_detentrada = parseInt(document.getElementById("cantidad_detentrada").value);
+            var cantidad_medida = parseInt(document.getElementById("cantidad_medida").value);
+            var total = cantidad_detentrada * cantidad_medida;
+            document.getElementById("total").value = total;
+        }
+
+        // Escuchar los cambios en los campos
+        document.getElementById("cantidad_detentrada").addEventListener("input", calcularTotal);
+        document.getElementById("cantidad_medida").addEventListener("input", calcularTotal);
+    $(document).ready(function() {
+        // Proceso ADD producto ya funciona
+        $('.BtnAddProducto').click(function() {
+            let id_producto = $(this).attr('id_producto');
+            let id_entrada = $(this).attr('id_entrada');
+            let cantidad_detentrada = $("#cantidad_detentrada" ).val(); // ID del campo de cantidad_detentrada
+            let cantidad_medida = $("#cantidad_medida").val(); // ID del campo de cantidad_medida
+            let precio_compra = $("#precio_compra").val(); // Extraído del botón
+            let total = $("#total" ).val(); // ID del campo de total
+            let vencimiento = $("#vencimiento").val(); 
+            
+            
+
+            // Ver datos que esta mandando en el console
+            console.log("ID Producto: ", id_producto);
+            console.log("Cantidad Det. Entrada: ", cantidad_detentrada);
+            console.log("Cantidad Medida: ", cantidad_medida);
+            console.log("Total: ", total);
+            console.log("Precio Compra: ", precio_compra);
+            console.log("Vencimiento: ", vencimiento);
+            console.log("ID Entrada: ", id_entrada);
+
+            Swal.fire({
+                title: '¿Desea agregar producto a la compra?',
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Confirmar',
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    if (cantidad_detentrada == 0 || cantidad_detentrada == null ||
+                        cantidad_medida == 0 || cantidad_medida == null || 
+                        precio_compra == 0 || precio_compra == null || 
+                        vencimiento == 0 || vencimiento == null) {
+                        Swal.fire('Error', 'Favor llenar los campos', 'error');
+                    } else {
+                        $.ajax({
+                            type: 'POST',
+                            url: './views/compras/regdetallecompra.php',
+                            data: {
+                                id_producto: id_producto,
+                                cantidad_detentrada: cantidad_detentrada,
+                                cantidad_medida: cantidad_medida,
+                                total: total,
+                                precio_compra: precio_compra,
+                                vencimiento: vencimiento,
+                                id_entrada: id_entrada
+                            },
+                            success: function(response) {
+                                $("#DataPanelPreCompra").html(response);
+                            },
+                            error: function(xhr, status, error) {
+                                Swal.fire('Error', xhr.responseText, 'error');
+                            }
+                        });
+                    }
+                } else {
+                    Swal.fire('Cancelado', 'Proceso cancelado', 'error');
+                }
+            });
+            return false;
+        });
+
+        // Proceso borrar producto del carrito ya funciona
+        $('.BtnDelProductoCarrito').click(function() {
+            
+            let id_detentrada = $(this).attr('id_detentrada');
+            Swal.fire({
+                title: '¿Desea eliminar producto de la compra?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Confirmar',
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        type: 'POST',
+                        url: './views/compras/delcarritocompra.php',
+                        data: {
+                            id_detentrada: id_detentrada
+                        },
+                        success: function(response) {
+                            $("#DataPanelPreCompra").html(response);
+                        },
+                        error: function(xhr, status, error) {
+                            Swal.fire('Error', xhr.responseText, 'error');
+                        }
+                    });
+                } else {
+                    Swal.fire('Cancelado', 'Proceso cancelado', 'error');
+                }
+            });
+            return false;
+        });
+
+        // Proceso Cerrar Venta ya funciona
+        $('.BtnCerrarVenta').click(function() {
+            
+            let idventa = $(this).attr('idventa');
+
+            Swal.fire({
+                title: '¿Desea cerrar el proceso de venta?',
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Confirmar',
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        type: 'POST',
+                        url: './views/ventas/cerrar.php',
+                        data: {
+                            idventa: idventa
+                        },
+                        success: function(response) {
+                            $("#DataVentas").html(response);
+                        },
+                        error: function(xhr, status, error) {
+                            Swal.fire('Error', xhr.responseText, 'error');
+                        }
+                    });
+                } else {
+                    Swal.fire('Cancelado', 'Proceso cancelado', 'error');
+                }
+            });
+            return false;
+        });
+
+        // Proceso Eliminar venta ya funciona
+        $('.BtnEliminarVenta').click(function() {
+        //let idalquiler = $(this).attr('idalquiler');
+        let idventa = $(this).attr('idventa');
+
+        Swal.fire({
+            title: '¿Desea eliminar el registro de venta?',
+            text: "¡Esta acción no se puede deshacer!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Confirmar',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    type: 'POST',
+                    url: './views/ventas/delventa.php',
+                    data: {
+                        idventa: idventa
+                    },
+                    dataType: 'json',
+                    success: function(response) {
+                        if (response.status === 'success') {
+                            Swal.fire('Eliminado', response.message, 'success').then(() => {
+                                $("#sub-data").load("./views/ventas/principal.php");
+                            });
+                        } else {
+                            Swal.fire('Error', response.message, 'error');
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        Swal.fire('Error', 'Error al eliminar el registro de venta', 'error');
+                    }
+                });
+            } else {
+                Swal.fire('Cancelado', 'Proceso cancelado', 'error');
+            }
+        });
+        return false;
+    });
+    });
+</script>
