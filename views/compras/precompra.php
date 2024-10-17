@@ -189,11 +189,14 @@ $sumaTotal = 0;
             var cantidad_medida = parseInt(document.getElementById("cantidad_medida").value);
             var total = cantidad_detentrada * cantidad_medida;
             document.getElementById("total").value = total;
-        }
 
+            
+        }
         // Escuchar los cambios en los campos
-        document.getElementById("cantidad_detentrada").addEventListener("input", calcularTotal);
-        document.getElementById("cantidad_medida").addEventListener("input", calcularTotal);
+            document.getElementById("cantidad_detentrada").addEventListener("change", calcularTotal);
+            document.getElementById("cantidad_medida").addEventListener("change", calcularTotal);
+
+        
     $(document).ready(function() {
         // Proceso ADD producto ya funciona
         $('.BtnAddProducto').click(function() {
