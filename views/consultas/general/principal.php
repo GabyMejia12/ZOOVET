@@ -116,11 +116,11 @@ $cont = 0;
 <script>
     $(document).ready(function() {
         //
-        $("#BtnNewPet").click(function() {
+        $("#BtnNewConG").click(function() {
             $("#ModalPrincipal").modal("show");
             $('#DataEfectosModal').addClass('modal-dialog modal-dialog-centered modal-dialog-scrollable');
-            document.getElementById("DataTituloModal").innerHTML = 'Registrar Mascota';
-            $("#DataModalPrincipal").load("./views/mascotas/form_insert.php");  
+            document.getElementById("DataTituloModal").innerHTML = 'Nueva consulta';
+            $("#DataModalPrincipal").load("./views/consultas/general/form_insert.php");  
             $('#ProcesoBotonModal').css('display', 'block');
             $('#ProcesoBotonModal2').css('display', 'none');
             document.getElementById("TituloBotonModal").innerHTML = 'Guardar';
@@ -313,4 +313,4 @@ $(document).ready(function() {
 
 
     });
-</script>x
+</script>
