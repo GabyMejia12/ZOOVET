@@ -5,7 +5,7 @@ include '../../controllers/controllersFunciones.php';
 include '../modal.php';
 $conn = conectar_db();
 
-$sql = "SELECT  a.id_entrada, a.fecha, b.nombre_producto,c.cantidad_detentrada, c.cantidad_medida, c.precio_compra, c.vencimiento 
+$sql = "SELECT  a.id_entrada, a.fecha, b.nombre_producto, c.cantidad_detentrada, c.cantidad_medida, c.precio_compra, c.vencimiento 
 FROM entrada a 
 INNER JOIN detalle_entrada c
  ON a.id_entrada = c.id_entrada
@@ -14,6 +14,8 @@ ON  c.id_producto = b.id_producto";
 
 $result = $conn->query($sql);
 $cont = 0;
+$total_compra=0;
+
 
 ?>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
@@ -48,23 +50,18 @@ $cont = 0;
             <thead style="vertical-align: middle; text-align: center;">
                 <tr>
                     <th>N°</th>
-                    <th>Fecha</th>
+                    <th>Fecha <br>Compra</th>
                     <th>Producto</th>
-                    <th>Cantidad por unidad (frasco, caja, blister,etc)</th>
-                    <th>Cantidad por medida (ml, tabletas,etc)</th>
-                    <th>Precio compra</th>
+                    <th>Cantidad por unidad <br> (frasco, caja, blister,etc)</th>
+                    <th>Cantidad por medida <br> (ml, tabletas,etc)</th>
+                    <th>Precio compra <br>detalle</th>
+                    <th>Total Compra</th>
                     <th>Vencimiento</th>
-                    <th colspan="2">Acciones</th>
                 </tr>
             </thead>
-            <tbody style="vertical-align: middle; text-align: center;">
+            <tbody style="vertical-align: middle; text-align: center;" style="margin: 0 auto; width: 80%">
                 <?php foreach ($result as $data) : ?>
-                    <?php
-                    $query = "SELECT COUNT(id_detentrada) as contId FROM detalle_entrada WHERE id_detentrada='" . $data['id_detentrada'] . "'";
-                    $result2 = $conn->query($query);
-                    $row2 = $result2->fetch_assoc();
-                    $contIdUser = $row2['contId'];
-                    ?>
+                    
                     <tr>
                         <td><?php echo ++$cont; ?></td>
                         <td><?php echo $data['fecha']; ?></td>
@@ -72,31 +69,12 @@ $cont = 0;
                         <td><?php echo $data['cantidad_detentrada']; ?></td>
                         <td><?php echo $data['cantidad_medida']; ?></td>
                         <td><?php echo $data['precio_compra']; ?></td>
-                        <td><?php echo $data['vencimiento']; ?></td>
-                        <!-- td>
-                        <a href="" class="btn text-white" style="background-color: #031A58;"><i class="fa-solid fa-key"></i></a>
-                    </td -->
-                        <td>
-                            <a href="" class="btn text-white BtnUpdateProducto" id_producto="<?php echo $data['id_producto']; ?>" style="background-color: #078E10;"><i class="fa-solid fa-user-pen"></i></a>
-                        </td>
-                        <!--td>
-                        <?php //if ($data['estado'] == 1) : 
-                        ?>
-                            <a href="" class="btn text-white" style="background-color: #031A58;"><i class="fa-solid fa-user-large-slash"></i></a>
-                        <?php //else : 
-                        ?>
-                            <a href="" class="btn text-white" style="background-color: #031A58;"><i class="fa-solid fa-user-check"></i></a>
-                        <?php //endif 
-                        ?>
-                    </td -->
-                        <td>
-                            <?php if ($contIdUser == 1) : ?>
-                                <a href="" class="btn text-white BtnDeleteUser" id_producto="<?php echo $data['id_producto']; ?>" style="background-color: #031A58;"><i class="fa-solid fa-user-xmark"></i></a>
-                                
-                            <?php else : ?>
-                                <a href="" class="btn text-white" style="background-color: #031A58;background-color: #ccc; cursor: not-allowed;" onclick="return false;"><i class="fa-solid fa-user-xmark"></i></a>
-                            <?php endif ?>
-                        </td>
+                        <td>$<?php 
+                            $total_compra = $data['cantidad_detentrada'] * $data['precio_compra']; 
+                            echo $total_compra; 
+                        ?></td>
+                        <td><?php echo $data['vencimiento']; ?></td>                    
+                                             
                     </tr>
                 <?php endforeach ?>
             </tbody>
