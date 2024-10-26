@@ -1,6 +1,6 @@
 <!-- Modal -->
-<div class="modal fade" id="ModalPrincipal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <div  id="DataEfectosModal" class="modal-dialog modal-xl">
+<div class="modal fade bd-example-modal-lg" id="ModalPrincipal" tabindex="-1" aria-labelledby="staticBackdropLabel" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div  id="DataEfectosModal" class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="staticBackdropLabel"><label id="DataTituloModal"></label></h5>
