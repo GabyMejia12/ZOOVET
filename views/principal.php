@@ -79,15 +79,12 @@
 			</a>
 		  </li>
 		  
-		   <li class="dropdown">
-		  <a href="#homeSubmenu5" data-toggle="collapse" aria-expanded="false" 
-		  class="dropdown-toggle">
-		  <i class="material-icons">border_color</i>Expedientes
-		  </a>
-		  <ul class="collapse list-unstyled menu" id="homeSubmenu5">
-		     
-		  </ul>
+		  <li >
+			<a href="#" class="button" id="panel-expedientes">
+			<i class="material-icons">extension</i>Expedientes
+			</a>
 		  </li>
+
 		  <li >
 			<a href="#" class="button" id="panel-productos">
 			<i class="material-icons">workspaces</i>Productos
@@ -363,6 +360,10 @@
                 $("#sub-data").load("./views/productos/principal.php");
                 return false;
             }); 
+			$("#panel-expedientes").click(function() {
+                $("#sub-data").load("./views/expedientes/principal.php");
+                return false;
+            });
         });
   </script>
 

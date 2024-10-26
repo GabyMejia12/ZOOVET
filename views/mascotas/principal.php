@@ -10,6 +10,7 @@ $sql = "SELECT b.nombre, b.telefono, a.id_mascota, a.nombre_mascota, a.peso, a.e
 $result = $conn->query($sql);
 $cont = 0;
 
+
 ?>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 <!-- Incluye Bootstrap CSS -->
@@ -85,9 +86,6 @@ $cont = 0;
                                 <a href="" class="btn text-white BtnUpdateEstado" style="background-color: #003366;" id_mascota="<?= $data['id_mascota']; ?>" estado="0"><i class="fa-solid fa-check"></i></a>
                             <?php endif ?>
                         </td>
-
-                           
-                        </td>
                     </tr>
                 <?php endforeach ?>
             </tbody>
@@ -127,7 +125,7 @@ $cont = 0;
             return false;
         });
 
-
+ 
         // Proceso Insert
         $("#ProcesoBotonModal").click(function() {
             if ($('#codigo_mascota').val() === '' || $('#nombre_mascota').val() === '' || $('#peso').val() === '' || $('#edad').val() === '' || $('#especie').val() === '' || $('#raza').val() === '' || $('#sexo').val() === '' || $('#descripcion').val() === '' || $('#id_propietario').val() === '' ) {
