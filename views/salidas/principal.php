@@ -3,24 +3,24 @@
 include '../../models/conexion.php';
 include '../../controllers/controllersFunciones.php';
 include '../modal.php';
+include '../modal_productos.php';
 $conn = conectar_db();
 
-$sql = "SELECT a.estado, a.id_entrada, a.fecha, b.nombre_producto, b.descripcion, c.cantidad_detentrada, c.cantidad_medida, c.precio_compra, c.vencimiento 
-FROM entrada a 
-INNER JOIN detalle_entrada c
- ON a.id_entrada = c.id_entrada
+
+
+$sql = "SELECT a.estado, a.id_salida, a.fecha_salida, b.nombre_producto, b.descripcion, c.cantidad_detsalida,  c.precio_salida 
+FROM salida a 
+INNER JOIN detalle_salida c
+ ON a.id_salida = c.id_salida
 INNER JOIN productos b  
 ON c.id_producto = b.id_producto 
 WHERE a.estado = 1
-ORDER BY a.id_entrada, b.nombre_producto"; // Ordenamos por id_entrada y nombre_producto
+ORDER BY a.id_salida, b.nombre_producto";
 
 $result = $conn->query($sql);
 $cont = 0;
-$total_compra = 0;
-$entrada_actual = 0;
+
 ?>
-
-
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 <!-- Incluye Bootstrap CSS -->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -32,22 +32,23 @@ $entrada_actual = 0;
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 <div>
-    <div class="row">
-        <div class="col-md-12">
-            <div class="table-wrapper">
-                <div class="table-title">
-                    <div class="row">
-                        <div class="col-sm-6 p-0 flex justify-content-lg-start justify-content-center">
-                            <h2 class="ml-lg-2">Compras</h2>
-                        </div>
-                        <div class="col-sm-6 p-0 d-flex justify-content-lg-end justify-content-center">
-                            <a href="#" class="btn btn-success" id="panel-entradas">
-                                <i class="material-icons">&#xE147;</i> <span>Agregar Nueva Compra</span>
-                            </a>
-                        </div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="table-wrapper">
+            <div class="table-title">
+                <div class="row">
+                    <div class="col-sm-6 p-0 flex justify-content-lg-start justify-content-center">
+                        <h2 class="ml-lg-2">Salidas</h2>
+                    </div>
+                    
+                    <div class="col-sm-6 p-0 d-flex justify-content-lg-end justify-content-center">
+                        <a href="#" class="btn btn-success" id="panel-presalidas">
+                            <i class="material-icons">&#xE147;</i> <span>Agregar Nueva Salida</span>
+                        </a>
                     </div>
                 </div>
-                <div class="table-responsive" id="DataPanelCompras">
+            </div>
+            <div class="table-responsive" id="DataPnaelSalidas">
                     <?php if ($result && $result->num_rows > 0) : ?>
                         <?php 
                         $dataArray = []; // Crear un array para almacenar los resultados
@@ -78,25 +79,25 @@ $entrada_actual = 0;
 
                                 // Contar cuántos productos hay por cada entrada
                                 foreach ($dataArray as $data) {
-                                    if (!isset($producto_count[$data['id_entrada']])) {
-                                        $producto_count[$data['id_entrada']] = 0;
+                                    if (!isset($producto_count[$data['id_salida']])) {
+                                        $producto_count[$data['id_salida']] = 0;
                                     }
-                                    $producto_count[$data['id_entrada']]++;
+                                    $producto_count[$data['id_salida']]++;
                                 }
 
                                 // Recorremos los datos para mostrarlos
                                 foreach ($dataArray as $index => $data) : 
                                     // Si la entrada cambia, mostramos una nueva fila de encabezado
-                                    if ($entrada_actual != $data['id_entrada']) {
-                                        $entrada_actual = $data['id_entrada'];
+                                    if ($entrada_actual != $data['id_salida']) {
+                                        $entrada_actual = $data['id_salida'];
                                     ?>
                                         <tr>
                                             <td rowspan="<?php echo $producto_count[$entrada_actual]; ?>"><?php echo ++$cont; ?></td>                            
                                             <td><?php echo $data['nombre_producto']; ?></td>
                                             <td><?php echo $data['descripcion']; ?></td>
-                                            <td><?php echo $data['cantidad_detentrada']; ?></td>
+                                            <td><?php echo $data['cantidad_detsalida']; ?></td>
                                             <td><?php echo $data['cantidad_medida']; ?></td>
-                                            <td><?php echo $data['precio_compra']; ?></td>
+                                            <td><?php echo $data['precio_salida']; ?></td>
                                             <td><?php echo $data['vencimiento']; ?></td>
                                             <td rowspan="<?php echo $producto_count[$entrada_actual]; ?>">
                                                 <?php echo ($data['estado'] == 1) ? '<b style="color:green;">Finalizada</b>' : '<b style="color:red;">Abierta</b>'; ?>
@@ -106,15 +107,15 @@ $entrada_actual = 0;
                                         <tr>
                                             <td><?php echo $data['nombre_producto']; ?></td>
                                             <td><?php echo $data['descripcion']; ?></td>
-                                            <td><?php echo $data['cantidad_detentrada']; ?></td>
+                                            <td><?php echo $data['cantidad_detsalida']; ?></td>
                                             <td><?php echo $data['cantidad_medida']; ?></td>
-                                            <td><?php echo $data['precio_compra']; ?></td>
+                                            <td><?php echo $data['precio_salida']; ?></td>
                                             <td><?php echo $data['vencimiento']; ?></td>
                                         </tr>
                                     <?php } 
 
                                     // Línea de separación después del último producto de cada entrada
-                                    if (($index + 1 < count($dataArray) && $dataArray[$index + 1]['id_entrada'] != $data['id_entrada']) || ($index + 1 == count($dataArray))) {
+                                    if (($index + 1 < count($dataArray) && $dataArray[$index + 1]['id_salida'] != $data['id_salida']) || ($index + 1 == count($dataArray))) {
                                         echo '<tr><td colspan="8" style="border-bottom: 2px solid #ccc;"></td></tr>'; // Línea de separación
                                     }
                                 endforeach; ?>
@@ -138,22 +139,11 @@ $entrada_actual = 0;
                     <?php endif ?>
                     <?php cerrar_db(); ?>
                 </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-
-
-
-
-
 
 <script>
     $(document).ready(function() {
-        $("#panel-entradas").click(function() {
-            $("#sub-data").load("./views/compras/nueva_compra.php");
+        $("#panel-presalidas").click(function() {
+            $("#sub-data").load("./views/salidas/nueva_salida.php");
             return false;
         });
     });
