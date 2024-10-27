@@ -5,24 +5,14 @@ include '../../controllers/controllersFunciones.php';
 include '../modal.php';
 $conn = conectar_db();
 
-$sql = "SELECT a.fecha_consulta, 
-a.RX, a.id_tipoconsulta, a.peso,
-b.nombre, b.telefono, 
-c.nombre_mascota, c.edad, c.especie, c.raza, c.sexo,c.codigo_mascota,
-d.nombre AS NombreVeterinario,
-d.apellido AS ApellidoVeterinario,
-e.nombre_consulta
-FROM consultas AS a 
-INNER JOIN mascota AS c ON a.id_mascota = c.id_mascota
-INNER JOIN propietario AS b ON c.id_propietario = b.id_propietario
-INNER JOIN usuarios as d ON d.id_usuario = a.id_veterinario
-INNER JOIN tipo_consulta AS e ON a.id_tipoconsulta = e.id_tipoconsulta"
+$sql = "SELECT m.id_mascota, m.codigo_mascota, m.nombre_mascota, m.raza, m.especie, m.sexo,
+p.nombre, p.apellido, p.telefono
+FROM mascota AS m
+INNER JOIN propietario AS p ON m.id_propietario = p.id_propietario"
 ;
 
 $result = $conn->query($sql);
 $cont = 0;
-
-
 
 ?>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
@@ -35,6 +25,15 @@ $cont = 0;
 <!-- Incluye Bootstrap JS -->
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
+<form id="searchForm">
+    <input type="date" id="fechaInicio" name="fechaInicio" required>
+    <input type="date" id="fechaFin" name="fechaFin" required>
+    <input type="text" id="nombreMascota" name="nombreMascota" placeholder="Nombre de la mascota">
+    <button type="submit">Buscar</button>
+</form>
+
+<div id="resultados"></div>
+
 <div>
 <div class="row">
     <div class="col-md-12">
@@ -42,35 +41,29 @@ $cont = 0;
             <div class="table-title">
                 <div class="row">
                     <div class="col-sm-4 p-0 flex justify-content-lg-start justify-content-center">
-                        <h2 class="ml-lg-2">Consultas generales</h2>
+                        <h2 class="ml-lg-2">Expedientes Mascotas</h2>
                     </div>
                     <div class="col-sm-8 p-0 d-flex justify-content-lg-end justify-content-center">
-                        <a href="#" class="btn btn-success" id="BtnNewPet">
-                            <i class="material-icons">&#xE147;</i> <span>Regresar</span>
-                        </a>
-                        <a href="#" class="btn btn-success" id="BtnNewConG">
-                            <i class="material-icons">&#xE147;</i> <span>Nueva Consulta</span>
+                        <a href="./index.php" class="btn btn-success" id="BtnNewPet">
+                            <i class="material-icons">arrow_back</i> <span>Regresar</span>
                         </a>
                     </div>
                 </div>
             </div>
-<div class="table-responsive" id="DataPanelMascotas">
+<div class="table-responsive" id="DataPanelExpedientes">
     <?php if ($result && $result->num_rows > 0) : ?>
         <table class="table table-bordered table-hover table-borderless" style="margin: 0 auto; width: 80%">
             <thead style="vertical-align: middle; text-align: center;">
                 <tr>
                     <th>N°</th>
-                    <th>Fecha</th>
                     <th>Propietario</th>
                     <th>Teléfono</th>
                     <th>Código Mascota</th>
                     <th>Mascota</th>
                     <th>Sexo</th>
                     <th>Raza</th>
-                    <th>Peso</th>
-                    <th>RX</th>
-                    <th>Tipo Consulta</th>
-                    <th>MV</th>
+                    <th>Detalle</th>
+                    
                 </tr>
             </thead>
             <tbody style="vertical-align: middle; text-align: center;">
@@ -79,18 +72,15 @@ $cont = 0;
 
                     <tr>
                         <td><?php echo ++$cont; ?></td>
-                        <td><?php echo $data['fecha_consulta']; ?></td>
-                        <td><?php echo $data['nombre']; ?></td>
+                        <td><?php echo $data['nombre']." ".$data['apellido']; ?></td>
                         <td><?php echo $data['telefono']; ?></td>
                         <td><?php echo $data['codigo_mascota']; ?></td>
                         <td><?php echo $data['nombre_mascota']; ?></td>
                         <td><?php echo $data['sexo']; ?></td>
-                        <td><?php echo $data['raza']; ?></td>
-                        <td><?php echo $data['peso']; ?></td>
-                        <td><?php echo $data['RX']; ?></td>   
-                        <td><?php echo $data['nombre_consulta']; ?></td>                     
-                        <td><?php echo $data['NombreVeterinario']." ".$data['ApellidoVeterinario']; ?></td>                        
-                         
+                        <td><?php echo $data['raza']; ?></td>                                        
+                        <td>
+                        <a href="" class="btn text-white BtnDetalleExpediente" id_mascota="<?php echo $data['id_mascota']; ?>" style="background-color: #00008B;"><i class="fa-solid fa-square-poll-vertical"></i></a>
+                        </td>
                     </tr>
                 <?php endforeach ?>
             </tbody>
@@ -191,4 +181,42 @@ $cont = 0;
 
 
     });
+
+    document.getElementById('searchForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const fechaInicio = document.getElementById('fechaInicio').value;
+    const fechaFin = document.getElementById('fechaFin').value;
+    const nombreMascota = document.getElementById('nombreMascota').value;
+
+    const response = await fetch(`./views/expedientes/getConsultas.php?fechaInicio=${fechaInicio}&fechaFin=${fechaFin}&nombreMascota=${nombreMascota}`);
+    const expedientes = await response.json();
+
+    const resultadosDiv = document.getElementById('resultados');
+    resultadosDiv.innerHTML = expedientes.map(exp => `
+        <p>Expediente: ${exp['nombre_expediente']} - Fecha: ${exp['fecha_creacion']} - Mascota: ${exp['nombre_mascota']} (Raza: ${exp['raza']})</p>
+    `).join('');
+});
+
+// Manejo del botón de detalle por mascota
+$(".BtnDetalleExpediente").click(function() {
+    var id_mascota = $(this).attr("id_mascota");
+    console.log("id mascota: ", id_mascota); // Verifica el id_mascota
+
+    if (!id_mascota) {
+        console.error("El ID del mascota no está definido.");
+        return; // Salir si no hay id_mascota
+    }
+
+    // Cargar el detalle de la mascota
+    $("#sub-data").load("./views/expedientes/detallexpediente_mascota.php?id_mascota=" + id_mascota, function(response, status, xhr) {
+        if (status == "error") {
+            console.error("Error al cargar el detalle del mascota:", xhr.status, xhr.statusText);
+            alert("Error al cargar el detalle del mascota.");
+        }
+    });
+    return false;
+});
+
+
 </script>

@@ -6,7 +6,7 @@ $conn = conectar_db();
 
 if ($conn->connect_error) {
     die("Conexión fallida: " . $conn->connect_error);
-}
+} 
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Iniciar una transacción

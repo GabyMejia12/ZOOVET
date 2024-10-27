@@ -41,12 +41,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         foreach ($medicamentos as $medicamento) {
             $id_producto = $medicamento['id_producto'];
             $cantidad_detsalida = $medicamento['cantidad_detsalida'];
+            $precio_salida = $medicamento['precio_compra'];
 
             // Insertar en detalle_salida
-            $stmt = $conn->prepare("INSERT INTO detalle_salida (cantidad_detsalida, id_salida, id_producto) VALUES (?, ?, ?)");
-            $stmt->bind_param("iii", $cantidad_detsalida, $id_salida, $id_producto);
+            $stmt = $conn->prepare("INSERT INTO detalle_salida (cantidad_detsalida, precio_salida,  id_salida, id_producto, estado) VALUES (?, ?, ?, ?, ?)");
+            $stmt->bind_param("isiii", $cantidad_detsalida, $precio_salida, $id_salida, $id_producto, $estado);
             $stmt->execute();
             $stmt->close();
+            
 
             // 4. Actualizar el stock de los productos
             $stmt = $conn->prepare("UPDATE productos SET stock = stock - ? WHERE id_producto = ?");

@@ -15,7 +15,7 @@ FROM consultas AS a
 INNER JOIN mascota AS c ON a.id_mascota = c.id_mascota
 INNER JOIN propietario AS b ON c.id_propietario = b.id_propietario
 INNER JOIN usuarios as d ON d.id_usuario = a.id_veterinario
-WHERE a.id_tipoconsulta = 2";
+WHERE a.id_tipoconsulta = 2 order by a.fecha_consulta DESC";
 
 $result = $conn->query($sql);
 $cont = 0;

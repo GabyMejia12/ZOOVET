@@ -8,8 +8,10 @@ $conn = conectar_db();
 
 
 
-$sql = "SELECT a.estado, a.id_salida, a.fecha_salida, b.nombre_producto, b.descripcion, c.cantidad_detsalida,  c.precio_salida 
+$sql = "SELECT a.estado, a.id_salida, a.fecha_salida, b.nombre_producto, b.descripcion, c.cantidad_detsalida,  c.precio_salida, b.medida,d.nombre_salida 
 FROM salida a 
+INNER JOIN tipo_salida d
+ON a.id_tiposalida = d.id_tiposalida
 INNER JOIN detalle_salida c
  ON a.id_salida = c.id_salida
 INNER JOIN productos b  
@@ -66,9 +68,9 @@ $cont = 0;
                                     <th>Descripción</th>
                                     <th>Cantidad</th>
                                     <th>Medida</th>
-                                    <th>Precio <br> compra</th>
-                                    <th>Vencimiento</th>
-                                    <th>Estado <br>Compra</th>
+                                    <th>Precio <br> Venta</th>
+                                    <th>Movimiento</th>
+                                    <th>Estado <br>Venta</th>
                                 </tr>
                             </thead>
                             <tbody style="vertical-align: middle; text-align: center;">
@@ -96,9 +98,9 @@ $cont = 0;
                                             <td><?php echo $data['nombre_producto']; ?></td>
                                             <td><?php echo $data['descripcion']; ?></td>
                                             <td><?php echo $data['cantidad_detsalida']; ?></td>
-                                            <td><?php echo $data['cantidad_medida']; ?></td>
-                                            <td><?php echo $data['precio_salida']; ?></td>
-                                            <td><?php echo $data['vencimiento']; ?></td>
+                                            <td><?php echo $data['medida']; ?></td>
+                                            <td>$<?php echo $data['precio_salida']; ?></td>
+                                            <td><?php echo $data['nombre_salida']; ?></td>
                                             <td rowspan="<?php echo $producto_count[$entrada_actual]; ?>">
                                                 <?php echo ($data['estado'] == 1) ? '<b style="color:green;">Finalizada</b>' : '<b style="color:red;">Abierta</b>'; ?>
                                             </td>
@@ -108,9 +110,9 @@ $cont = 0;
                                             <td><?php echo $data['nombre_producto']; ?></td>
                                             <td><?php echo $data['descripcion']; ?></td>
                                             <td><?php echo $data['cantidad_detsalida']; ?></td>
-                                            <td><?php echo $data['cantidad_medida']; ?></td>
-                                            <td><?php echo $data['precio_salida']; ?></td>
-                                            <td><?php echo $data['vencimiento']; ?></td>
+                                            <td><?php echo $data['medida']; ?></td>
+                                            <td>$<?php echo $data['precio_salida']; ?></td>
+                                            <td><?php echo $data['nombre_salida']; ?></td>
                                         </tr>
                                     <?php } 
 

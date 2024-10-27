@@ -1,4 +1,4 @@
-<!-- Modal -->
+
 <div class="modal fade bd-example-modal-lg" id="ModalPrincipal" tabindex="-1" aria-labelledby="staticBackdropLabel" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
   <div  id="DataEfectosModal" class="modal-dialog modal-lg">
     <div class="modal-content">

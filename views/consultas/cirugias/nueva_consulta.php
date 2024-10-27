@@ -7,7 +7,7 @@ $conn = conectar_db();
 $sqlMascota = "SELECT * FROM mascota";
 $DataMascota = $conn->query($sqlMascota);
 
-$sqlProd = "SELECT * FROM productos";
+$sqlProd = "SELECT * FROM productos WHERE stock > 0 AND estado = 1";
 $DataProd = $conn->query($sqlProd);
 
 $sqltipoConsulta = "SELECT * FROM tipo_consulta WHERE id_tipoconsulta=3";
@@ -101,6 +101,8 @@ $usuario = $_SESSION['usuario'];
                 <br>
                 <label class="col-md-4"><b>Cantidad:</b></label>
                 <input type="number" class="cantidad form-control col-md-4" min="1" value="1"><br>
+                <label class="col-md-4"><b>Precio venta:</b></label>
+                <input type="text" class="precio_compra form-control col-md-4" value="1"><br>
             </div>
         </div>
         
@@ -135,6 +137,8 @@ $usuario = $_SESSION['usuario'];
                 <br>
                 <label class="col-md-4"><b>Cantidad:</b></label>
                 <input type="number" class="cantidad form-control col-md-4" min="1" value="1"><br>
+                <label class="col-md-4"><b>Precio venta:</b></label>
+                <input type="text" class="precio_compra form-control col-md-4" value="1"><br>
                     </div>
                 `);
             });
@@ -156,8 +160,9 @@ $usuario = $_SESSION['usuario'];
                 $('.medicamento').each(function() {
                     let medicamento_id = $(this).find('.medicamento-id').val();
                     let cantidad = $(this).find('.cantidad').val();
+                    let precio_compra = $(this).find('.precio_compra').val();
 
-                    medicamentos.push({ id_producto: medicamento_id, cantidad_detsalida: cantidad });
+                    medicamentos.push({ id_producto: medicamento_id, cantidad_detsalida: cantidad, precio_compra:precio_compra });
                 });
 
             var formData = {
