@@ -109,6 +109,9 @@
 		  <li class="">
 		  <a href="#" class="button" id="panel-reportes"><i class="material-icons">library_books</i>Reportes </a>
 		  </li>
+		  <li class="">
+		  <a href="#" class="button" id="panel-ayuda"><i class="material-icons">help</i>Ayuda </a>
+		  </li>
 		
 		</ul>
 	 </div>
@@ -368,6 +371,10 @@
             }); 
 			$("#panel-expedientes").click(function() {
                 $("#sub-data").load("./views/expedientes/principal.php");
+                return false;
+            });
+			$("#panel-ayuda").click(function() {
+                $("#sub-data").load("./views/ayuda/principal.php");
                 return false;
             });
 

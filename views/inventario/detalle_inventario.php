@@ -24,7 +24,9 @@ $total_cantidad_vendida = 0;
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
+<style>
+    @media print {.ocultar-en-impresion {display: none;}}
+</style>
 <div>
     <div class="row">
         <div class="col-md-12" style="margin-bottom: 5px;">
@@ -56,7 +58,7 @@ $total_cantidad_vendida = 0;
                             <h2 class="ml-lg-2">Detalle de inventario</h2>
                         </div>
                         <div class="col-sm-6 p-0 d-flex justify-content-lg-end justify-content-center">
-                            <a href="#" class="btn btn-success" id="panel-inventario-detalle" onclick="javascript:imprimReporteVentas();">
+                            <a href="#" class="btn btn-success ocultar-en-impresion" id="panel-inventario-detalle" onclick="javascript:imprimReporteVentas();">
                                 <i class="material-icons">description</i>PDF
                             </a>
                         </div>
@@ -180,22 +182,34 @@ $total_cantidad_vendida = 0;
 
 <script>
     function imprimReporteVentas() {
-        var carrera = "Reporte producto";
-        var mywindow = window.open('', 'PRINT', 'height=600,width=800');
-        mywindow.document.write('<html><head><title>' + carrera + '</title>');
-        mywindow.document.write(
-            '<style>body{margin: 20mm 10mm 20mm 10mm; font-size:11px;font-family: "Roboto Condensed", sans-serif !important;} table {border-collapse: collapse;font-size:12px;} @media print {.ocultar-en-impresion {display: none;}}</style>'
-        );
-        mywindow.document.write('</head><body >');
-        mywindow.document.write(document.getElementById('muestraReportesVentas').innerHTML);
-        mywindow.document.write('</body></html>');
-        mywindow.document.close(); // necesario para IE >= 10
-        mywindow.focus(); // necesario para IE >= 10
-        mywindow.print();
-        mywindow.close();
+    var carrera = "Reporte Detalle de Inventario"; // Ajustar título para el encabezado
+    var mywindow = window.open('', 'PRINT', 'height=600,width=800');
+    mywindow.document.write('<html><head><title>' + carrera + '</title>');
+    mywindow.document.write(
+        '<div style="text-align: center;"><img class="img-fluid rounded" src="./public/img/logozoovet.png" width="100px" alt="Logo"></div>'+
+        '<style>body { margin: 20mm 10mm 20mm 10mm; font-size: 11px; font-family: "Roboto Condensed", sans-serif !important; } ' +
+        'table { border-collapse: collapse; font-size: 12px; width: 100%; } ' +
+        'th, td { padding: 8px; border: 1px solid #ddd; text-align: center; } ' +
+        '@media print { .ocultar-en-impresion { display: none; } }' +
+        '</style>'
+    );
+    mywindow.document.write('</head><body>');
 
-        return true;
-    }
+    // Encabezado del título en la impresión
+    mywindow.document.write('<h2 style="text-align: center;">' + carrera + '</h2>');
+    
+    // Contenido de la tabla
+    mywindow.document.write(document.getElementById('muestraReportesVentas').innerHTML);
+    mywindow.document.write('</body></html>');
+
+    mywindow.document.close(); // Necesario para IE >= 10
+    mywindow.focus(); // Necesario para IE >= 10
+
+    mywindow.print();
+    mywindow.close();
+    return true;
+}
+
 
 $(document).ready(function() {
     $('#BtnBuscaDetalleInventario').on('click', function() {

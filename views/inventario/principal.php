@@ -129,23 +129,23 @@ $cont = 0;
 
         // Manejo del botón de detalle por producto
         $(".BtnDetllaeInventario").click(function() {
-    var id_producto = $(this).attr("id_producto");
-    console.log("id producto: ", id_producto); // Verifica el id_producto
+            var id_producto = $(this).attr("id_producto");
+            console.log("id producto: ", id_producto); // Verifica el id_producto
 
-    if (!id_producto) {
-        console.error("El ID del producto no está definido.");
-        return; // Salir si no hay id_producto
-    }
+            if (!id_producto) {
+                console.error("El ID del producto no está definido.");
+                return; // Salir si no hay id_producto
+            }
 
-    // Cargar el detalle del producto
-    $("#sub-data").load("./views/inventario/detalleinventario_producto.php?id_producto=" + id_producto, function(response, status, xhr) {
-        if (status == "error") {
-            console.error("Error al cargar el detalle del producto:", xhr.status, xhr.statusText);
-            alert("Error al cargar el detalle del producto.");
-        }
-    });
-    return false;
-});
+            // Cargar el detalle del producto
+            $("#sub-data").load("./views/inventario/detalleinventario_producto.php?id_producto=" + id_producto, function(response, status, xhr) {
+                if (status == "error") {
+                    console.error("Error al cargar el detalle del producto:", xhr.status, xhr.statusText);
+                    alert("Error al cargar el detalle del producto.");
+                }
+            });
+            return false;
+        });
 
     });
 </script>
