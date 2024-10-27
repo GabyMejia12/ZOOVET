@@ -135,9 +135,9 @@ $usuario = $_SESSION['usuario'];
                 <br>
                 <label class="col-md-4"><b>Cantidad:</b></label>
                 <input type="number" class="cantidad form-control col-md-4" min="1" value="1"><br>
-                        <label class="col-md-4"><b>Precio venta:</b></label>
-                        <input type="text" class="precio_compra form-control col-md-4" value="1"><br>
-                    </div>
+                <label class="col-md-4"><b>Precio venta:</b></label>
+                <input type="text" class="precio_compra form-control col-md-4" value="1"><br>
+                </div>
                 `);
             });
 
