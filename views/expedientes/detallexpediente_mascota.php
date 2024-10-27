@@ -3,7 +3,7 @@ session_start();
 include '../../models/conexion.php';
 include '../../controllers/controllersFunciones.php';
 $conn = conectar_db();
-
+//Traer datos del formulario
 $id_mascota = $_GET['id_mascota'];
 $fecha_inicio = $_GET['fecha_inicio'] ?? null;
 $fecha_fin = $_GET['fecha_fin'] ?? null;
