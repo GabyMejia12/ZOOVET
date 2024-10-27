@@ -59,7 +59,7 @@ $password = $row['password']; // Asumiendo que el campo es 'password' y contiene
                                 <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" value="<?php echo $apellido;?>" readonly>
                             </div>
 
-                            <?php if ($tipo == 2): // Mostrar solo si el tipo es 2 (veterinario/asistente) ?>
+                            <?php if ($tipo == 2): ?>
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text" id="basic-addon1">Código veterinario</span>
@@ -85,7 +85,7 @@ $password = $row['password']; // Asumiendo que el campo es 'password' y contiene
                                 <div class="input-group-prepend">
                                     <span class="input-group-text" id="basic-addon1">Nueva Contraseña</span>
                                 </div>
-                                <input type="password" class="form-control"  required="newPassword" placeholder="Ingrese nueva contraseña">
+                                <input type="password" class="form-control" id="newPassword" placeholder="Ingrese nueva contraseña">
                                 <div class="input-group-append">
                                     <button class="btn btn-outline-secondary" type="button" id="toggleNewPassword">
                                         <i class="fas fa-eye" id="newPasswordIcon"></i>
@@ -98,7 +98,7 @@ $password = $row['password']; // Asumiendo que el campo es 'password' y contiene
                                 <div class="input-group-prepend">
                                     <span class="input-group-text" id="basic-addon2">Confirmar Contraseña</span>
                                 </div>
-                                <input type="password" class="form-control" required id="confirmPassword" placeholder="Confirme su nueva contraseña">
+                                <input type="password" class="form-control" id="confirmPassword" placeholder="Confirme su nueva contraseña">
                                 <div class="input-group-append">
                                     <button class="btn btn-outline-secondary" type="button" id="toggleConfirmPassword">
                                         <i class="fas fa-eye" id="confirmPasswordIcon"></i>
@@ -127,11 +127,8 @@ $password = $row['password']; // Asumiendo que el campo es 'password' y contiene
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <script>
-    // Mostrar los campos de contraseña al hacer clic en el botón "Actualizar contraseña"
     $('#ActualizarContraseña').click(function() {
-        $('#passwordFields').toggle();  // Mostrar campo nueva contraseña
-        $('#confirmPasswordField').toggle();  // Mostrar campo confirmar contraseña
-        $('#savePasswordButton').toggle();  // Mostrar botón de guardar
+        $('#passwordFields, #confirmPasswordField, #savePasswordButton').toggle();
     });
 
     // Funciones para mostrar/ocultar contraseñas
@@ -159,7 +156,6 @@ $password = $row['password']; // Asumiendo que el campo es 'password' y contiene
         }
     });
 
-    // Validación de contraseñas
     $('#confirmPassword').on('input', function() {
         var newPassword = $('#newPassword').val();
         var confirmPassword = $('#confirmPassword').val();
@@ -170,20 +166,24 @@ $password = $row['password']; // Asumiendo que el campo es 'password' y contiene
         } else {
             message.css('color', 'red').text('Las contraseñas no coinciden o están vacías.');
         }
-        $('#passwordMessage').show(); // Asegurarse de mostrar el mensaje
+        $('#passwordMessage').show();
     });
 
-    // Proceso para actualizar la contraseña
     $(document).ready(function() {
         $('.BtnActualizarContra').click(function() {
-            let usuario = $(this).data('usuario');  // Obtenemos el nombre de usuario del atributo data-usuario
-            let newPassword = $('#newPassword').val();  // Obtenemos la nueva contraseña
-
-            // Validamos que las contraseñas coincidan antes de enviar la solicitud
+            let usuario = $(this).data('usuario');
+            let newPassword = $('#newPassword').val();
             let confirmPassword = $('#confirmPassword').val();
+
+            // Verificar si los campos de contraseña están vacíos
+            if (newPassword === "" || confirmPassword === "") {
+                Swal.fire('Error', 'Debe escribir la nueva contraseña y confirmarla', 'warning');
+                return;
+            }
+
             if (newPassword !== confirmPassword) {
                 Swal.fire('Error', 'Las contraseñas no coinciden', 'error');
-                return;  // Salimos si las contraseñas no coinciden
+                return;
             }
 
             Swal.fire({
@@ -207,15 +207,11 @@ $password = $row['password']; // Asumiendo que el campo es 'password' y contiene
                         success: function(response) {
                             if (response.trim() === 'success') {
                                 Swal.fire('Éxito', 'Contraseña actualizada correctamente', 'success');
-                                $('#passwordFields').hide(); // Ocultar los campos
-                                $('#confirmPasswordField').hide();
-                                $('#savePasswordButton').hide();
-                                $('#passwordMessage').hide(); // Ocultar el mensaje
+                                $('#passwordFields, #confirmPasswordField, #savePasswordButton, #passwordMessage').hide();
                             } else {
                                 Swal.fire('Error', 'No se pudo actualizar la contraseña: ' + response, 'error');
                             }
                         }
-
                     });
                 }
             });
