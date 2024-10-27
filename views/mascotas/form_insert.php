@@ -27,7 +27,7 @@ $DataPropietarios = $conn->query($sqlProp);
 
 <div class="input-group mb-3">
   <span class="input-group-text"><b>Raza</b></span>
-  <input type="text" class="form-control" placeholder="peso" name="raza" id="raza">
+  <input type="text" class="form-control" placeholder="raza" name="raza" id="raza">
 </div>
 <div class="input-group mb-3">
   <span class="input-group-text"><b>Sexo</b></span>

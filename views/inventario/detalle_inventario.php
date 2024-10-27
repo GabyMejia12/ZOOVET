@@ -47,7 +47,7 @@ $total_cantidad_vendida = 0;
             </div>-->
         </div>
     </div>
-    <div class="row">
+    <div class="row" id="muestraReportesVentas">
         <div class="col-md-12">
             <div class="table-wrapper">
                 <div class="table-title">
@@ -56,30 +56,32 @@ $total_cantidad_vendida = 0;
                             <h2 class="ml-lg-2">Detalle de inventario</h2>
                         </div>
                         <div class="col-sm-6 p-0 d-flex justify-content-lg-end justify-content-center">
-                            <a href="#" class="btn btn-success" id="panel-inventario-detalle">
-                                <i class="material-icons">description</i>
+                            <a href="#" class="btn btn-success" id="panel-inventario-detalle" onclick="javascript:imprimReporteVentas();">
+                                <i class="material-icons">description</i>PDF
                             </a>
                         </div>
                     </div>
                 </div>
+                <br>
                 <div class="table-responsive" id="DataPanelProductos">
                     <?php if ($result && $result->num_rows > 0) : ?>
                         <table class="table table-bordered table-hover table-borderless" style="margin: 0 auto; width: 100%">
-                            <thead style="vertical-align: middle; text-align: center;">
-                                <tr>
-                                    <th>N°</th>
-                                    <th>Fecha <br>Movimiento</th>
-                                    <th>Tipo de Movimiento</th>
-                                    <th>Código <br> Producto</th>
-                                    <th>Nombre <br>Producto</th>
-                                    <th>Fecha <br> Vencimiento</th>
-                                    <th>Unidad <br> Medida</th>
-                                    <th>Precio de <br> Compra</th>
-                                    <th>Precio de <br> Venta</th>
-                                    <th>Cantidad <br> Comprada</th>
-                                    <th>Cantidad <br> Vendida</th>
-                                </tr>
-                            </thead>
+                        <thead style="background-color: #34495e; color: white; font-weight: bold; text-align: center; vertical-align: middle;">
+                            <tr>
+                                <th>N°</th>
+                                <th>Fecha <br>Movimiento</th>
+                                <th>Tipo de Movimiento</th>
+                                <th>Código <br> Producto</th>
+                                <th>Nombre <br>Producto</th>
+                                <th>Fecha <br> Vencimiento</th>
+                                <th>Unidad <br> Medida</th>
+                                <th>Precio de <br> Compra</th>
+                                <th>Precio de <br> Venta</th>
+                                <th>Cantidad <br> Comprada</th>
+                                <th>Cantidad <br> Vendida</th>
+                            </tr>
+                        </thead>
+
                             <tbody style="vertical-align: middle; text-align: center;">
                                 <?php foreach ($result as $data) : ?>
                                     <?php
@@ -177,6 +179,24 @@ $total_cantidad_vendida = 0;
 </div>
 
 <script>
+    function imprimReporteVentas() {
+        var carrera = "Reporte producto";
+        var mywindow = window.open('', 'PRINT', 'height=600,width=800');
+        mywindow.document.write('<html><head><title>' + carrera + '</title>');
+        mywindow.document.write(
+            '<style>body{margin: 20mm 10mm 20mm 10mm; font-size:11px;font-family: "Roboto Condensed", sans-serif !important;} table {border-collapse: collapse;font-size:12px;} @media print {.ocultar-en-impresion {display: none;}}</style>'
+        );
+        mywindow.document.write('</head><body >');
+        mywindow.document.write(document.getElementById('muestraReportesVentas').innerHTML);
+        mywindow.document.write('</body></html>');
+        mywindow.document.close(); // necesario para IE >= 10
+        mywindow.focus(); // necesario para IE >= 10
+        mywindow.print();
+        mywindow.close();
+
+        return true;
+    }
+
 $(document).ready(function() {
     $('#BtnBuscaDetalleInventario').on('click', function() {
         let fi = $('#fi').val();

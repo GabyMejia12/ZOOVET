@@ -25,7 +25,7 @@ $result1 = $conn->query($comprasEstado0);
 $row1 = $result1->fetch_assoc();
 $tentradas = $row1['tentradas'];
 // Obtener la fecha y hora actual del sistema
-//$fecha_actual = date("Y-m-d H:i:s");
+$fecha_actual = date("Y-m-d H:i:s");
 
 ?>
 <div>
@@ -69,12 +69,10 @@ $tentradas = $row1['tentradas'];
                             </div>
                             <div class="input-group mb-3">
                                 <span class="input-group-text" id="basic-addon1"><b>Fecha</b></span>
-                                <input type="date" class="form-control" placeholder="" name="fecha" id="fecha">
+                                
+                                <input type="text" class="form-control" placeholder="" name="fecha" id="fecha" value="<?php echo $fecha_actual?>" readonly>
                                 </div>
-                                <div class="input-group mb-3">
-                                <span class="input-group-text"><b>Hora</b></span>
-                                <input type="time" class="form-control" placeholder="hora" name="hora" id="hora">
-                            </div>  
+                                 
                             <!-- Botón para registrar entrada-->
                             <div class="input-group mb-3">
                                 <button type="button" id="BtnReg-Compra" class="btn btn-outline-info">Procesar compra</button>

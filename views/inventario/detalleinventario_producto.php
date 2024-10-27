@@ -18,12 +18,14 @@ $stmt->bind_param("i", $id_producto);
 $stmt->execute();
 $result = $stmt->get_result();
 
+
 // Inicializar un arreglo para almacenar el producto
 $producto = [];
 
 // Verificar si se encontró el producto
 if ($result->num_rows > 0) {
     $producto = $result->fetch_assoc();
+    $nombreProducto = $producto['nombre_producto'];
 }
 
 // Cerrar la conexión a la base de datos
@@ -53,7 +55,7 @@ cerrar_db();
                 <div class="table-title">
                     <div class="row">
                         <div class="col-sm-6 p-0 flex justify-content-lg-start justify-content-center">
-                            <h2 class="ml-lg-2">Detalle de inventario</h2>
+                            <h2 class="ml-lg-2">Detalle de inventario: <?php echo $nombreProducto; ?></h2>
                         </div>
                         <div class="col-sm-6 p-0 d-flex justify-content-lg-end justify-content-center">
                             <a href="#" class="btn btn-success" id="panel-inventario-detalle">
@@ -62,10 +64,11 @@ cerrar_db();
                         </div>
                     </div>
                 </div>
+                <br>
                 <div class="table-responsive" id="DataPanelProductos">
                     <?php if ($result && $result->num_rows > 0) : ?>
                         <table class="table table-bordered table-hover table-borderless" style="margin: 0 auto; width: 100%">
-                            <thead style="vertical-align: middle; text-align: center;">
+                        <thead style="background-color: #34495e; color: white; font-weight: bold; text-align: center; vertical-align: middle;">
                                 <tr>
                                     <th>N°</th>
                                     <th>Fecha <br>Movimiento</th>

@@ -32,7 +32,8 @@ $tsalidas = $row1['tsalidas'];
 $sqlProp = "SELECT * FROM tipo_salida";
 $DataTipoSalida = $conn->query($sqlProp);
 
-?><div>
+?>
+<div>
 <div class="row">
     <div class="col-md-12">
         <div class="table-wrapper">
