@@ -35,6 +35,15 @@ $cont = 0;
 <!-- Incluye Bootstrap JS -->
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
+<form id="searchForm">
+    <input type="date" id="fechaInicio" name="fechaInicio" required>
+    <input type="date" id="fechaFin" name="fechaFin" required>
+    <input type="text" id="nombreMascota" name="nombreMascota" placeholder="Nombre de la mascota">
+    <button type="submit">Buscar</button>
+</form>
+
+<div id="resultados"></div>
+
 <div>
 <div class="row">
     <div class="col-md-12">
@@ -191,4 +200,22 @@ $cont = 0;
 
 
     });
+
+    document.getElementById('searchForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const fechaInicio = document.getElementById('fechaInicio').value;
+    const fechaFin = document.getElementById('fechaFin').value;
+    const nombreMascota = document.getElementById('nombreMascota').value;
+
+    const response = await fetch(`./views/expedientes/getConsultas.php?fechaInicio=${fechaInicio}&fechaFin=${fechaFin}&nombreMascota=${nombreMascota}`);
+    const expedientes = await response.json();
+
+    const resultadosDiv = document.getElementById('resultados');
+    resultadosDiv.innerHTML = expedientes.map(exp => `
+        <p>Expediente: ${exp['nombre_expediente']} - Fecha: ${exp['fecha_creacion']} - Mascota: ${exp['nombre_mascota']} (Raza: ${exp['raza']})</p>
+    `).join('');
+});
+
+
 </script>
