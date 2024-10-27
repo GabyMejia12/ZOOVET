@@ -7,7 +7,7 @@ include '../../controllers/controllersFunciones.php';
 $conn = conectar_db();
 $id_usuario = $_SESSION['id_usuario'];
 //$id_usuario = $_POST['id_usuario'];
-//echo $id_usuario;
+//echo $id_usuario; 
 $sql = "SELECT *
         FROM usuarios u 
         WHERE u.id_usuario = '$id_usuario'";

@@ -1,21 +1,23 @@
 <?php
 @session_start();
-include '../../../models/conexion.php';
-include '../../../controllers/controllersFunciones.php';
-include '../../modal.php';
+include '../../models/conexion.php';
+include '../../controllers/controllersFunciones.php';
+include '../modal.php';
 $conn = conectar_db();
 
 $sql = "SELECT a.fecha_consulta, 
-a.RX, a.peso,
+a.RX, a.id_tipoconsulta, a.peso,
 b.nombre, b.telefono, 
-c.nombre_mascota, c.edad, c.especie, c.raza, c.sexo,
+c.nombre_mascota, c.edad, c.especie, c.raza, c.sexo,c.codigo_mascota,
 d.nombre AS NombreVeterinario,
-d.apellido AS ApellidoVeterinario
+d.apellido AS ApellidoVeterinario,
+e.nombre_consulta
 FROM consultas AS a 
 INNER JOIN mascota AS c ON a.id_mascota = c.id_mascota
 INNER JOIN propietario AS b ON c.id_propietario = b.id_propietario
 INNER JOIN usuarios as d ON d.id_usuario = a.id_veterinario
-WHERE a.id_tipoconsulta = 1";
+INNER JOIN tipo_consulta AS e ON a.id_tipoconsulta = e.id_tipoconsulta"
+;
 
 $result = $conn->query($sql);
 $cont = 0;
@@ -46,7 +48,7 @@ $cont = 0;
                         <a href="#" class="btn btn-success" id="BtnNewPet">
                             <i class="material-icons">&#xE147;</i> <span>Regresar</span>
                         </a>
-                        <a href="#" class="btn btn-success" id="panel-entradas">
+                        <a href="#" class="btn btn-success" id="BtnNewConG">
                             <i class="material-icons">&#xE147;</i> <span>Nueva Consulta</span>
                         </a>
                     </div>
@@ -54,18 +56,20 @@ $cont = 0;
             </div>
 <div class="table-responsive" id="DataPanelMascotas">
     <?php if ($result && $result->num_rows > 0) : ?>
-        <table class="table table-striped" style="margin: 0 auto; width: 80%">
+        <table class="table table-bordered table-hover table-borderless" style="margin: 0 auto; width: 80%">
             <thead style="vertical-align: middle; text-align: center;">
                 <tr>
                     <th>N°</th>
                     <th>Fecha</th>
                     <th>Propietario</th>
                     <th>Teléfono</th>
+                    <th>Código Mascota</th>
                     <th>Mascota</th>
                     <th>Sexo</th>
                     <th>Raza</th>
                     <th>Peso</th>
                     <th>RX</th>
+                    <th>Tipo Consulta</th>
                     <th>MV</th>
                 </tr>
             </thead>
@@ -78,11 +82,13 @@ $cont = 0;
                         <td><?php echo $data['fecha_consulta']; ?></td>
                         <td><?php echo $data['nombre']; ?></td>
                         <td><?php echo $data['telefono']; ?></td>
+                        <td><?php echo $data['codigo_mascota']; ?></td>
                         <td><?php echo $data['nombre_mascota']; ?></td>
                         <td><?php echo $data['sexo']; ?></td>
                         <td><?php echo $data['raza']; ?></td>
                         <td><?php echo $data['peso']; ?></td>
-                        <td><?php echo $data['RX']; ?></td>                        
+                        <td><?php echo $data['RX']; ?></td>   
+                        <td><?php echo $data['nombre_consulta']; ?></td>                     
                         <td><?php echo $data['NombreVeterinario']." ".$data['ApellidoVeterinario']; ?></td>                        
                          
                     </tr>
@@ -110,7 +116,7 @@ $cont = 0;
     <?php cerrar_db(); ?>
 </div>
 
-<!--<script>
+<script>
     $(document).ready(function() {
         //
         $("#BtnNewConG").click(function() {
@@ -152,8 +158,8 @@ $cont = 0;
             var formData = {
                 RX: RX,
                 fecha_consulta: fecha_consulta,
-                id_tipoconsulta: id_tipoconsulta,
                 peso: peso,
+                id_tipoconsulta: id_tipoconsulta,
                 id_veterinario: id_veterinario,
                 id_mascota: id_mascota,
                 id_usuario: id_usuario,
@@ -184,14 +190,5 @@ $cont = 0;
         });
 
 
-    });
-</script>-->
-
-<script>
-    $(document).ready(function() {
-        $("#panel-entradas").click(function() {
-            $("#sub-data").load("./views/consultas/general/nueva_consulta.php");
-            return false;
-        });
     });
 </script>
