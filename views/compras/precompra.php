@@ -10,7 +10,6 @@ $result = $conn->query($entradaEstado0);
 $row = $result->fetch_assoc();
 $id_entrada = $row['id_entrada'];
 $fecha = $row['fecha'];
-$hora = $row['hora'];
 
 
 $sql = "SELECT * FROM productos WHERE stock >= 0 AND estado = 1";
@@ -37,8 +36,7 @@ $sumaTotal = 0;
                 <i class="fa-solid fa-clipboard-check"></i> : <b>Finalizar compra</b> | <i class="fa-solid fa-eraser"></i> : <b>Eliminar Compra</b>
                 <hr>
                 <ul style="list-style-type: none; padding: 0;">
-                <li><b>Fecha: <?php echo $fecha; ?></b></li>
-                <li><b>Hora: <?php echo $hora; ?></b></li>        
+                <li><b>Fecha: <?php echo $fecha; ?></b></li>        
                 </ul>  
                 <?php if ($detallesVentas && $detallesVentas->num_rows > 0) : ?>
             <hr>
