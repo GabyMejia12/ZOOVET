@@ -97,26 +97,17 @@
 			<i class="material-icons">grid_on</i>Compras
 			</a>
 		  </li>
-		  
-		  
-		  <li class="dropdown">
-		  <a href="#homeSubmenu7" data-toggle="collapse" aria-expanded="false" 
-		  class="dropdown-toggle">
-		  <i class="material-icons">content_copy</i>Salidas
-		  </a>
-		  <ul class="collapse list-unstyled menu" id="homeSubmenu7">
-		     <li><a href="#">Pages 1</a></li>
-			 <li><a href="#">Pages 2</a></li>
-			 <li><a href="#">Pages 3</a></li>
-		  </ul>
-		  </li>
-		  
-		   
+
+		  <li >
+			<a href="#" class="button" id="panel-salidas">
+			<i class="material-icons">content_copy</i>Salidas
+			</a>
+		  </li>		   
 		  <li class="">
-		  <a href="#" class=""><i class="material-icons">date_range</i>Inventario </a>
+		  <a href="#" class="button" id="panel-inventario"><i class="material-icons">date_range</i>Inventario </a>
 		  </li>
 		  <li class="">
-		  <a href="#" class=""><i class="material-icons">library_books</i>Reportes </a>
+		  <a href="#" class="button" id="panel-reportes"><i class="material-icons">library_books</i>Reportes </a>
 		  </li>
 		
 		</ul>
@@ -359,12 +350,28 @@
 			$("#panel-productos").click(function() {
                 $("#sub-data").load("./views/productos/principal.php");
                 return false;
+
+            });
+			$("#panel-salidas").click(function() {
+                $("#sub-data").load("./views/salidas/principal.php");
+                return false;
+            });  
+			$("#panel-inventario").click(function() {
+                $("#sub-data").load("./views/inventario/principal.php");
+                return false;
+            });  
+			$("#panel-reportes").click(function() {
+                $("#sub-data").load("./views/reportes/principal.php");
+                return false;
+            });  
+
             }); 
 			$("#panel-expedientes").click(function() {
                 $("#sub-data").load("./views/expedientes/principal.php");
                 return false;
             });
-        });
+
+        
   </script>
 
 <script>

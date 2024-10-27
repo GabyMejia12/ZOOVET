@@ -7,7 +7,7 @@ $conn = conectar_db();
 $sqlMascota = "SELECT * FROM mascota";
 $DataMascota = $conn->query($sqlMascota);
 
-$sqlProd = "SELECT * FROM productos";
+$sqlProd = "SELECT * FROM productos WHERE stock > 0 AND estado = 1";
 $DataProd = $conn->query($sqlProd);
 
 $sqltipoConsulta = "SELECT * FROM tipo_consulta WHERE id_tipoconsulta=2";
@@ -101,6 +101,8 @@ $usuario = $_SESSION['usuario'];
                 <br>
                 <label class="col-md-4"><b>Cantidad:</b></label>
                 <input type="number" class="cantidad form-control col-md-4" min="1" value="1"><br>
+                <label class="col-md-4"><b>Precio venta:</b></label>
+                <input type="text" class="precio_compra form-control col-md-4" min="1" value="1"><br>
             </div>
         </div>
         
@@ -108,7 +110,7 @@ $usuario = $_SESSION['usuario'];
         <button type="button" class="btn btn-primary" id="agregar-medicamento">Agregar otro medicamento</button><br><br>
         </div>
         <div  class="col-12">
-        <button type="button" class="btn btn-success" id="Guardar">Registrar Consulta</button>
+        <button type="button" class="btn btn-success" id="BtnNewConP">Registrar Consulta</button>
         </div>
 
         </form>
@@ -123,15 +125,18 @@ $usuario = $_SESSION['usuario'];
             $('#agregar-medicamento').on('click', function() {
                 $('#medicamentos-container').append(`
                     <div class="medicamento">
-                        <label>Medicamento:</label>
-                        <select class="medicamento-id" id="id_propietario" name="id_propietario">
-                    <option disabled selected>Seleccione medicamentos</option>
-                    <?php foreach ($DataProd as $result) : ?>
-                    <option value="<?php echo $result['id_producto']; ?>"><?php echo $result['nombre_producto']; ?></option>
-                    <?php endforeach ?>
+            <label class="form-label col-md-4"><b>Medicamento:</b></label>
+            <select class="medicamento-id form-select col-md-4" id="id_producto" name="id_producto">
+                <option disabled selected>Seleccione medicamentos</option>
+                <?php foreach ($DataProd as $result) : ?>
+                <option value="<?php echo $result['id_producto']; ?>"><?php echo $result['nombre_producto']; ?></option>
+                <?php endforeach ?>
                 </select>
-                        <label>Cantidad:</label>
-                        <input type="number" class="cantidad" min="1" value="1"><br>
+                <br>
+                <label class="col-md-4"><b>Cantidad:</b></label>
+                <input type="number" class="cantidad form-control col-md-4" min="1" value="1"><br>
+                        <label class="col-md-4"><b>Precio venta:</b></label>
+                        <input type="text" class="precio_compra form-control col-md-4" value="1"><br>
                     </div>
                 `);
             });
@@ -156,7 +161,8 @@ $usuario = $_SESSION['usuario'];
                 $('.medicamento').each(function() {
                     let medicamento_id = $(this).find('.medicamento-id').val();
                     let cantidad = $(this).find('.cantidad').val();
-                    medicamentos.push({ id_producto: medicamento_id, cantidad_detsalida: cantidad });
+                    let precio_compra = $(this).find('.precio_compra').val();
+                    medicamentos.push({ id_producto: medicamento_id, cantidad_detsalida: cantidad, precio_compra:precio_compra });
                 });
 
             var formData = {
