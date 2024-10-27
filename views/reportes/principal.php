@@ -29,7 +29,7 @@ $cont = 0;
             <div class="table-title">
                 <div class="row">
                     <div class="col-sm-6 p-0 flex justify-content-lg-start justify-content-center">
-                        <h2 class="ml-lg-2">Productos</h2>
+                        <h2 class="ml-lg-2">Inventario</h2>
                     </div>
                     
                     <div class="col-sm-6 p-0 d-flex justify-content-lg-end justify-content-center">
@@ -47,9 +47,11 @@ $cont = 0;
                     <th>N°</th>
                     <th>Código producto</th>
                     <th>Producto</th>
-                    <th>Unidad de medida</th>                    
-                    <th>Stock</th>                    
-                    <th>Estado</th>
+                    <th>Unidad de medida</th>   
+                    <th>Entradas</th> 
+                    <th>Salidas</th>                  
+                    <th>Stock actual</th>                    
+                    <th>Fecha</th>
                     <th colspan="3">Acciones</th>
                 </tr>
             </thead>
