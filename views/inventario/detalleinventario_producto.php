@@ -49,8 +49,9 @@ cerrar_db();
             
         </div>
     </div>
-    <div class="row">
+    <div class="row" id="reporteInventarioProducto">
         <div class="col-md-12">
+        
             <div class="table-wrapper">
                 <div class="table-title">
                     <div class="row">
@@ -58,8 +59,8 @@ cerrar_db();
                             <h2 class="ml-lg-2">Detalle de inventario: <?php echo $nombreProducto; ?></h2>
                         </div>
                         <div class="col-sm-6 p-0 d-flex justify-content-lg-end justify-content-center">
-                            <a href="#" class="btn btn-success" id="panel-inventario-detalle">
-                                <i class="material-icons">description</i>
+                            <a href="#" class="btn btn-success ocultar-en-impresion" id="panel-inventario-detalle" onclick="javascript:imprimReporteVentas();">
+                                <i class="material-icons">description</i>PDF
                             </a>
                         </div>
                     </div>
@@ -174,3 +175,34 @@ cerrar_db();
         </div>
     </div>
 </div>
+
+<script>
+    function imprimReporteVentas() {
+    var carrera = "Reporte Detalle de Inventario por producto"; // Ajustar título para el encabezado
+    var mywindow = window.open('', 'PRINT', 'height=600,width=800');
+    mywindow.document.write('<html><head><title>' + carrera + '</title>');
+    mywindow.document.write(
+        '<div style="text-align: center;"><img class="img-fluid rounded" src="./public/img/logozoovet.png" width="100px" alt="Logo"></div>'+
+        '<style>body { margin: 20mm 10mm 20mm 10mm; font-size: 11px; font-family: "Roboto Condensed", sans-serif !important; } ' +
+        'table { border-collapse: collapse; font-size: 12px; width: 100%; } ' +
+        'th, td { padding: 8px; border: 1px solid #ddd; text-align: center; } ' +
+        '@media print { .ocultar-en-impresion { display: none; } }' +
+        '</style>'
+    );
+    mywindow.document.write('</head><body>');
+
+    // Encabezado del título en la impresión
+    mywindow.document.write('<h2 style="text-align: center;">' + carrera + '</h2>');
+    
+    // Contenido de la tabla
+    mywindow.document.write(document.getElementById('reporteInventarioProducto').innerHTML);
+    mywindow.document.write('</body></html>');
+
+    mywindow.document.close(); // Necesario para IE >= 10
+    mywindow.focus(); // Necesario para IE >= 10
+
+    mywindow.print();
+    mywindow.close();
+    return true;
+}
+</script>

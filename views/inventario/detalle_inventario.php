@@ -186,6 +186,7 @@ $total_cantidad_vendida = 0;
     var mywindow = window.open('', 'PRINT', 'height=600,width=800');
     mywindow.document.write('<html><head><title>' + carrera + '</title>');
     mywindow.document.write(
+        '<div style="text-align: center;"><img class="img-fluid rounded" src="./public/img/logozoovet.png" width="100px" alt="Logo"></div>'+
         '<style>body { margin: 20mm 10mm 20mm 10mm; font-size: 11px; font-family: "Roboto Condensed", sans-serif !important; } ' +
         'table { border-collapse: collapse; font-size: 12px; width: 100%; } ' +
         'th, td { padding: 8px; border: 1px solid #ddd; text-align: center; } ' +
