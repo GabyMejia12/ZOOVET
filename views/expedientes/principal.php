@@ -25,18 +25,17 @@ $cont = 0;
 <!-- Incluye Bootstrap JS -->
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-<form id="searchForm">
-    <input type="date" id="fechaInicio" name="fechaInicio" required>
-    <input type="date" id="fechaFin" name="fechaFin" required>
-    <input type="text" id="nombreMascota" name="nombreMascota" placeholder="Nombre de la mascota">
-    <button type="submit">Buscar</button>
-</form>
+<link rel="stylesheet" href="./public/css/estilosfiltrado.css">
 
-<div id="resultados"></div>
-
+ 
 <div>
 <div class="row">
     <div class="col-md-12">
+    <input type="text" id="searchInput" placeholder="Buscar por nombre o código...">
+    <button id="searchButton">Buscar</button>
+    <a href="#" class="btn btn-success" id="BtnVolver">
+        <i class="material-icons"></i> <span>Limpiar Filtro</span>
+    </a> <br><br>
         <div class="table-wrapper">
             <div class="table-title">
                 <div class="row">
@@ -52,7 +51,7 @@ $cont = 0;
             </div>
 <div class="table-responsive" id="DataPanelExpedientes">
     <?php if ($result && $result->num_rows > 0) : ?>
-        <table class="table table-bordered table-hover table-borderless" style="margin: 0 auto; width: 80%">
+        <table class="table table-bordered table-hover table-borderless" style="margin: 0 auto; width: 90%">
             <thead style="vertical-align: middle; text-align: center;">
                 <tr>
                     <th>N°</th>
@@ -108,21 +107,6 @@ $cont = 0;
 
 <script>
    
-    document.getElementById('searchForm').addEventListener('submit', async (e) => {
-    e.preventDefault();
-
-    const fechaInicio = document.getElementById('fechaInicio').value;
-    const fechaFin = document.getElementById('fechaFin').value;
-    const nombreMascota = document.getElementById('nombreMascota').value;
-
-    const response = await fetch(`./views/expedientes/getConsultas.php?fechaInicio=${fechaInicio}&fechaFin=${fechaFin}&nombreMascota=${nombreMascota}`);
-    const expedientes = await response.json();
-
-    const resultadosDiv = document.getElementById('resultados');
-    resultadosDiv.innerHTML = expedientes.map(exp => `
-        <p>Expediente: ${exp['nombre_expediente']} - Fecha: ${exp['fecha_creacion']} - Mascota: ${exp['nombre_mascota']} (Raza: ${exp['raza']})</p>
-    `).join('');
-});
 
 // Manejo del botón de detalle por mascota
 $(".BtnDetalleExpediente").click(function() {
@@ -144,5 +128,37 @@ $(".BtnDetalleExpediente").click(function() {
     return false;
 });
 
+//Buscar
+$(document).ready(function () {
+    $("#searchButton").click(function () {
+        const query = $("#searchInput").val();
+        const activePanelId = "DataPanelExpedientes"; // Especificamos que estamos en el panel de Mascotas
 
+        if (query) {
+            $.ajax({
+                url: './views/expedientes/busqueda.php',
+                method: 'POST',
+                data: {
+                    query: query,
+                    panel: activePanelId
+                },
+                success: function (data) {
+                    $("#" + activePanelId).html(data);
+                },
+                error: function () {
+                    alert("Error en la búsqueda");
+                }
+            });
+        } else {
+            alert("Ingrese un término de búsqueda.");
+        }
+    });
+});
+
+//Volver
+
+    $("#BtnVolver").click(function() {
+        $("#sub-data").load("./views/expedientes/principal.php");
+        return false;
+    });
 </script>
