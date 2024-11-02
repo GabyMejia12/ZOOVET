@@ -1,0 +1,104 @@
+.form-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Estilos para etiquetas */
+        .form-container label {
+            font-size: 16px;
+            color: #333;
+        }
+
+        /* Estilos para los campos de entrada */
+        .form-container input[type="date"] {
+            padding: 8px 12px;
+            border: 2px solid #007bff;
+            border-radius: 8px;
+            font-size: 16px;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .form-container input[type="date"]:focus {
+            border-color: #0056b3;
+            box-shadow: 0 0 10px rgba(0, 123, 255, 0.2);
+        }
+
+        /* Estilo del botón */
+        .form-container button[type="submit"] {
+            padding: 10px 20px;
+            background-color: #007bff;
+            border: none;
+            border-radius: 25px;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .form-container button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+
+
+
+
+
+/* Estilo general del contenedor */
+.search-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    padding: 20px;
+}
+
+/* Estilo del input de búsqueda */
+#searchInput {
+    width: 300px;
+    padding: 10px 15px;
+    border: 2px solid #007bff;
+    border-radius: 25px;
+    font-size: 16px;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+#searchInput:focus {
+    border-color: #095169;
+    box-shadow: 0 0 10px rgba(0, 123, 255, 0.2);
+}
+
+/* Estilo del botón de búsqueda */
+#searchButton {
+    padding: 10px 20px;
+    background-color: #095169;
+    border: none;
+    border-radius: 25px;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#searchButton:hover {
+    background-color: #095169;
+}
+
+#BtnVolver {
+    padding: 10px 20px;
+    background-color: #095169;
+    border: none;
+    border-radius: 25px;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
