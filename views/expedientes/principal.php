@@ -27,6 +27,7 @@ $cont = 0;
 
 <link rel="stylesheet" href="./public/css/estilosfiltrado.css">
 
+
  
 <div>
 <div class="row">
@@ -106,7 +107,6 @@ $cont = 0;
 </div>
 
 <script>
-   
 
 // Manejo del botón de detalle por mascota
 $(".BtnDetalleExpediente").click(function() {

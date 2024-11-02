@@ -41,7 +41,7 @@ $id_propietario = $row['id_propietario'];
 </div>
 <div class="input-group mb-3">
   <span class="input-group-text"><b>Especie</b></span>
-  <input type="text" class="form-control" placeholder="especie" name="especie" id="especie" value="<?php echo $especie;?>">
+  <input type="text" class="form-control" placeholder="especie" name="especie" id="especie" value="<?php echo $especie;?>" readonly>
 </div>
 
 <div class="input-group mb-3">
