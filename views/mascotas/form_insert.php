@@ -22,8 +22,9 @@ $DataPropietarios = $conn->query($sqlProp);
 </div>
 <div class="input-group mb-3">
   <span class="input-group-text"><b>Especie</b></span>
-  <input type="text" class="form-control" placeholder="especie" name="especie" id="especie">
+  <input type="text" class="form-control" placeholder="especie" name="especie" id="especie" oninput="this.value = this.value.toUpperCase();">
 </div>
+
 
 <div class="input-group mb-3">
   <span class="input-group-text"><b>Raza</b></span>

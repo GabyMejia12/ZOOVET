@@ -74,6 +74,11 @@
 		  </ul>
 		  </li>
 		  <li >
+			<a href="#" class="button" id="panel-campañas">
+			<i class="material-icons">campaign</i>Campañas
+			</a>
+		  </li>
+		  <li >
 			<a href="#" class="button" id="panel-citas">
 			<i class="material-icons">extension</i>Citas
 			</a>
@@ -81,7 +86,7 @@
 		  
 		  <li >
 			<a href="#" class="button" id="panel-expedientes">
-			<i class="material-icons">extension</i>Expedientes
+			<i class="material-icons">assignment</i>Expedientes
 			</a>
 		  </li>
 
@@ -159,7 +164,7 @@
 							   
 							   <li class="dropdown nav-item">
 							     <a class="nav-link" href="#" data-toggle="dropdown">
-								  <img src="./public/img/user.jpg" style="width:40px; border-radius:50%;"/>
+								  <img src="./public/img/iconousuario.jpg" style="width:40px; border-radius:50%;"/>
 								  <span class="xp-user-live"></span>
 								 </a>
 								  <ul class="dropdown-menu small-menu">
@@ -199,7 +204,7 @@
 		  
 		   <!------main-content-start-----------> 
 		     
-		      <div class="main-content" id="sub-data">
+		      	<div class="main-content" id="sub-data">
 			     <div class="row">
 				    <div class="col-md-12">
 					   <div class="table-wrapper">
@@ -375,6 +380,10 @@
             });
 			$("#panel-ayuda").click(function() {
                 $("#sub-data").load("./views/ayuda/principal.php");
+                return false;
+            });
+			$("#panel-campañas").click(function() {
+                $("#sub-data").load("./views/campañas/principal.php");
                 return false;
             });
 

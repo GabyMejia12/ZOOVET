@@ -1,0 +1,207 @@
+/* Estilo general del contenedor de reportes */
+#contenedorReportes {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    padding: 20px;
+    background-color: #f9f9f9;
+}
+
+/* Estilo de las tarjetas de reportes */
+.reporte-card {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 200px;
+    margin: 10px;
+    text-align: center;
+    padding: 15px;
+    transition: transform 0.2s;
+}
+
+/* Efecto al pasar el ratón sobre las tarjetas */
+.reporte-card:hover {
+    transform: scale(1.05);
+}
+
+/* Estilo para los iconos de las tarjetas */
+.icono i.material-icons {
+    font-size: 50px;
+    color: #487f89;
+    margin-bottom: 10px;
+}
+
+/* Estilo de los títulos en las tarjetas */
+.reporte-card h3 {
+    font-size: 18px;
+    color: #333;
+    text-transform: none; /* Asegúrate de que no se aplique mayúscula aquí */
+}
+
+/* Estilo de la descripción en las tarjetas */
+.reporte-card p {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 15px;
+    text-transform: none; /* Quitar el efecto de mayúsculas */
+}
+
+/* Estilo de los botones en todas las tarjetas */
+.reporte-card a.btn, .reporte-card button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center; /* Centra el contenido dentro del botón */
+    background-color: #487f89;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 0; /* Ajusta el padding vertical */
+    width: 100%; /* Ocupa el 100% del ancho de la tarjeta */
+    cursor: pointer;
+    transition: background-color 0.3s;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.reporte-card a.btn i.material-icons, .reporte-card button i.material-icons {
+    margin-right: 5px;
+    font-size: 20px;
+}
+
+/* Efecto al pasar el ratón sobre los botones */
+.reporte-card a.btn:hover, .reporte-card button:hover {
+    background-color: #0a353d;
+}
+
+/*********************************************************************************************/
+
+/* Estilo general del contenedor de manuales */
+#contenedorManuales {
+    display: flex;
+    flex-wrap: wrap; /* Permite que las tarjetas se envuelvan si hay más de dos */
+    justify-content: center; /* Centra las tarjetas horizontalmente */
+    padding: 20px;
+    background-color: #f9f9f9;
+}
+
+/* Estilo de las tarjetas de manuales */
+.tarjeta-manual {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 45%; /* Ajusta el ancho según necesidad (45% para dos tarjetas por fila) */
+    margin: 10px; /* Espaciado entre tarjetas */
+    text-align: center;
+    padding: 15px;
+    transition: transform 0.2s;
+}
+
+/* Efecto al pasar el ratón sobre las tarjetas */
+.tarjeta-manual:hover {
+    transform: scale(1.05);
+}
+
+/* Estilo para los iconos de las tarjetas */
+.icono i.material-icons {
+    font-size: 50px;
+    color: #487f89;
+    margin-bottom: 10px;
+}
+
+/* Estilo de los títulos en las tarjetas */
+.tarjeta-manual h3 {
+    font-size: 20px;
+    color: #333;
+    text-transform: none; /* Asegúrate de que no se aplique mayúscula aquí */
+}
+
+/* Estilo de la descripción en las tarjetas */
+.tarjeta-manual p {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 15px;
+    text-transform: none; /* Quitar el efecto de mayúsculas */
+}
+
+/* Estilo de los botones en todas las tarjetas */
+.tarjeta-manual a.btn-success {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center; /* Centra el contenido dentro del botón */
+    background-color: #487f89; /* Color de fondo del botón */
+    color: white; /* Color del texto */
+    border: none;
+    border-radius: 5px; /* Bordes redondeados */
+    padding: 10px 0; /* Ajusta el padding vertical */
+    width: 100%; /* Ocupa el 100% del ancho de la tarjeta */
+    cursor: pointer; /* Cambia el cursor al pasar el ratón */
+    transition: background-color 0.3s; /* Transición suave para el color de fondo */
+    text-decoration: none; /* Elimina el subrayado del texto */
+    font-size: 14px; /* Tamaño de fuente */
+}
+
+.tarjeta-manual a.btn-success i.material-icons {
+    margin-right: 5px; /* Espaciado entre el icono y el texto */
+    font-size: 20px; /* Tamaño del icono */
+}
+
+/* Efecto al pasar el ratón sobre el botón */
+.tarjeta-manual a.btn-success:hover {
+    background-color: #0a353d; /* Color de fondo al pasar el ratón */
+}
+
+/*********************************************************************************************/
+
+/*PARA LA PARTE DE LOS TOTALES OBTENIDOS*/
+.reporte-total {
+    width: 400px;
+    margin: 20px 0;
+}
+
+.reporte-total table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: Arial, sans-serif;
+}
+
+.reporte-total th {
+    background-color: #afb4b2; /* Color de fondo de la cabecera */
+    color: rgb(14, 13, 13);
+    padding: 12px;
+    text-align: center;
+    font-size: 1.2em;
+    font-weight: 900 !important;
+    width: 80%;
+}
+
+.reporte-total td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    width: 100%;
+     /* Borde entre celdas */
+}
+
+.reporte-total td:first-child {
+    background-color: #afb4b2; /* Tono suave para la columna de títulos */
+    font-weight: 900 !important;
+}
+
+.reporte-total h3 {
+    margin: 0;
+    font-size: 1em;
+    font-weight: 900 !important;
+}
+
+.reporte-total p {
+    margin: 0;
+    font-size: 1em;
+    text-transform: none; /* Quitar el efecto de mayúsculas */
+}
+.reporte-card,
+.reporte-card h3,
+.reporte-card p,
+.tarjeta-manual,
+.tarjeta-manual h3,
+.tarjeta-manual p {
+    text-transform: none; /* Desactiva la capitalización */
+}
