@@ -1,0 +1,46 @@
+/*Diseño de botones para el inventario*/
+.button3 {
+    position: relative;
+    border: 2px solid #79e3f8;
+    color: #124654;
+    padding: 10px 24px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 10px;
+    width: 150px;
+    height: 50px;
+    cursor: pointer;
+    overflow: hidden;
+    transition: background-color 0.3s; /* Cambiamos la transición para el color de fondo */
+}
+
+.button3:hover {
+    background-color: #79e3f8; /* Cambiamos el color de fondo al pasar el ratón sobre el botón */
+}
+
+.button3 span {
+    position: relative; /* Cambiamos a posición relativa */
+    z-index: 2; /* Aseguramos que el texto esté por encima del fondo */
+}
+
+.button3:after {
+    content: "";
+    background: #79e3f8;
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 150px;
+    height: 50px;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    transition: opacity 0.8s;
+}
+
+.button3:hover:after {
+    opacity: 1; /* Hacemos visible el fondo al pasar el ratón sobre el botón */
+}
+
+

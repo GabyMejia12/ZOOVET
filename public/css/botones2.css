@@ -1,0 +1,42 @@
+.nuevoboton {
+    position: relative;
+    border: 2px solid #066666;
+    color: #043c3c;
+    padding: 0; /* Eliminamos padding adicional */
+    text-align: center;
+    text-decoration: none;
+    font-size: 28px;
+    margin: 15px 0;
+    width: 60%;
+    height: 150px;
+    cursor: pointer;
+    overflow: hidden;
+    transition: background-color 0.3s;
+    display: flex;
+    align-items: center; /* Centra el contenido verticalmente */
+    justify-content: center; /* Centra el contenido horizontalmente */
+}
+
+.nuevoboton:hover {
+    background-color: #059b9a;
+    color: white;
+}
+
+.nuevoboton:after {
+    content: "";
+    background: #059b9a;
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 0.8s;
+    z-index: -1;
+}
+
+.nuevoboton:hover:after {
+    opacity: 1;
+}
+

@@ -22,7 +22,7 @@ if (isset($_POST['off'])) {
     <?php endif ?>
     <!-- Bootstrap 5.0.2 CSS local -->
     <link rel="stylesheet" href="./public/css/bootstrap.min.css">
-    <link rel="stylesheet" href="./public/css/botonsalir.css">
+    
     <!-- jQuery -->
     <script src="./public/js/jquery-3.6.0.min.js"></script>
     <!-- Bootstrap 5.0.2 JS bundle local -->
