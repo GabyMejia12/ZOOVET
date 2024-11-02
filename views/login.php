@@ -41,7 +41,10 @@
                                 <input type="password" class="form-control" placeholder="Ingrese Contraseña" name="password" required autocomplete="off">
                             </div>
                             <button class="btn btn-primary" name="BtnLogin"><b>Ingresar</b></button>
-                        
+                            <!-- Enlace para recuperación de contraseña -->
+                            <div style="text-align: center; margin-top: 10px;">
+                                    <a href="#" id="recuperar-pass">¿Olvidaste tu contraseña?</a>
+                            </div>
                     </form>
                                      
                 </div>
@@ -49,3 +52,9 @@
             </div>
     </div>
 </body>
+<script>
+    document.getElementById("recuperar-pass").addEventListener("click", function() {
+        window.location.href = "./views/recuperar_pass.php"; // Asegúrate de que la ruta sea correcta
+    });
+</script>
+
