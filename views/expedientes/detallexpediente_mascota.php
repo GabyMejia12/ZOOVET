@@ -18,57 +18,7 @@ $stmt->bind_param("i", $id_mascota);
 $stmt->execute();
 $result_mascota = $stmt->get_result();
 
-<<<<<<< Updated upstream
  // consulta para obtener las consultas ordenadas por fecha ascendente (más antigua a más reciente)
-=======
-if ($result_mascota->num_rows > 0) {
-    $mascota = $result_mascota->fetch_assoc();
-} else {
-    echo "No se encontró la información de la mascota.";
-    exit();
-}
-
-// Función para obtener y mostrar el historial de consultas
-function obtenerConsultas($conn, $id_mascota, $fecha_inicio = null, $fecha_fin = null) {
-    if ($fecha_inicio && $fecha_fin) {
-        $stmt = $conn->prepare("SELECT a.fecha_consulta, a.RX, a.peso, CONCAT(d.nombre, ' ', d.apellido) AS nombre_completo
-        FROM consultas AS a
-        INNER JOIN usuarios AS d ON d.id_usuario = a.id_veterinario 
-        WHERE a.id_mascota = ? AND DATE(a.fecha_consulta) BETWEEN ? AND ? ORDER BY fecha_consulta ASC");
-        $stmt->bind_param("iss", $id_mascota, $fecha_inicio, $fecha_fin);
-    } else {
-        $stmt = $conn->prepare("SELECT a.fecha_consulta, a.RX, a.peso, CONCAT(d.nombre, ' ', d.apellido) AS nombre_completo
-        FROM consultas AS a
-        INNER JOIN usuarios AS d ON d.id_usuario = a.id_veterinario
-        WHERE a.id_mascota = ?
-        ORDER BY fecha_consulta ASC");
-        $stmt->bind_param("i", $id_mascota);
-    }
-    $stmt->execute();
-    return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
-}
-
-// Si es una solicitud AJAX, solo devolver el historial de consultas
-if (isset($_GET['ajax']) && $_GET['ajax'] == "true") {
-    $consultas = obtenerConsultas($conn, $id_mascota, $fecha_inicio, $fecha_fin);
-    if (count($consultas) > 0) {
-        foreach ($consultas as $consulta) {
-            echo "<div style='border: 1px solid #ddd; padding: 10px; margin-bottom: 10px;'>";
-            echo "<p><strong>Fecha:</strong> " . htmlspecialchars($consulta['fecha_consulta']) . "</p>";
-            echo "<p><strong>Motivo:</strong> " . htmlspecialchars($consulta['RX']) . "</p>";
-            echo "<p><strong>Peso:</strong> " . htmlspecialchars($consulta['peso']) . "</p>";
-            echo "<p><strong>Médico:</strong>" .htmlspecialchars($consulta['nombre_completo']) . "</p>";
-            echo "</div>";
-        }
-    } else {
-        echo "<p>No se encontraron consultas para esta mascota en el rango de fechas seleccionado.</p>";
-    }
-    exit();
-}
-
-// Cargar historial completo de consultas la primera vez
-$consultas = obtenerConsultas($conn, $id_mascota);
->>>>>>> Stashed changes
 ?>
 
 <!DOCTYPE html>
