@@ -5,7 +5,7 @@ include '../../controllers/controllersFunciones.php';
 include '../modal.php';
 $conn = conectar_db();
 
-$sql = "SELECT b.nombre, b.telefono, a.id_mascota, a.nombre_mascota, a.peso, a.edad, a.especie, a.sexo, a.raza, a.estado FROM mascota AS a INNER JOIN propietario AS b ON a.id_propietario = b.id_propietario";
+$sql = "SELECT b.nombre, b.telefono, a.id_mascota, a.nombre_mascota, a.codigo_mascota, a.peso, a.edad, a.especie, a.sexo, a.raza, a.estado FROM mascota AS a INNER JOIN propietario AS b ON a.id_propietario = b.id_propietario";
 
 $result = $conn->query($sql);
 $cont = 0;
@@ -21,10 +21,15 @@ $cont = 0;
 
 <!-- Incluye Bootstrap JS -->
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
+<link rel="stylesheet" href="./public/css/estilosfiltrado.css">
 <div>
 <div class="row">
     <div class="col-md-12">
+    <input type="text" id="searchInput" placeholder="Buscar por nombre o código...">
+    <button id="searchButton">Buscar</button>
+    <a href="#" class="btn btn-success" id="BtnVolver">
+        <i class="material-icons"></i> <span>Limpiar Filtro</span>
+    </a><br><br>
         <div class="table-wrapper">
             <div class="table-title">
                 <div class="row">
@@ -40,12 +45,13 @@ $cont = 0;
             </div>
 <div class="table-responsive" id="DataPanelMascotas">
     <?php if ($result && $result->num_rows > 0) : ?>
-        <table class="table table-bordered table-hover table-borderless" style="margin: 0 auto; width: 80%">
+        <table class="table table-bordered table-hover table-borderless" style="margin: 0 auto; width: 100%">
             <thead style="vertical-align: middle; text-align: center;">
                 <tr>
                     <th>N°</th>
                     <th>Propietario</th>
                     <th>Teléfono</th>
+                    <th>Código Mascota</th>
                     <th>Nombre Mascota</th>
                     <th>Peso</th>
                     <th>Edad</th>
@@ -63,6 +69,7 @@ $cont = 0;
                         <td><?php echo ++$cont; ?></td>
                         <td><?php echo $data['nombre']; ?></td>
                         <td><?php echo $data['telefono']; ?></td>
+                        <td><?php echo $data['codigo_mascota']; ?></td>
                         <td><?php echo $data['nombre_mascota']; ?></td>
                         <td><?php echo $data['peso']; ?></td>
                         <td><?php echo $data['edad']; ?></td>
@@ -307,8 +314,39 @@ $(document).ready(function() {
         return false;
     });
 });
+});
 
+//Buscar
+$(document).ready(function () {
+    $("#searchButton").click(function () {
+        const query = $("#searchInput").val();
+        const activePanelId = "DataPanelMascotas"; // Especificamos que estamos en el panel de Mascotas
 
+        if (query) {
+            $.ajax({
+                url: './views/mascotas/busqueda.php',
+                method: 'POST',
+                data: {
+                    query: query,
+                    panel: activePanelId
+                },
+                success: function (data) {
+                    $("#" + activePanelId).html(data);
+                },
+                error: function () {
+                    alert("Error en la búsqueda");
+                }
+            });
+        } else {
+            alert("Ingrese un término de búsqueda.");
+        }
+    });
+});
 
+//Volver
+
+    $("#BtnVolver").click(function() {
+        $("#sub-data").load("./views/mascotas/principal.php");
+        return false;
     });
 </script>

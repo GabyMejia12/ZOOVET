@@ -9,7 +9,11 @@ $fecha_inicio = $_GET['fecha_inicio'] ?? null;
 $fecha_fin = $_GET['fecha_fin'] ?? null;
 
 // Consulta para obtener la información básica de la mascota
-$stmt = $conn->prepare("SELECT codigo_mascota, nombre_mascota, especie, raza, sexo FROM mascota WHERE id_mascota = ?");
+$stmt = $conn->prepare("SELECT m.id_mascota, m.codigo_mascota, m.nombre_mascota, m.raza, m.especie, m.sexo,
+                        p.nombre, p.apellido, p.telefono
+                        FROM mascota AS m
+                        INNER JOIN propietario AS p ON m.id_propietario = p.id_propietario 
+                        WHERE m.id_mascota = ?");
 $stmt->bind_param("i", $id_mascota);
 $stmt->execute();
 $result_mascota = $stmt->get_result();
@@ -60,10 +64,16 @@ $consultas = obtenerConsultas($conn, $id_mascota);
 <head>
     <title>Expediente de <?php echo htmlspecialchars($mascota['nombre_mascota']); ?></title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="./public/css/estilosfiltrado.css">
 </head>
 <body>
     <!-- Información estática de la mascota -->
+    <a href="#" class="btn btn-success" id="BtnVolver">
+        <i class="material-icons"></i> <span>Limpiar Filtro</span>
+    </a><br><br>
     <h1>Expediente de <?php echo htmlspecialchars($mascota['nombre_mascota']); ?></h1>
+    <p>Propietario: <?php echo htmlspecialchars($mascota['nombre']); ?> <?php echo htmlspecialchars($mascota['apellido']); ?></p>
+    <p>Teléfono: <?php echo htmlspecialchars($mascota['telefono']); ?></p>
     <p>Especie: <?php echo htmlspecialchars($mascota['especie']); ?></p>
     <p>Raza: <?php echo htmlspecialchars($mascota['raza']); ?></p>
     <p>Sexo: <?php echo htmlspecialchars($mascota['sexo']); ?></p>
@@ -91,6 +101,8 @@ $consultas = obtenerConsultas($conn, $id_mascota);
                     <p><strong>Fecha:</strong> <?php echo htmlspecialchars($consulta['fecha_consulta']); ?></p>
                     <p><strong>Motivo:</strong> <?php echo htmlspecialchars($consulta['RX']); ?></p>
                     <p><strong>Peso:</strong> <?php echo htmlspecialchars($consulta['peso']); ?></p>
+                    <p><strong>Médico:</strong> <?php echo htmlspecialchars($consulta['nombre_completo']); ?></p>
+                    
                 </div>
             <?php endforeach; ?>
         <?php else: ?>
@@ -130,6 +142,13 @@ $consultas = obtenerConsultas($conn, $id_mascota);
                 });
             });
         });
+
+        //Volver
+
+    $("#BtnVolver").click(function() {
+        $("#sub-data").load("./views/expedientes/principal.php");
+        return false;
+    });
     </script>
 </body>
 </html>
