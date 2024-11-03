@@ -49,18 +49,52 @@ $totalEsteri = $row1['totalConsultaProf'];
 <style>
     @media print {.ocultar-en-impresion {display: none;}}
 </style>
+<style>
+    .BtnFiltro {
+        padding: 10px 20px;
+        background-color: #095169;
+        border: none;
+        border-radius: 25px;
+        color: #fff;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        text-decoration: none !important; /* Eliminar el subrayado */
+    }
+    /* Eliminar el efecto de color en hover */
+    .BtnFiltro:hover {
+        background-color: #095169; /* Mantener el mismo color */
+        color: #fff; /* Mantener el color del texto */
+    }
+    .button-container {
+        display: inline-block; /* Permitir alineación horizontal */
+        margin-left: 10px; /* Espacio entre los botones */
+    }
+    .form-inline {
+        display: flex; /* Usar flexbox para alinear elementos */
+        align-items: center; /* Alinear verticalmente al centro */
+    }
+</style>
 <div>
-    
-    <div class="row" id="muestraReporteCampañas">
-    <form id="filterForm" class="form-inline mb-3">
+<form id="filterForm" class="form-inline mb-3">
             <label for="fecha_inicio" class="mr-2">Fecha de inicio:</label>
             <input type="date" name="fecha_inicio" id="fecha_inicio" class="form-control mr-3">
 
             <label for="fecha_fin" class="mr-2">Fecha de fin:</label>
             <input type="date" name="fecha_fin" id="fecha_fin" class="form-control mr-3">
 
-            <button type="submit" class="btn btn-primary">Filtrar</button>
+            <button type="submit" class="btn btn-primary BtnFiltro">Filtrar</button>
+
+            <!-- Botón Limpiar Filtro a la par del botón Filtrar -->
+            <div class="button-container">
+                <a id="BtnLimpiarFiltro" class="BtnFiltro" href="#">
+                    Limpiar Filtro
+                </a>
+            </div>
         </form>
+    
+    <div class="row" id="muestraReporteCampañas">
+    
         <div class="col-md-12">
             <div class="table-wrapper">
                 <div class="table-title">
@@ -194,7 +228,13 @@ $totalEsteri = $row1['totalConsultaProf'];
         return false;
     });
 </script>
-
+<script>
+//Limpiar filtro
+$("#BtnLimpiarFiltro").click(function() {
+        $("#sub-data").load("./views/reportes/reporte_campañas.php");
+        return false;
+    });
+</script>
 <script>
     //Obtener consultas filtradas
     $(document).ready(function() {
