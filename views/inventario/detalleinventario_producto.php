@@ -59,6 +59,9 @@ cerrar_db();
                             <h2 class="ml-lg-2">Detalle de inventario: <?php echo $nombreProducto; ?></h2>
                         </div>
                         <div class="col-sm-6 p-0 d-flex justify-content-lg-end justify-content-center">
+                        <a href="#" class="btn btn-success ocultar-en-impresion mr-2" id="BtnVolver">
+                                <i class="material-icons">arrow_back</i> <span>Regresar</span>
+                            </a>
                             <a href="#" class="btn btn-success ocultar-en-impresion" id="panel-inventario-detalle" onclick="javascript:imprimirReporteDetalleProducto();">
                                 <i class="material-icons">description</i>PDF
                             </a>
@@ -244,4 +247,11 @@ cerrar_db();
                 alert("Error al cargar el logo para la impresión. Verifique la ruta de la imagen.");
             };
         }
+</script>
+<script>
+//Volver
+$("#BtnVolver").click(function() {
+        $("#sub-data").load("./views/inventario/principal.php");
+        return false;
+    });
 </script>
