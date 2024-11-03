@@ -25,7 +25,7 @@ $result = $stmt->get_result();
 
 $cont = 0;
 if ($result && $result->num_rows > 0) {
-    echo '<table class="table table-striped" style="margin: 0 auto; width: 80%">
+    echo '<table class="table table-striped" style="margin: 0 auto; width: 100%">
             <thead style="vertical-align: middle; text-align: center;">
                 <tr>
                     <th>N°</th>

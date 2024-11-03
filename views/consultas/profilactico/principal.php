@@ -83,7 +83,7 @@ $cont = 0;
             </div>
 <div class="table-responsive" id="DataPanelProfilactico">
     <?php if ($result && $result->num_rows > 0) : ?>
-        <table class="table table-striped"  style="margin: 0 auto; width: 80%">
+        <table class="table table-striped"  style="margin: 0 auto; width: 100%">
             <thead style="vertical-align: middle; text-align: center;">
                 <tr>
                     <th>N°</th>
