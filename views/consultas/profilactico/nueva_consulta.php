@@ -29,6 +29,13 @@ $usuario = $_SESSION['usuario'];
     <title>Document</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+<!-- Carga jQuery primero -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- Luego, carga jQuery UI CSS y JavaScript -->
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+
 </head>
 <body>
 <div class="card col-md-12">
@@ -45,17 +52,8 @@ $usuario = $_SESSION['usuario'];
   <input type="text" class="form-control" placeholder="codigo mascota" name="codigo_mascota" id="codigo_mascota">
 </div>
 <div class="col-md-6">
-    <label class="form-label" aria-label=".form-select-lg example"><b>Mascota:</b></label>
-    <select class="form-select" id="id_mascota" name="id_mascota">
-        <option disabled selected>Seleccione Mascota</option>
-        <?php foreach ($DataMascota as $result) : ?>
-            <option value="<?php echo $result['id_mascota']; ?>" 
-                data-nombre="<?php echo $result['codigo_mascota']; ?>" 
-                data-apellido="<?php echo $result['nombre_mascota']; ?>">
-                <?php echo $result['codigo_mascota'] . ' ' . $result['nombre_mascota']; ?>
-            </option>
-        <?php endforeach ?>
-    </select>
+    <label for="nombre_mascota" class="form-label"><b>Nombre Mascota:</b></label>
+    <input type="text" class="form-control" name="id_mascota" id="id_mascota" readonly>
 </div>
 <div class="col-md-6">
   <span class="form-label"><b>Peso</b></span>
@@ -145,17 +143,17 @@ $usuario = $_SESSION['usuario'];
 
         // Proceso Insert
         $("#BtnNewConP").click(function() {
-            if ($('#RX').val() === '' || $('#peso').val() === '' || $('#id_tipoconsulta').val() === '' || $('#id_veterinario').val() === '' || $('#id_mascota').val() === '' || $('#id_usuario').val() === '') {
+            if ($('#RX').val() === '' || $('#peso').val() === '' || $('#id_tipoconsulta').val() === '' || $('#id_veterinario').val() === '' || $('#codigo_mascota').val() === '' || $('#id_usuario').val() === '') {
                 alert('Por favor completa todos los campos.');
                 return;
             }
 
-            let RX, peso, id_tipoconsulta, id_veterinario, id_mascota, id_usuario, medicamentos;
+            let RX, peso, id_tipoconsulta, id_veterinario, codigo_mascota, id_usuario, medicamentos;
             RX = $('#RX').val();
             peso = $('#peso').val();
             id_tipoconsulta = $('#id_tipoconsulta').val();
             id_veterinario = $('#id_veterinario').val();
-            id_mascota = $('#id_mascota').val();
+            codigo_mascota = $('#codigo_mascota').val();
             id_usuario = $('#id_usuario').val();
             medicamentos = [];
                 $('.medicamento').each(function() {
@@ -170,7 +168,7 @@ $usuario = $_SESSION['usuario'];
                 peso : peso,
                 id_tipoconsulta: id_tipoconsulta,
                 id_veterinario: id_veterinario,
-                id_mascota: id_mascota,
+                codigo_mascota: codigo_mascota,
                 id_usuario: id_usuario,
                 medicamentos: medicamentos
             };
@@ -198,7 +196,7 @@ $usuario = $_SESSION['usuario'];
                     $('#peso').val('');
                     $('#id_tipoconsulta').val('');
                     $('#id_veterinario').val('');
-                    $('#id_mascota').val('');
+                    $('#codigo_mascota').val('');
                     $('#id_usuario').val('');
                     $('#medicamentos').val('');
                     $("#sub-data").load("./views/consultas/profilactico/principal.php");
@@ -212,6 +210,30 @@ $usuario = $_SESSION['usuario'];
                 });
             } 
         });
+    });
+});
+
+//autocomplete mascota
+$(document).ready(function() {
+    $("#codigo_mascota").autocomplete({
+        source: function(request, response) {
+            $.ajax({
+                url: "./views/consultas/general/getMascotas.php",
+                type: "GET",
+                dataType: "json",
+                data: { term: request.term },
+                success: function(data) {
+                    response(data);
+                }
+            });
+        },
+        minLength: 2,
+        select: function(event, ui) {
+            // Al seleccionar, coloca el código en el campo de código y el nombre en el campo de nombre
+            $("#codigo_mascota").val(ui.item.value);
+            $("#id_mascota").val(ui.item.nombre_mascota);  // Completa el campo de nombre
+            return false;
+        }
     });
 });
 

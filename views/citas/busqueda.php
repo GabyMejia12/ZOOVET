@@ -29,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         if ($result->num_rows > 0) {
             // Comenzamos la tabla
-            $resultados .= "<table class='table table-bordered table-hover table-borderless' style='margin: 0 auto; width: 90%'>
+            $resultados .= "<table class='table table-bordered table-hover table-borderless' style='margin: 0 auto; width: 100%'>
                                 <thead style='vertical-align: middle; text-align: center;'>
                                     <tr>
                                         <th>N°</th>
