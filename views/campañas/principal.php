@@ -40,9 +40,7 @@ $cont = 0;
                         <h2 class="ml-lg-2">Campañas</h2>
                     </div>
                     <div class="col-sm-8 p-0 d-flex justify-content-lg-end justify-content-center">
-                    <a href="./index.php" class="btn btn-success ocultar-en-impresion mr-2" id="BtnVolver">
-                                <i class="material-icons">arrow_back</i> <span>Regresar</span>
-                            </a>
+                    
                         <a href="#" class="btn btn-success" id="panel-entradas">
                             <i class="material-icons">&#xE147;</i> <span>Nuevo Registro</span>
                         </a>
