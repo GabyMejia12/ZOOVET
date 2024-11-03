@@ -36,7 +36,7 @@
 
                         <div class="tarjeta-manual">
                             <div class="icono"><i class="material-icons">video_library</i></div>
-                            <h3>Cómo Registrar un Usuario</h3>
+                            <h3>Cómo agregar un registro</h3>
                             <p>Guía para registrar nuevos usuarios en el sistema.</p>
                             <a href="ruta/a/video_registrar_usuario.mp4" class="btn btn-success" target="_blank">
                                 <span>Ver Video</span>
