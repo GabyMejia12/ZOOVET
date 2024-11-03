@@ -13,12 +13,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $conn->begin_transaction();
 
     try {
+
+        $codigo_mascota = $_POST['codigo_mascota'];
+
+        // 1. Obtener el ID de la mascota a partir del nombre
+        $stmt = $conn->prepare("SELECT id_mascota FROM mascota WHERE codigo_mascota = ?");
+        $stmt->bind_param("s", $codigo_mascota);
+        $stmt->execute();
+        $stmt->bind_result($id_mascota);
+        $stmt->fetch();
+        $stmt->close();
+
+        // Verificar si se encontró la mascota
+        if (!$id_mascota) {
+            throw new Exception("No se encontró la mascota con el nombre proporcionado.");
+        }
+
         // 1. Registrar la consulta médica
         $RX = $_POST['RX'];
         $id_tipoconsulta = $_POST['id_tipoconsulta'];
         $peso = $_POST['peso'];
         $id_veterinario = $_POST['id_veterinario'];
-        $id_mascota = $_POST['id_mascota'];
         $id_tiposalida = 1;
         $id_usuario = $_POST['id_usuario'];
         $estado = 1;

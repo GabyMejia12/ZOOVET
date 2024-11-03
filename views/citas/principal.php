@@ -24,6 +24,18 @@ $cont = 0;
 <!-- Incluye Bootstrap JS -->
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="./public/css/estilosfiltrado.css">
+<style>
+    .BtnVolver {
+    padding: 10px 20px;
+    background-color: #095169;
+    border: none;
+    border-radius: 25px;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+</style>    
 <div>
 <div class="row">
 <form id="filterForm" class="form-inline mb-3">
@@ -33,7 +45,7 @@ $cont = 0;
             <label for="fecha_fin" class="mr-2">Fecha de fin:</label>
             <input type="date" name="fecha_fin" id="fecha_fin" class="form-control mr-3">
 
-            <button type="submit" id="BtnVolver" class="btn btn-primary">Filtrar</button>
+            <button type="submit" class="btn btn-primary BtnVolver">Filtrar</button>
         </form>
         <div class="form-inline mb-3" style="margin-left: 40px">
         <input type="text" id="searchInput" placeholder="Buscar por nombre o código..."><br><br>
