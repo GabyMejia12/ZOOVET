@@ -29,6 +29,32 @@ $total_cantidad_vendida = 0;
 <style>
     @media print {.ocultar-en-impresion {display: none;}}
 </style>
+<style>
+    .BtnFiltro {
+        padding: 10px 20px;
+        background-color: #095169;
+        border: none;
+        border-radius: 25px;
+        color: #fff;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        text-decoration: none !important; /* Eliminar el subrayado */
+    }
+    /* Eliminar el efecto de color en hover */
+    .BtnFiltro:hover {
+        background-color: #095169; /* Mantener el mismo color */
+        color: #fff; /* Mantener el color del texto */
+    }
+    .button-container {
+        display: inline-block; /* Permitir alineación horizontal */
+        margin-left: 10px; /* Espacio entre los botones */
+    }
+    .form-inline {
+        display: flex; /* Usar flexbox para alinear elementos */
+        align-items: center; /* Alinear verticalmente al centro */
+    }
+</style>
 <div>
 <form id="filterForm" class="form-inline mb-3">
             <label for="fecha_inicio" class="mr-2">Fecha de inicio:</label>
@@ -37,7 +63,14 @@ $total_cantidad_vendida = 0;
             <label for="fecha_fin" class="mr-2">Fecha de fin:</label>
             <input type="date" name="fecha_fin" id="fecha_fin" class="form-control mr-3">
 
-            <button type="submit" class="btn btn-primary">Filtrar</button>
+            <button type="submit" class="btn btn-primary BtnFiltro">Filtrar</button>
+
+            <!-- Botón Limpiar Filtro a la par del botón Filtrar -->
+            <div class="button-container">
+                <a id="BtnLimpiarFiltro" class="BtnFiltro" href="#">
+                    Limpiar Filtro
+                </a>
+            </div>
         </form>
     <div class="row" id="muestraReportesVentas">
         <div class="col-md-12">
@@ -205,6 +238,13 @@ $total_cantidad_vendida = 0;
         // Cargar el contenido del archivo principal en #sub-data
         $("#sub-data").load("./views/reportes/principal.php");
         return false; // Evitar la acción por defecto del enlace
+    });
+</script>
+<script>
+//Limpiar filtro
+$("#BtnLimpiarFiltro").click(function() {
+        $("#sub-data").load("./views/reportes/reporte_salidas.php");
+        return false;
     });
 </script>
 <script>

@@ -30,6 +30,32 @@ $total_cantidad_vendida = 0;
 <style>
     @media print {.ocultar-en-impresion {display: none;}}
 </style>
+<style>
+    .BtnFiltro {
+        padding: 10px 20px;
+        background-color: #095169;
+        border: none;
+        border-radius: 25px;
+        color: #fff;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        text-decoration: none !important; /* Eliminar el subrayado */
+    }
+    /* Eliminar el efecto de color en hover */
+    .BtnFiltro:hover {
+        background-color: #095169; /* Mantener el mismo color */
+        color: #fff; /* Mantener el color del texto */
+    }
+    .button-container {
+        display: inline-block; /* Permitir alineación horizontal */
+        margin-left: 10px; /* Espacio entre los botones */
+    }
+    .form-inline {
+        display: flex; /* Usar flexbox para alinear elementos */
+        align-items: center; /* Alinear verticalmente al centro */
+    }
+</style>
 <div>
 <form id="filterForm" class="form-inline mb-3">
             <label for="fecha_inicio" class="mr-2">Fecha de inicio:</label>
@@ -38,8 +64,17 @@ $total_cantidad_vendida = 0;
             <label for="fecha_fin" class="mr-2">Fecha de fin:</label>
             <input type="date" name="fecha_fin" id="fecha_fin" class="form-control mr-3">
 
-            <button type="submit" class="btn btn-primary">Filtrar</button>
+            <button type="submit" class="btn btn-primary BtnFiltro">Filtrar</button>
+
+            <!-- Botón Limpiar Filtro a la par del botón Filtrar -->
+            <div class="button-container">
+                <a id="BtnLimpiarFiltro" class="BtnFiltro" href="#">
+                    Limpiar Filtro
+                </a>
+            </div>
         </form>
+        
+
     <div class="row" id="muestraReportesVentas">
         <div class="col-md-12">
             <div class="table-wrapper">
@@ -49,6 +84,9 @@ $total_cantidad_vendida = 0;
                             <h2 class="ml-lg-2">Detalle de inventario</h2>
                         </div>
                         <div class="col-sm-6 p-0 d-flex justify-content-lg-end justify-content-center">
+                            <a href="#" class="btn btn-success ocultar-en-impresion mr-2" id="BtnVolver">
+                                <i class="material-icons">arrow_back</i> <span>Regresar</span>
+                            </a>
                             <a href="#" class="btn btn-success ocultar-en-impresion" id="panel-inventario-detalle" onclick="javascript:imprimReporteVentas();">
                                 <i class="material-icons">description</i>PDF
                             </a>
@@ -269,4 +307,18 @@ $total_cantidad_vendida = 0;
         });
     });
 });
+</script>
+<script>
+//Limpiar filtro
+$("#BtnLimpiarFiltro").click(function() {
+        $("#sub-data").load("./views/inventario/detalle_inventario.php");
+        return false;
+    });
+</script>
+<script>
+//Volver
+$("#BtnVolver").click(function() {
+        $("#sub-data").load("./views/inventario/principal.php");
+        return false;
+    });
 </script>
