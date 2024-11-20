@@ -51,8 +51,8 @@ $cont = 0;
                     <th>N°</th>
                     <th>Propietario</th>
                     <th>Teléfono</th>
-                    <th>Código Mascota</th>
-                    <th>Nombre Mascota</th>
+                    <th>Código <br> Mascota</th>
+                    <th>Nombre <br> Mascota</th>
                     <th>Peso</th>
                     <th>Edad</th>
                     <th>Especie</th>
@@ -98,21 +98,12 @@ $cont = 0;
             </tbody>
         </table>
 
-        <div class="clearfix">
-        <div class="hint-text">Mostrando <b><?php echo $cont; ?></b> de <b>25</b></div>
-        <ul class="pagination">
-        <li class="page-item disabled"><a href="#">Anterior</a></li>
-        <li class="page-item"><a href="#" class="page-link">1</a></li>
-        <li class="page-item active"><a href="#" class="page-link">2</a></li>
-        <li class="page-item"><a href="#" class="page-link">3</a></li>
-        <li class="page-item"><a href="#" class="page-link">Siguiente</a></li>
-        </ul>
-        </div>
+        
 </div>
             </div>
     <?php else : ?>
         <div class="alert alert-danger">
-            <b>No se encuentran datos........</b>
+            <b>No se encuentran datos</b>
         </div>
     <?php endif ?>
     <?php cerrar_db(); ?>
@@ -201,7 +192,7 @@ $cont = 0;
         // Proceso Update
         $("#ProcesoBotonModal2").click(function() {
             if ($('#codigo_mascota').val() === '' || $('#nombre_mascota').val() === '' || $('#peso').val() === '' || $('#edad').val() === '' || $('#especie').val() === '' || $('#raza').val() === '' || $('#sexo').val() === '' || $('#descripcion').val() === '' || $('#id_propietario').val() === '' ) {
-                alert('Por favor completa todos los campos.');
+                //alert('Por favor completa todos los campos.');
                 return;
             }
 

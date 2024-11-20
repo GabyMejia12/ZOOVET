@@ -8,7 +8,7 @@ $conn = conectar_db();
 
 $query = "SELECT 
              cita.id_cita AS id_cita, 
-             CONCAT('Revisión de ', mascota.nombre_mascota, ' a las ', TIME_FORMAT(cita.hora, '%H:%i')) AS title,
+             CONCAT('Cita de ', mascota.nombre_mascota, ' a las ', DATE_FORMAT(cita.hora, '%h:%i %p')) AS title,
              cita.fecha AS start, 
              DATE_ADD(CONCAT(cita.fecha, ' ', cita.hora), INTERVAL 1 HOUR) AS end
           FROM cita
@@ -24,7 +24,7 @@ $citas = [];
 while ($row = $result->fetch_assoc()) {
     $citas[] = [
         'id' => $row['id_cita'],
-        'title' => $row['title'],     // Nombre de la mascota en el título
+        'title' => $row['title'],     // Nombre de la mascota con la hora AM/PM
         'start' => $row['start'],     // Fecha y hora de inicio de la cita
         'end' => $row['end']          // Fecha y hora de fin de la cita
     ];

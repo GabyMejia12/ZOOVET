@@ -25,7 +25,7 @@ if ($result_check) {
                 $(document).ready(function() {
                     Swal.fire({
                     icon: "warning",
-                    title: "AdVERTENCIA!",
+                    title: "ADVERTENCIA!",
                     text: "El propietario ya existe",
                     }).then(function() {
                         $("#sub-data").load("./views/propietarios/principal.php");

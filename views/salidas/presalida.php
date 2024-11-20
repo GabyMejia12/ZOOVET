@@ -186,7 +186,7 @@ $sumaTotal = 0;
     console.log("ID Entrada: ", id_salida);
 
     Swal.fire({
-        title: '¿Desea agregar producto a la venta?',
+        title: '¿Desea agregar el producto?',
         icon: 'question',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
@@ -229,7 +229,7 @@ $sumaTotal = 0;
             
             let id_detsalida = $(this).attr('id_detsalida');
             Swal.fire({
-                title: '¿Desea eliminar producto de la compra?',
+                title: '¿Desea eliminar el producto?',
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
@@ -264,7 +264,7 @@ $sumaTotal = 0;
             let id_salida = $(this).attr('id_salida');
 
             Swal.fire({
-                title: '¿Desea finalizar el registro de venta?',
+                title: '¿Desea finalizar el registro de salida?',
                 icon: 'question',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
@@ -299,7 +299,7 @@ $sumaTotal = 0;
         let id_salida = $(this).attr('id_salida');
 
         Swal.fire({
-            title: '¿Desea eliminar el registro de venta?',
+            title: '¿Desea eliminar el registro de salida?',
             text: "¡Esta acción no se puede deshacer!",
             icon: 'warning',
             showCancelButton: true,
@@ -326,7 +326,7 @@ $sumaTotal = 0;
                         }
                     },
                     error: function(xhr, status, error) {
-                        Swal.fire('Error', 'Error al eliminar el registro de compra', 'error');
+                        Swal.fire('Error', 'Error al eliminar el registro de salida', 'error');
                     }
                 });
             } else {

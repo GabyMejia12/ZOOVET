@@ -66,7 +66,7 @@ $conn->close();
                             <div class="icono"><i class="material-icons">people_alt</i></div> <!-- Ícono de asistente médico -->
                             <h3>Manual del Asistente Médico</h3>
                             <p>Manual diseñado para asistentes médicos que explica cómo usar el sistema para gestionar pacientes y citas.</p>
-                            <a href="#" class="btn btn-success" id="panel-manual-asistente">
+                            <a href="#" class="btn btn-success" id="panel-manual-asistente" target="_blank">
                                 <span>Ver Manual</span>
                             </a>
                         </div>     

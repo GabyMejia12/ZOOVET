@@ -9,7 +9,7 @@ $usuario = $_SESSION['usuario'];
 $tipo = $_SESSION['tipo'];
 
 // Consulta para obtener la información del usuario y del veterinario
-$sql = "SELECT u.id_usuario AS id_usuario, u.nombre AS nombre, u.apellido AS apellido, u.usuario, u.tipo, u.password,
+$sql = "SELECT u.id_usuario AS id_usuario, u.nombre AS nombre, u.apellido AS apellido, u.usuario, u.tipo, u.password,u.email,
                v.codigo_veterinario 
         FROM usuarios u 
         LEFT JOIN veterinario v ON u.id_usuario = v.id_usuario 
@@ -20,6 +20,7 @@ $row = $result->fetch_assoc();
 $id_usuario = $row['id_usuario'];
 $nombre = $row['nombre'];
 $apellido = $row['apellido'];
+$email = $row['email'];
 $usuario = $row['usuario'];
 $tipo = $row['tipo'];
 $codigo_veterinario = $row['codigo_veterinario'];
@@ -57,6 +58,12 @@ $password = $row['password']; // Asumiendo que el campo es 'password' y contiene
                                     <span class="input-group-text" id="basic-addon1">Apellido</span>
                                 </div>
                                 <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" value="<?php echo $apellido;?>" readonly>
+                            </div>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon1">Correo electrónico</span>
+                                </div>
+                                <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" value="<?php echo $email;?>" readonly>
                             </div>
 
                             <?php if ($tipo == 2): ?>

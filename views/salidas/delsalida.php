@@ -16,10 +16,10 @@ $stmt->bind_param("ii", $id_salida, $id_usuario);
 $response = array();
 if ($stmt->execute()) {
     $response['status'] = 'success';
-    $response['message'] = 'Registro de venta eliminado correctamente';
+    $response['message'] = 'Registro de salida eliminado correctamente';
 } else {
     $response['status'] = 'error';
-    $response['message'] = 'Error al eliminar el registro de venta';
+    $response['message'] = 'Error al eliminar el registro de salida';
 }
 
 $stmt->close();
