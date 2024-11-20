@@ -40,7 +40,7 @@ $totalProductos = $rowTotal['total'];
                         <a href="#" class="btn btn-success ocultar-en-impresion mr-2" id="BtnVolver">
                             <i class="material-icons">arrow_back</i> <span>Regresar</span>
                         </a>
-                        <a href="#" class="btn btn-success ocultar-en-impresion" id="panel-inventario-detalle" onclick="javascript:imprimirReporteProductos();">
+                        <a href="#" class="btn btn-success ocultar-en-impresion" id="panel-inventario-detalle" onclick="javascript:imprimirReporteProductos();" >
                             <i class="material-icons">description</i>PDF
                         </a>
                     </div>     

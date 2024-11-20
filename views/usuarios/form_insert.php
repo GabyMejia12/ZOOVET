@@ -11,6 +11,10 @@
     <input type="text" class="form-control" name="usuario" id="usuario" required readonly>
 </div>
 <div class="form-group">
+    <label>Correo Electrónico</label>
+    <input type="email" class="form-control" name="email" placeholder="tu-correo@correo.com" id="email" required>
+</div>
+<div class="form-group">
     <label>Contraseña</label>
     <div class="input-group">
         <input type="password" class="form-control" placeholder="Ingrese Contraseña" name="password" id="password" minlength="6" required>
@@ -39,11 +43,12 @@
     <select class="form-select" name="tipo" id="tipo">
         <option disabled selected>Tipo</option>
         <option value="1">Administrador</option>
-        <option value="2">Veterinario/Asistente</option>
+        <option value="2">Asistente Médico</option>
+        <option value="3">Médico Veterinario</option>
     </select>
 </div>
 <div class="input-group mb-3">
-    <label class="input-group-text" for="inputGroupSelect01"><b>Estado</b></label>
+    <label class="input-group-text" for="inputGroupSelect01">Estado</label>
     <select class="form-select" name="estado" id="estado">
         <option value="1" selected>Activo</option>
         <option value="2">Inactivo</option>
@@ -52,8 +57,8 @@
 
 <!--Validar que la contraseña contenga los caracteres y longitud solicitados-->
 <script>
-document.getElementById("clave").addEventListener("input", function() {
-    var password = document.getElementById("clave").value;
+document.getElementById("password").addEventListener("input", function() {
+    var password = document.getElementById("password").value;
     var mensaje = document.getElementById("mensaje-password");
     var pattern = /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{6,}$/;
 

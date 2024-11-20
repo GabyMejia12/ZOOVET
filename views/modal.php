@@ -12,7 +12,7 @@
       <div class="modal-body" id="DataModalPrincipal">
       </div>
       <div class="modal-footer">
-      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
         <button type="button" id="ProcesoBotonModal" class="btn btn-primary"><label id="TituloBotonModal"></label></button>
         <button type="button" id="ProcesoBotonModal2" class="btn btn-primary"><label id="TituloBotonModal2"></label></button>
       </div>

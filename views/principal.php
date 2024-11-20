@@ -125,17 +125,17 @@ if ($result && $row = $result->fetch_assoc()) {
 			</a>
 		  </li>
 		  
-		   <li class="dropdown">
-		  <a href="#homeSubmenu3" data-toggle="collapse" aria-expanded="false" 
-		  class="dropdown-toggle">
-		  <i class="material-icons">equalizer</i>Consultas
-		  </a>
-		  <ul class="collapse list-unstyled menu" id="homeSubmenu3">
-		     <li><a href="#" class="button" id="panel-general">Consulta general</a></li>
-			 <li><a href="#" class="button" id="panel-profilactico">Control profiláctico</a></li>
-			 <li><a href="#" class="button" id="panel-cirugias">Cirugías</a></li>
-		  </ul>
-		  </li>
+		  <li class="dropdown">
+		  	<a href="#homeSubmenu3" id="toggleConsultas" aria-expanded="false" class="dropdown-toggle">
+				<i class="material-icons">equalizer</i> Consultas
+		    </a>
+				<ul class="collapse list-unstyled menu" id="homeSubmenu3">
+					<li><a href="#" class="button" id="panel-general">Consulta general</a></li>
+					<li><a href="#" class="button" id="panel-profilactico">Control profiláctico</a></li>
+					<li><a href="#" class="button" id="panel-cirugias">Cirugías</a></li>
+				</ul>
+			</li>
+
 		  <li >
 			<a href="#" class="button" id="panel-campañas">
 			<i class="material-icons">campaign</i>Campañas
@@ -378,7 +378,7 @@ if ($result && $row = $result->fetch_assoc()) {
 		 <footer class="footer">
 		    <div class="container-fluid">
 			   <div class="footer-in">
-			      <p class="mb-0">&copy 2024 Consultorio Médico Veterinario ZOOVET</p>
+			      <p class="mb-0">&copy 2024 Proyecto Universidad Luterana Salvadoreña</p>
 			   </div>
 			</div>
 		 </footer>
@@ -390,10 +390,11 @@ if ($result && $row = $result->fetch_assoc()) {
    
 </div>
 
-   <script src="./public/js/jquery-3.3.1.slim.min.js"></script>
+<script src="./public/js/jquery-3.3.1.slim.min.js"></script>
    <script src="./public/js/popper.min.js"></script>
    <script src="./public/js/bootstrap.min.js"></script>
    <script src="./public/js/jquery-3.3.1.min.js"></script>
+
   
   <script type="text/javascript">
        $(document).ready(function(){
@@ -662,9 +663,19 @@ document.addEventListener('DOMContentLoaded', function() {
     const calendar = new FullCalendar.Calendar(calendarEl, {
         initialView: 'dayGridMonth',
         locale: 'es',
-        events: 'views/obtener_citas.php', // Ruta del archivo PHP que devuelve las citas en JSON
+        events: 'views/obtener_citas.php', // Ruta al archivo PHP que devuelve las citas en formato JSON
+        
         eventClick: function(info) {
-            alert('Cita: ' + info.event.title);
+            // Obtener la hora de la cita en formato adecuado
+            const horaCita = info.event.start.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+            // SweetAlert cuando se hace clic en un evento
+            Swal.fire({
+                title: info.event.title, // Título de la cita (nombre de la mascota)
+                text: 'Consulta veterinaria ' , // Solo la hora de la cita
+                icon: 'info',
+                confirmButtonText: 'Cerrar'
+            });
         }
     });
 
@@ -711,7 +722,21 @@ document.addEventListener("DOMContentLoaded", function () {
         actualizarVistaActual();
     }
 });
+//<!-- Script para mostrar/ocultar el menú -->
+    document.getElementById('toggleConsultas').addEventListener('click', function(event) {
+        event.preventDefault(); // Evita el comportamiento por defecto del enlace
 
+        var submenu = document.getElementById('homeSubmenu3');
+
+        // Alternar la clase 'show' manualmente
+        if (submenu.classList.contains('show')) {
+            submenu.classList.remove('show'); // Oculta el menú
+            submenu.classList.add('collapse'); // Asegura que se mantenga colapsado
+        } else {
+            submenu.classList.add('show'); // Muestra el menú
+            submenu.classList.remove('collapse'); // Quita la clase de colapso
+        }
+    });
 </script>
 
 

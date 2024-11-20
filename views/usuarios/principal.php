@@ -9,7 +9,7 @@ $sql = "SELECT * FROM usuarios";
 
 $result = $conn->query($sql);
 $cont = 0;
-
+$firstUserId = 1; 
 ?>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 <!-- Incluye Bootstrap CSS -->
@@ -46,6 +46,7 @@ $cont = 0;
                     <th>N°</th>
                     <th>Usuario</th>
                     <th>Nombre</th>
+                    <th>Correo <br>Electrónico</th>
                     <th>Tipo</th>
                     <th>Estado</th>
                     <th colspan="2">Acciones</th>
@@ -62,15 +63,24 @@ $cont = 0;
                     <tr>
                         <td><?php echo ++$cont; ?></td>
                         <td><?php echo $data['usuario']; ?></td>
-                        <td><?php echo $data['nombre']; ?></td>
+                        <td><?php echo ($data['nombre'].' '.$data['apellido']); ?></td>
+                        <td><?php echo $data['email']; ?></td>
                         <td><?php echo ($data['tipo'] == 1) ? 'Adminsitrador' : 'Veterinario/Asistente'; ?></td>
                         <td><?php echo ($data['estado'] == 1) ? '<b style="color:green;">Activo</b>' : '<b style="color:red;">Inactivo</b>'; ?></td>
                         <!-- td>
                         <a href="" class="btn text-white" style="background-color: #031A58;"><i class="fa-solid fa-key"></i></a>
                     </td -->
-                        <td>
-                            <a href="" class="btn text-white BtnUpdateUser" id_usuario="<?php echo $data['id_usuario']; ?>" style="background-color: #078E10;"><i class="fa-solid fa-user-pen"></i></a>
-                        </td>
+                    <td>
+                        <?php if ($data['id_usuario'] != $firstUserId) : ?>
+                            <a href="" class="btn text-white BtnUpdateUser" id_usuario="<?php echo $data['id_usuario']; ?>" style="background-color: #078E10;">
+                                <i class="fa-solid fa-user-pen"></i>
+                            </a>
+                        <?php else : ?>
+                            <a href="" class="btn text-white" style="background-color: #078E10; background-color: #ccc; cursor: not-allowed;" onclick="return false;">
+                                <i class="fa-solid fa-user-pen"></i>
+                            </a>
+                        <?php endif ?>
+                    </td>
                         <!--td>
                         <?php //if ($data['estado'] == 1) : 
                         ?>
@@ -81,28 +91,23 @@ $cont = 0;
                         <?php //endif 
                         ?>
                     </td -->
-                        <td>
-                            <?php if ($contIdUser == 1) : ?>
-                                <a href="" class="btn text-white BtnDeleteUser" id_usuario="<?php echo $data['id_usuario']; ?>" style="background-color: #031A58;"><i class="fa-solid fa-user-xmark"></i></a>
-                            <?php else : ?>
-                                <a href="" class="btn text-white" style="background-color: #031A58;background-color: #ccc; cursor: not-allowed;" onclick="return false;"><i class="fa-solid fa-user-xmark"></i></a>
-                            <?php endif ?>
-                        </td>
+                    <td>
+                        <?php if ($contIdUser == 1 && $data['id_usuario'] != $firstUserId) : ?>
+                            <a href="" class="btn text-white BtnDeleteUser" id_usuario="<?php echo $data['id_usuario']; ?>" style="background-color: #031A58;">
+                                <i class="fa-solid fa-user-xmark"></i>
+                            </a>
+                        <?php else : ?>
+                            <a href="" class="btn text-white" style="background-color: #031A58; background-color: #ccc; cursor: not-allowed;" onclick="return false;">
+                                <i class="fa-solid fa-user-xmark"></i>
+                            </a>
+                        <?php endif ?>
+                    </td>
                     </tr>
                 <?php endforeach ?>
             </tbody>
         </table>
 
-        <div class="clearfix">
-        <div class="hint-text">Mostrando <b><?php echo $cont; ?></b> de <b>25</b></div>
-        <ul class="pagination">
-        <li class="page-item disabled"><a href="#">Anterior</a></li>
-        <li class="page-item"><a href="#" class="page-link">1</a></li>
-        <li class="page-item active"><a href="#" class="page-link">2</a></li>
-        <li class="page-item"><a href="#" class="page-link">3</a></li>
-        <li class="page-item"><a href="#" class="page-link">Siguiente</a></li>
-        </ul>
-        </div>
+        
 </div>
             </div>
     <?php else : ?>
@@ -130,13 +135,14 @@ $cont = 0;
 
         // Proceso Insert
         $("#ProcesoBotonModal").click(function() {
-            if ($('#nombre').val() === '' || $('#apellido').val() === '' || $('#usuario').val() === '' || $('#password').val() === '' || $('#tipo').val() === '' || $('#tipo').val() == null || $('#estado').val() === '' || $('#estado').val() == null) {
+            if ($('#nombre').val() === '' || $('#apellido').val() === '' || $('#email').val() === ''|| $('#usuario').val() === '' || $('#password').val() === '' || $('#tipo').val() === '' || $('#tipo').val() == null || $('#estado').val() === '' || $('#estado').val() == null) {
                 alert('Por favor completa todos los campos.');
                 return;
             }
-            let nombre, apellido, usuario, password, estado, tipo;
+            let nombre, apellido, email,usuario, password, estado, tipo;
             nombre = $('#nombre').val();
             apellido = $('#apellido').val();
+            email = $('#email').val();
             usuario = $('#usuario').val();
             password = $('#password').val();
             estado = $('#estado').val();
@@ -146,6 +152,7 @@ $cont = 0;
 
                 nombre: nombre,
                 apellido: apellido,
+                email:email,
                 usuario: usuario,
                 password: password,
                 estado: estado,
@@ -160,6 +167,7 @@ $cont = 0;
                     $("#ModalPrincipal").modal("hide");
                     $('#nombre').val('');
                     $('#apellido').val('');
+                    $('#email').val('');
                     $('#usuario').val('');
                     $('#password').val('');
                     $('#estado').val('');
@@ -188,14 +196,15 @@ $cont = 0;
         });
         // Proceso Update
 $("#ProcesoBotonModal2").click(function() {
-    if ($('#nombre').val() === '' || $('#apellido').val() === '' || $('#usuario').val() === ''  || $('#tipo').val() === '' || $('#tipo').val() == null || $('#estado').val() === '' || $('#estado').val() == null) {
+    if ($('#nombre').val() === '' || $('#apellido').val() === '' || $('#email').val() === '' || $('#usuario').val() === ''  || $('#tipo').val() === '' || $('#tipo').val() == null || $('#estado').val() === '' || $('#estado').val() == null) {
         //alert('Por favor completa todos los campos.');
         return;
     }
-    let id_usuario, nombre, apellido, usuario, password, estado, tipo;
+    let id_usuario, nombre, apellido, email, usuario, password, estado, tipo;
     id_usuario = $('#id_usuario').val();
     nombre = $('#nombre').val();
     apellido = $('#apellido').val();
+    email = $('#email').val();
     usuario = $('#usuario').val();
     password = $('#password').val();
     estado = $('#estado').val();
@@ -205,6 +214,7 @@ $("#ProcesoBotonModal2").click(function() {
         id_usuario: id_usuario,
         nombre: nombre,
         apellido: apellido,
+        email:email,
         usuario: usuario,
         password: password,
         estado: estado,
@@ -219,6 +229,7 @@ $("#ProcesoBotonModal2").click(function() {
             $("#ModalPrincipal").modal("hide");
             $('#nombre').val('');
             $('#apellido').val('');
+            $('#email').val('');
             $('#usuario').val('');
             $('#password').val('');
             $('#estado').val('');

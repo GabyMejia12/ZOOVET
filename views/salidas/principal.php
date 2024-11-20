@@ -63,14 +63,14 @@ $cont = 0;
                         <table class="table table-bordered table-hover table-borderless" style="margin: 0 auto; width: 100%;">
                             <thead style="vertical-align: middle; text-align: center;">
                                 <tr>
-                                    <th>Identificación <br> entrada</th>
+                                    <th>Identificación <br> salida</th>
                                     <th>Producto</th>
                                     <th>Descripción</th>
                                     <th>Cantidad</th>
                                     <th>Medida</th>
                                     <th>Precio <br> Venta</th>
                                     <th>Movimiento</th>
-                                    <th>Estado <br>Venta</th>
+                                    <th>Estado <br>Salida</th>
                                 </tr>
                             </thead>
                             <tbody style="vertical-align: middle; text-align: center;">
@@ -124,16 +124,7 @@ $cont = 0;
                             </tbody>
                         </table>
 
-                        <div class="clearfix">
-                            <div class="hint-text">Mostrando <b><?php echo $cont; ?></b> de <b><?php echo $cont; ?></b></div>
-                            <ul class="pagination">
-                                <li class="page-item disabled"><a href="#">Anterior</a></li>
-                                <li class="page-item"><a href="#" class="page-link">1</a></li>
-                                <li class="page-item active"><a href="#" class="page-link">2</a></li>
-                                <li class="page-item"><a href="#" class="page-link">3</a></li>
-                                <li class="page-item"><a href="#" class="page-link">Siguiente</a></li>
-                            </ul>
-                        </div>
+                        
                     <?php else : ?>
                         <div class="alert alert-danger">
                             <b>No se encuentran datos</b>

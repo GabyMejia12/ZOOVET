@@ -10,6 +10,7 @@
   $row = $result->fetch_assoc();
   $nombre = $row['nombre'];
   $apellido = $row['apellido'];
+  $email = $row['email'];
   $usuario = $row['usuario'];  
   $estado = $row['estado'];
   $vestado = ($estado == 1)? 'Activo':'Inactivo';
@@ -24,6 +25,10 @@
 <div class="form-group">
     <label>Apellido</label>
     <input type="text" class="form-control" name="apellido" id="apellido" required value="<?php echo $apellido;?>">
+</div>
+<div class="form-group">
+    <label>Correo Electrónico</label>
+    <input type="email" class="form-control" name="email" placeholder="tu-correo@correo.com" id="email" required value="<?php echo $email;?>">
 </div>
                     <div class="form-group">
                         <label>Usuario</label>

@@ -27,8 +27,13 @@ $cont = 0;
 <!-- Incluye Bootstrap CSS -->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
-<!-- Incluye jQuery -->
-<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<!-- Carga jQuery primero -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- Luego, carga jQuery UI CSS y JavaScript -->
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+
 
 <!-- Incluye Bootstrap JS -->
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
@@ -119,16 +124,7 @@ $cont = 0;
             </tbody>
         </table>
 
-        <div class="clearfix">
-        <div class="hint-text">Mostrando <b><?php echo $cont; ?></b> de <b>25</b></div>
-        <ul class="pagination">
-        <li class="page-item disabled"><a href="#">Anterior</a></li>
-        <li class="page-item"><a href="#" class="page-link">1</a></li>
-        <li class="page-item active"><a href="#" class="page-link">2</a></li>
-        <li class="page-item"><a href="#" class="page-link">3</a></li>
-        <li class="page-item"><a href="#" class="page-link">Siguiente</a></li>
-        </ul>
-        </div>
+        
 </div>
             </div>
     <?php else : ?>

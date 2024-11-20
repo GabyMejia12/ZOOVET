@@ -46,7 +46,7 @@ $id_propietario = $row['id_propietario'];
 
 <div class="input-group mb-3">
   <span class="input-group-text"><b>Raza</b></span>
-  <input type="text" class="form-control" placeholder="peso" name="raza" id="raza" value="<?php echo $raza;?>">
+  <input type="text" class="form-control" placeholder="raza" name="raza" id="raza" value="<?php echo $raza;?>">
 </div>
 <div class="input-group mb-3">
   <span class="input-group-text"><b>Sexo</b></span>
@@ -72,8 +72,8 @@ $id_propietario = $row['id_propietario'];
   </select>
 </div>
 <div class="input-group mb-3">
-  <span class="input-group-text" id="basic-addon1"><b>Codigo Mascota</b></span>
-  <input type="text" class="form-control" placeholder="Ingrese Nombres" name="codigo_mascota" id="codigo_mascota" readonly value="<?php echo $codigo_mascota;?>">
+  <span class="input-group-text" id="basic-addon1"><b>Código Mascota</b></span>
+  <input type="text" class="form-control" placeholder="código mascota" name="codigo_mascota" id="codigo_mascota" readonly value="<?php echo $codigo_mascota;?>">
 </div>
 
 

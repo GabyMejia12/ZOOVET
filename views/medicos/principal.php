@@ -44,7 +44,7 @@ $cont = 0;
             <thead style="vertical-align: middle; text-align: center;">
                 <tr>
                     <th>N°</th>
-                    <th>Codigo</th>
+                    <th>Código</th>
                     <th>Nombre</th>
                     <th>Apellido</th>
                     <th>Usuario</th>
@@ -93,16 +93,7 @@ $cont = 0;
             </tbody>
         </table>
 
-        <div class="clearfix">
-        <div class="hint-text">Mostrando <b><?php echo $cont; ?></b> de <b>25</b></div>
-        <ul class="pagination">
-        <li class="page-item disabled"><a href="#">Anterior</a></li>
-        <li class="page-item"><a href="#" class="page-link">1</a></li>
-        <li class="page-item active"><a href="#" class="page-link">2</a></li>
-        <li class="page-item"><a href="#" class="page-link">3</a></li>
-        <li class="page-item"><a href="#" class="page-link">Siguiente</a></li>
-        </ul>
-        </div>
+        
 </div>
             </div>
     <?php else : ?>

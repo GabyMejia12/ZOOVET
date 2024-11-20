@@ -29,7 +29,7 @@
                             <div class="icono"><i class="material-icons">people_alt</i></div> <!-- Ícono de asistente médico -->
                             <h3>Manual del Administrador</h3>
                             <p>Manual diseñado para los administradores del sistema.</p>
-                            <a href="ruta/a/manual_asistente.pdf" class="btn btn-success" id="panel-manual-asistente">
+                            <a href="ruta/a/manual_asistente.pdf" class="btn btn-success" id="panel-manual-asistente" target="_blank">
                                 <span>Ver Manual</span>
                             </a>
                         </div>     

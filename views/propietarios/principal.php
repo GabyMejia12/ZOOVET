@@ -93,21 +93,11 @@ $cont = 0;
             </tbody>
         </table>
 
-        <div class="clearfix">
-        <div class="hint-text">Mostrando <b><?php echo $cont; ?></b> de <b>25</b></div>
-        <ul class="pagination">
-        <li class="page-item disabled"><a href="#">Anterior</a></li>
-        <li class="page-item"><a href="#" class="page-link">1</a></li>
-        <li class="page-item active"><a href="#" class="page-link">2</a></li>
-        <li class="page-item"><a href="#" class="page-link">3</a></li>
-        <li class="page-item"><a href="#" class="page-link">Siguiente</a></li>
-        </ul>
-        </div>
 </div>
             </div>
     <?php else : ?>
         <div class="alert alert-danger">
-            <b>No se encuentran datos........</b>
+            <b>No se encuentran datos</b>
         </div>
     <?php endif ?>
     <?php cerrar_db(); ?>

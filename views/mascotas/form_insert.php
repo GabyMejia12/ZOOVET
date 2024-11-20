@@ -55,24 +55,13 @@ $DataPropietarios = $conn->query($sqlProp);
 </div>
 
 <div class="input-group mb-3">
-  <span class="input-group-text" id="basic-addon1"><b>Codigo Mascota</b></span>
+  <span class="input-group-text" id="basic-addon1"><b>Código Mascota</b></span>
   <input type="text" class="form-control" placeholder="Código mascota" name="codigo_mascota" id="codigo_mascota" readonly>
 </div>
 <script>
-  // Funciones JavaScript
-  let codigosGenerados = new Set(); // Para almacenar los códigos generados
+  
 
-function generarUsuario() {
-    var nombre = document.getElementById("nombre").value.toLowerCase(); // Convertir a minúsculas
-    var apellido = document.getElementById("apellido").value.toLowerCase(); // Convertir a minúsculas
-    var numerosAleatorios = Math.floor(1000 + Math.random() * 9000); // Genera un número entre 1000 y 9999
 
-    if (nombre && apellido) {
-        var primerLetraApellido = apellido.charAt(0);
-        var usuarioGenerado = nombre + '.' + primerLetraApellido + numerosAleatorios;
-        document.getElementById("usuario").value = usuarioGenerado;
-    }
-}
 
 // Función para generar el código de la mascota
 function generarCodigoMascota() {
