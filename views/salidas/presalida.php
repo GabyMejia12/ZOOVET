@@ -110,7 +110,7 @@ $sumaTotal = 0;
             <br>
             <a href="" class="btn BtnEliminarSalida" style="background-color: #031A58;color:white;margin-top: 10px;" id_salida="<?php echo $id_salida; ?>"><b><i class="fa-solid fa-eraser"></i></b></a>
             <div class="alert alert-danger">
-                <b>No se encuentran productos agregados a la compra</b>
+                <b>No se encuentran productos agregados a la salida</b>
             </div>
             <?php endif; ?>
             <br><hr>

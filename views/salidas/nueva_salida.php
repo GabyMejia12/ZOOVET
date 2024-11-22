@@ -124,13 +124,15 @@ $DataTipoSalida = $conn->query($sqlProp);
 $(document).ready(function() {
     $("#BtnReg-Salida").click(function() {
         // Verificar que todos los campos requeridos no estén vacíos
-        if (//$('#id_usuario').val() === '' ||
-            $('#fecha_salida').val() === '',
-            $('#hora').val() === '',
-            $('#id_tiposalida').val() === ''
-            ) {
-            alert('Por favor ingrese todos los datos');
-            return;
+        if (
+            $('#fecha_salida').val() === '' ||  // Verificar fecha
+            $('#hora').val() === '' ||  // Verificar hora
+            $('#id_tiposalida').val() === '' ||  // Verificar si se seleccionó un tipo de salida
+            $('#id_tiposalida').val() === null ||  // Verificar si no está en la opción por defecto
+            $('#id_tiposalida').val() === '0'  // Verificar si se seleccionó la opción de tipo salida por defecto
+        ) {
+            Swal.fire('Advertencia', 'Favor llenar los campos', 'error');
+            return;  // Detener la ejecución si no se cumple la validación
         }
 
         // Obtener los valores de los campos
