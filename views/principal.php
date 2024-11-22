@@ -4,7 +4,8 @@ ini_set('display_errors', 1);
 date_default_timezone_set('America/El_Salvador');
 include './models/conexion.php';
 include './controllers/controllersFunciones.php';
-
+$usuario = $_SESSION['usuario'];
+$tipo = $_SESSION['tipo'];
 $conn = conectar_db();
 
 $query = "SELECT COUNT(*) AS total_mascotas FROM mascota";
@@ -99,89 +100,129 @@ if ($result && $row = $result->fetch_assoc()) {
 		   <h3><img src="./public/img/logo.jpg" class="img-fluid"/><span></span></h3>
 		</div>
 		<ul class="list-unstyled component m-0">
-		  <li class="active">
-		  <a href="./index.php" class="dashboard" id="panel-dashboard">
-			<i class="material-icons">P</i>Panel</a>
-		  </li>
-		  
-		  <li >
-			<a href="#" class="button" id="panel-usuarios">
-			<i class="material-icons">group</i>Usuarios
-			</a>
-		  </li>
-		  <li >
-			<a href="#" class="button" id="panel-propietarios">
-			<i class="material-icons">group</i>Propietarios
-			</a>
-		  </li>
-		  <li >
-			<a href="#" class="button" id="panel-medicos">
-			<i class="material-icons">group</i>Veterinarios
-			</a>
-		  </li>
-		  <li >
-			<a href="#" class="button" id="panel-mascotas">
-			<i class="material-icons">pets</i>Mascotas
-			</a>
-		  </li>
-		  
-		  <li class="dropdown">
-		  	<a href="#homeSubmenu3" id="toggleConsultas" aria-expanded="false" class="dropdown-toggle">
-				<i class="material-icons">equalizer</i> Consultas
-		    </a>
-				<ul class="collapse list-unstyled menu" id="homeSubmenu3">
-					<li><a href="#" class="button" id="panel-general">Consulta general</a></li>
-					<li><a href="#" class="button" id="panel-profilactico">Control profiláctico</a></li>
-					<li><a href="#" class="button" id="panel-cirugias">Cirugías</a></li>
-				</ul>
-			</li>
+    <?php if ($tipo == 1 || $tipo == 2): // Administrador y Asistente Médico ?>
+        <li class="active">
+            <a href="./index.php" class="dashboard" id="panel-dashboard">
+                <i class="material-icons">P</i>Panel
+            </a>
+        </li>
+        <li>
+            <a href="#" class="button" id="panel-usuarios">
+                <i class="material-icons">group</i>Usuarios
+            </a>
+        </li>
+        <li>
+            <a href="#" class="button" id="panel-propietarios">
+                <i class="material-icons">group</i>Propietarios
+            </a>
+        </li>
+        <li>
+            <a href="#" class="button" id="panel-medicos">
+                <i class="material-icons">group</i>Veterinarios
+            </a>
+        </li>
+        <li>
+            <a href="#" class="button" id="panel-mascotas">
+                <i class="material-icons">pets</i>Mascotas
+            </a>
+        </li>
 
-		  <li >
-			<a href="#" class="button" id="panel-campañas">
-			<i class="material-icons">campaign</i>Campañas
-			</a>
-		  </li>
-		  <li >
-			<a href="#" class="button" id="panel-citas">
-			<i class="material-icons">extension</i>Citas
-			</a>
-		  </li>
-		  
-		  <li >
-			<a href="#" class="button" id="panel-expedientes">
-			<i class="material-icons">assignment</i>Expedientes
-			</a>
-		  </li>
+        <li class="dropdown">
+		<a href="#homeSubmenu3" id="toggleConsultas" aria-expanded="false" class="dropdown-toggle">
+        <i class="material-icons">equalizer</i> Consultas
+    </a>
+            <ul class="collapse list-unstyled menu" id="homeSubmenu3">
+                <li><a href="#" class="button" id="panel-general">Consulta general</a></li>
+                <li><a href="#" class="button" id="panel-profilactico">Control profiláctico</a></li>
+                <li><a href="#" class="button" id="panel-cirugias">Cirugías</a></li>
+            </ul>
+        </li>
 
-		  <li >
-			<a href="#" class="button" id="panel-productos">
-			<i class="material-icons">workspaces</i>Productos
-			</a>
-		  </li>
-		  
-		  
-		  <li >
-			<a href="#" class="button" id="panel-compras">
-			<i class="material-icons">grid_on</i>Compras
-			</a>
-		  </li>
+        <li>
+            <a href="#" class="button" id="panel-campañas">
+                <i class="material-icons">campaign</i>Campañas
+            </a>
+        </li>
 
-		  <li >
-			<a href="#" class="button" id="panel-salidas">
-			<i class="material-icons">content_copy</i>Salidas
-			</a>
-		  </li>		   
-		  <li class="">
-		  <a href="#" class="button" id="panel-inventario"><i class="material-icons">date_range</i>Inventario </a>
-		  </li>
-		  <li class="">
-		  <a href="#" class="button" id="panel-reportes"><i class="material-icons">library_books</i>Reportes </a>
-		  </li>
-		  <li class="">
-		  <a href="#" class="button" id="panel-ayuda"><i class="material-icons">help</i>Ayuda </a>
-		  </li>
-		
-		</ul>
+        <li>
+            <a href="#" class="button" id="panel-citas">
+                <i class="material-icons">extension</i>Citas
+            </a>
+        </li>
+
+        <li>
+            <a href="#" class="button" id="panel-expedientes">
+                <i class="material-icons">assignment</i>Expedientes
+            </a>
+        </li>
+
+        <li>
+            <a href="#" class="button" id="panel-productos">
+                <i class="material-icons">workspaces</i>Productos
+            </a>
+        </li>
+        <li>
+            <a href="#" class="button" id="panel-compras">
+                <i class="material-icons">grid_on</i>Compras
+            </a>
+        </li>
+        <li>
+            <a href="#" class="button" id="panel-salidas">
+                <i class="material-icons">content_copy</i>Salidas
+            </a>
+        </li>
+        <li>
+            <a href="#" class="button" id="panel-inventario">
+                <i class="material-icons">date_range</i>Inventario
+            </a>
+        </li>
+
+        <li>
+            <a href="#" class="button" id="panel-reportes">
+                <i class="material-icons">library_books</i>Reportes
+            </a>
+        </li>
+
+        <li>
+            <a href="#" class="button" id="panel-ayuda">
+                <i class="material-icons">help</i>Ayuda
+            </a>
+        </li>
+
+    <?php elseif ($tipo == 3): // Veterinario ?>
+        <!-- Menú limitado para Veterinario -->
+        
+        <li>
+            <a href="#" class="button" id="panel-expedientes">
+                <i class="material-icons">assignment</i>Expedientes
+            </a>
+        </li>
+        <li>
+            <a href="#" class="button" id="panel-citas">
+                <i class="material-icons">extension</i>Citas
+            </a>
+        </li>
+        
+        <li class="dropdown">
+		<a href="#homeSubmenu3" id="toggleConsultas" aria-expanded="false" class="dropdown-toggle">
+        <i class="material-icons">equalizer</i> Consultas
+    </a>
+    <ul class="collapse list-unstyled menu" id="homeSubmenu3">
+        <li><a href="#" class="button" id="panel-general">Consulta general</a></li>
+        <li><a href="#" class="button" id="panel-profilactico">Control profiláctico</a></li>
+        <li><a href="#" class="button" id="panel-cirugias">Cirugías</a></li>
+    </ul>
+</li>
+
+        <li>
+            <a href="#" class="button" id="panel-ayuda">
+                <i class="material-icons">help</i>Ayuda
+            </a>
+        </li>
+    <?php endif; ?>
+</ul>
+
+
 	 </div>
 	 
    <!-------sidebar--design- close----------->
