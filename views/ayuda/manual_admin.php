@@ -5,6 +5,32 @@
 <!-- Enlace a Material Icons -->
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <link rel="stylesheet" href="./public/css/estiloreportes.css">
+
+<?php
+@session_start();
+include '../../models/conexion.php';
+include '../../controllers/controllersFunciones.php';
+
+
+$conn = conectar_db();
+
+
+// Consultar la URL del archivo
+$sql = "SELECT archivo FROM ayuda WHERE id_ayuda = 1"; // Cambia el ID según sea necesario
+$result = $conn->query($sql);
+
+if ($result->num_rows > 0) {
+    // Obtener la URL del archivo
+    $row = $result->fetch_assoc();
+    $archivo = $row['archivo'];
+} else {
+    $archivo = ""; // No se encontró el archivo
+}
+
+
+$conn->close();
+?>
+
 <div>
     <div class="row" id="PanelReporteMedicos">
         <div class="col-md-12">
@@ -29,7 +55,7 @@
                             <div class="icono"><i class="material-icons">people_alt</i></div> <!-- Ícono de asistente médico -->
                             <h3>Manual del Administrador</h3>
                             <p>Manual diseñado para los administradores del sistema.</p>
-                            <a href="ruta/a/manual_asistente.pdf" class="btn btn-success" id="panel-manual-asistente" target="_blank">
+                            <a href="<?php echo $archivo; ?>" class="btn btn-success" id="panel-manual-asistente" target="_blank">
                                 <span>Ver Manual</span>
                             </a>
                         </div>     
