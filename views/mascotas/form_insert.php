@@ -59,9 +59,8 @@ $DataPropietarios = $conn->query($sqlProp);
   <input type="text" class="form-control" placeholder="Código mascota" name="codigo_mascota" id="codigo_mascota" readonly>
 </div>
 <script>
-  
-
-
+// Declarar el conjunto para almacenar códigos generados
+var codigosGenerados = new Set();
 
 // Función para generar el código de la mascota
 function generarCodigoMascota() {
@@ -89,8 +88,7 @@ function generarCodigoMascota() {
 // Agregar event listeners para generar el código automáticamente
 document.getElementById("nombre_mascota").addEventListener("input", generarCodigoMascota);
 document.getElementById("especie").addEventListener("input", generarCodigoMascota);
-
-
 </script>
+
 
 

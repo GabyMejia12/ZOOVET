@@ -28,6 +28,18 @@ if ($result->num_rows > 0) {
     $archivo = ""; // No se encontró el archivo
 }
 
+// Consultar la URL del archivo
+$sql = "SELECT archivo FROM ayuda WHERE id_ayuda = 2"; // Cambia el ID según sea necesario
+$result = $conn->query($sql);
+
+if ($result->num_rows > 0) {
+    // Obtener la URL del archivo
+    $row = $result->fetch_assoc();
+    $archivovet = $row['archivo'];
+} else {
+    $archivovet = ""; // No se encontró el archivo
+}
+
 $conn->close();
 ?>
 
@@ -56,7 +68,7 @@ $conn->close();
                             <div class="icono"><i class="material-icons">local_hospital</i></div> <!-- Ícono de veterinario -->
                             <h3>Manual del Veterinario</h3>
                             <p>Guía completa para veterinarios que abarca todas las funcionalidades relevantes del sistema.</p>
-                            <a href="<?php echo $archivo; ?>" class="btn btn-success" id="panel-manual-veterinario" target="_blank">
+                            <a href="<?php echo $archivovet; ?>" class="btn btn-success" id="panel-manual-veterinario" target="_blank">
                                 <span>Ver Manual</span>
                             </a>
                         </div>
@@ -66,7 +78,7 @@ $conn->close();
                             <div class="icono"><i class="material-icons">people_alt</i></div> <!-- Ícono de asistente médico -->
                             <h3>Manual del Asistente Médico</h3>
                             <p>Manual diseñado para asistentes médicos que explica cómo usar el sistema para gestionar pacientes y citas.</p>
-                            <a href="#" class="btn btn-success" id="panel-manual-asistente" target="_blank">
+                            <a href=" <?php echo $archivo; ?>" class="btn btn-success" id="panel-manual-asistente" target="_blank">
                                 <span>Ver Manual</span>
                             </a>
                         </div>     

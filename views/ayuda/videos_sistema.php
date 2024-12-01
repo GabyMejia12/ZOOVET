@@ -29,7 +29,7 @@
                             <div class="icono"><i class="material-icons">video_library</i></div>
                             <h3>Cómo Iniciar Sesión</h3>
                             <p>Aprende a iniciar sesión en el sistema.</p>
-                            <a href="ruta/a/video_iniciar_sesion.mp4" class="btn btn-success" target="_blank">
+                            <a href="https://www.youtube.com/playlist?list=PLVIgbtEdC6cbekjerqr73DGp7uMgoTWxT" class="btn btn-success" target="_blank">
                                 <span>Ver Video</span>
                             </a>
                         </div>
@@ -37,8 +37,8 @@
                         <div class="tarjeta-manual">
                             <div class="icono"><i class="material-icons">video_library</i></div>
                             <h3>Cómo agregar un registro</h3>
-                            <p>Guía para registrar nuevos usuarios en el sistema.</p>
-                            <a href="ruta/a/video_registrar_usuario.mp4" class="btn btn-success" target="_blank">
+                            <p>Guía para registrar información en los diferentes módulos del sistema.</p>
+                            <a href="https://www.youtube.com/playlist?list=PLVIgbtEdC6cb2UiqzPwVf_l-iqtc08lVT" class="btn btn-success" target="_blank">
                                 <span>Ver Video</span>
                             </a>
                         </div>
@@ -46,8 +46,8 @@
                         <div class="tarjeta-manual">
                             <div class="icono"><i class="material-icons">video_library</i></div>
                             <h3>Cómo Actualizar Módulos</h3>
-                            <p>Instrucciones para actualizar los módulos del sistema.</p>
-                            <a href="ruta/a/video_actualizar_modulos.mp4" class="btn btn-success" target="_blank">
+                            <p>Instrucciones para actualizar la información de los módulos del sistema.</p>
+                            <a href="https://www.youtube.com/playlist?list=PLVIgbtEdC6cauBwM3YJIxawfIazJcoEWs" class="btn btn-success" target="_blank">
                                 <span>Ver Video</span>
                             </a>
                         </div>
@@ -56,7 +56,7 @@
                             <div class="icono"><i class="material-icons">video_library</i></div>
                             <h3>Cómo Eliminar un Registro</h3>
                             <p>Pasos para eliminar registros en el sistema.</p>
-                            <a href="ruta/a/video_eliminar.mp4" class="btn btn-success" target="_blank">
+                            <a href="https://www.youtube.com/playlist?list=PLVIgbtEdC6cYnoOnXNE0vDJ2qFXw3mxW9" class="btn btn-success" target="_blank">
                                 <span>Ver Video</span>
                             </a>
                         </div>
@@ -65,7 +65,7 @@
                             <div class="icono"><i class="material-icons">video_library</i></div>
                             <h3>Cómo Ver Reportes</h3>
                             <p>Guía sobre cómo acceder a los reportes del sistema.</p>
-                            <a href="ruta/a/video_ver_reportes.mp4" class="btn btn-success" target="_blank">
+                            <a href="https://www.youtube.com/playlist?list=PLVIgbtEdC6cZMmlHcFJhBkiTNeQLDBQ-5" class="btn btn-success" target="_blank">
                                 <span>Ver Video</span>
                             </a>
                         </div>
