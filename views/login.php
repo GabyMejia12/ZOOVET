@@ -15,7 +15,7 @@
             <div id="contenedorcentrado">
             <div id="derecho">
                     <div class="titulo">
-                        Bienvenido/a
+                        BIENVENIDO/A
                     </div>
                     <hr>
                     <div class="pie-form">
